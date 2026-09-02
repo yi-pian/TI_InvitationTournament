@@ -1,0 +1,118 @@
+schema_version: 1
+module_id: moving_average
+name: MovingAverage：最简单的滑动平滑
+path: MSPM0_Signal_Contest/04_dsp/moving_average
+category: algorithm/04_dsp
+implementation_type: MODULE
+recommendation: conditional
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 复制 signal_moving_average.c、signal_moving_average.h 和 03_measurement/common/signal_algorithm_status.h，然后：
+use_when: 稳定 DC 读数、缓慢包络或低频量显示抖动时。频谱、THD、边沿时间测量前不能因为“看起来平滑”就默认加入。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 只读 float input_samples[]、count>0、1<=window_size<=count。单位可为 V 或其他明确单位。
+output: float output_samples[count]，单位不变。输入输出不得重叠。
+unit:
+- degrees
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/moving_average
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/moving_average/signal_moving_average.c
+- MSPM0_Signal_Contest/04_dsp/moving_average/signal_moving_average.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/moving_average/signal_moving_average.h
+main_apis:
+- SignalMovingAverage_Process
+contest_parameters: []
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/moving_average/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/moving_average/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/moving_average/README.md
+- MSPM0_Signal_Contest/04_dsp/moving_average/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/moving_average/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/moving_average/signal_moving_average.c
+- MSPM0_Signal_Contest/04_dsp/moving_average/signal_moving_average.h
+source_fingerprint_sha256: f28d8aab8bbc929138e29b1b31d27252ecd6e1321bee6691b8f72b86387bed6c

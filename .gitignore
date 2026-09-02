@@ -1,0 +1,35 @@
+# IDE and OS metadata
+.idea/
+.vs/
+*.user
+*.suo
+
+# Embedded build output
+Debug/
+Release/
+**/Debug/
+**/Release/
+**/build/
+**/build_offline/
+*.o
+*.obj
+*.d
+*.map
+*.out
+*.elf
+*.exe
+*.bak
+
+# Generated and temporary files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+tmp/
+logs/
+_render_full/
+_render_quick/
+
+# Local tooling state
+.qwen/
+.qwen-home-*/
+.codex/

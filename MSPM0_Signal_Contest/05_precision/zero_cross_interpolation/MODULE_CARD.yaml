@@ -1,0 +1,126 @@
+schema_version: 1
+module_id: zero_cross_interpolation
+name: ZeroCrossInterpolation：在两个采样点之间找过零位置
+path: MSPM0_Signal_Contest/05_precision/zero_cross_interpolation
+category: algorithm/05_precision
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 目标：“把 Zero Cross 给出的整数夹点变成例如 12.25 sample 的小数过零位置”。
+use_when: 正弦、三角波或边沿附近可近似直线的信号做过零频率/相位。它是廉价精度增强，不需要提高数组长度。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 原电压数组（V）、样本总数、与检测完全相同的 threshold_v、ZeroCross 事件数组和事件数。
+output: float crossing_positions_samples[]，单位 sample。乘以 1/sample_rate_hz 可转为秒，但通常直接交给 MultiCycleAverage。
+unit:
+- Hz
+- degrees
+- samples
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/05_precision/zero_cross_interpolation
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001
+  - frequency_zero_cross
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/03_measurement/frequency_zero_cross/signal_zero_cross.h
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/signal_zero_cross_interpolation.c
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/signal_zero_cross_interpolation.h
+dependency_headers:
+- signal_algorithm_status.h
+- signal_zero_cross.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/03_measurement/frequency_zero_cross/signal_zero_cross.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/signal_zero_cross_interpolation.h
+main_apis:
+- SignalZeroCrossInterpolation_Process
+contest_parameters:
+- position_count
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules:
+- recipe_multi_cycle_average
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/MODULE_CARD.md
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/README.md
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/signal_zero_cross_interpolation.c
+- MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/signal_zero_cross_interpolation.h
+source_fingerprint_sha256: b7079a6929cce972aced78fb372a0dddb34ccb3ca47980ccaff0537f50904132

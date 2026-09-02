@@ -1,0 +1,176 @@
+schema_version: 1
+module_id: single_capture_replay
+name: 单次任意波捕获、三槽存储、ST7789显示与DAC周期复现
+path: MSPM0_Signal_Contest/02_acquisition/single_capture_replay
+category: 02_acquisition
+implementation_type: MODULE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: BUILD_VERIFIED
+purpose: 这个模块整理的是已经在 fuxian/example04 实板验证成功的完整闭环：
+use_when: Use only when the selected route matches this module's documented purpose and constraints.
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: Read the current public header parameter types and README input section before use.
+output: Read the current public header return/output contract before use.
+unit:
+- Hz
+- samples
+requires_sysconfig: true
+hardware_resources:
+- Timer/IRQ
+canonical_path: MSPM0_Signal_Contest/02_acquisition/single_capture_replay
+selectable: false
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - TIMER
+  optional_peripherals: []
+  instance_requirements:
+  - role: TIMER
+    type: TIMER
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: true
+    roles:
+    - sample_or_capture_trigger
+    constraints:
+    - preserve existing timer owners
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001
+  - arbitrary_wave
+  - trigger_capture
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: TIMER
+    role: TIMER
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_dual_adc_mspm0g3507.h
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/signal_single_capture_replay.c
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/signal_single_capture_replay.h
+- MSPM0_Signal_Contest/02_acquisition/trigger_capture/signal_trigger_capture.h
+- MSPM0_Signal_Contest/06_generator/arbitrary_wave/signal_arbitrary_wave.h
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.h
+- MSPM0_Signal_Contest/12_external_devices/display/st7789/signal_tft_st7789.h
+dependency_headers:
+- signal_arbitrary_wave.h
+- signal_dac_dma_mspm0g3507.h
+- signal_dual_adc_mspm0g3507.h
+- signal_status.h
+- signal_tft_st7789.h
+- signal_trigger_capture.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_dual_adc_mspm0g3507.h
+- MSPM0_Signal_Contest/02_acquisition/trigger_capture/signal_trigger_capture.h
+- MSPM0_Signal_Contest/06_generator/arbitrary_wave/signal_arbitrary_wave.h
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.h
+- MSPM0_Signal_Contest/12_external_devices/display/st7789/signal_tft_st7789.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/02_acquisition/single_capture_replay/signal_single_capture_replay.h
+main_apis:
+- SignalSingleCaptureReplay_Init
+- SignalSingleCaptureReplay_Arm
+- SignalSingleCaptureReplay_Cancel
+- SignalSingleCaptureReplay_NotifyTrigger
+- SignalSingleCaptureReplay_Service
+- SignalSingleCaptureReplay_IsArmed
+- SignalSingleCaptureReplay_SelectSlot
+- SignalSingleCaptureReplay_GetSelectedSlot
+- SignalSingleCaptureReplay_GetNextSlot
+- SignalSingleCaptureReplay_GetSelected
+- SignalSingleCaptureReplay_ReplaySelected
+- SignalSingleCaptureReplay_DrawSelectedST7789
+- SignalSingleCaptureReplay_GetModuleStatus
+contest_parameters:
+- adc_channel_a
+- adc_channel_b
+- adc_capacity_per_channel
+- search_buffer
+- search_capacity
+- slot_samples
+- slot_sample_capacity
+- slot_lengths
+- slot_sample_rates_hz
+- slot_valid
+- replay_table
+- replay_table_capacity
+- samples_per_block
+- dma_block_count
+- slot_count
+- pretrigger_samples
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/02_acquisition/single_capture_replay/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/MODULE_CARD.md
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/README.md
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/signal_single_capture_replay.c
+- MSPM0_Signal_Contest/02_acquisition/single_capture_replay/signal_single_capture_replay.h
+source_fingerprint_sha256: 847c2adaeaec39ee56386b2d22475b10de5572887b32943dd7c6f14fdd5f7447

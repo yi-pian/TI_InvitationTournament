@@ -1,0 +1,128 @@
+schema_version: 1
+module_id: gpamp_buffer
+name: GPAMP 电压跟随器参数设计
+path: MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer
+category: 07_signal_frontend
+implementation_type: DIRECT_DRIVERLIB
+recommendation: deprecated
+recommended_for_contest: false
+status: BUILD_VERIFIED
+purpose: 生成 GPAMP 单位增益缓冲配置。
+use_when: 慢速传感器或直流信号需要缓冲，且不要求放大时。 - 希望先检查偏置参数，再在 SysConfig 建立 GPAMP 跟随器时。 - 不适合高频或高增益链路；这类场景应先评估 OPA 或外置运放。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: SignalGPAMPBuffer_MakeConfig(bias_voltage_v, config) 要求 config 非空、偏置非负；成功后设置：
+output: SignalGPAMPBuffer_MakeConfig(bias_voltage_v, config) 要求 config 非空、偏置非负；成功后设置：
+unit:
+- V
+requires_sysconfig: true
+hardware_resources:
+- GPAMP
+canonical_path: MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer
+selectable: false
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - GPAMP
+  optional_peripherals: []
+  instance_requirements:
+  - role: GPAMP
+    type: GPAMP
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001
+  - gpamp
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: GPAMP
+    role: GPAMP
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/gpamp/signal_gpamp.h
+- MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/signal_gpamp_buffer.c
+- MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/signal_gpamp_buffer.h
+dependency_headers:
+- signal_gpamp.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/gpamp/signal_gpamp.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/signal_gpamp_buffer.h
+main_apis:
+- SignalGPAMPBuffer_MakeConfig
+- SignalGPAMPBuffer_GetModuleStatus
+contest_parameters: []
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/MODULE_CARD.md
+- MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/README.md
+- MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/signal_gpamp_buffer.c
+- MSPM0_Signal_Contest/07_signal_frontend/gpamp_buffer/signal_gpamp_buffer.h
+source_fingerprint_sha256: b033ce8bc926d11f1e666feb4192b76176be64a301afdfd59773dccef977d891

@@ -1,0 +1,11 @@
+module: tft_waveform_st7789
+display_controller: ST7789
+status: COMPILE_VERIFIED
+sysconfig_required: false
+dependencies:
+  - signal_status
+  - signal_tft_st7789
+api:
+  - SignalTFTWaveformST7789_Draw
+  - SignalTFTWaveformST7789_MapY
+  - SignalTFTWaveformST7789_GetEnvelopeColumn

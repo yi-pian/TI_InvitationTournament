@@ -1,0 +1,34 @@
+{
+  "project": "PROFILE_04_ADC_DAC",
+  "modules": [
+    {
+      "name": "adc_dma",
+      "resources": [
+        {"type": "PIN", "id": "PA25", "config": {"function": "ADC0.2"}},
+        {"type": "ADC", "id": "ADC0"},
+        {"type": "DMA", "id": "0"},
+        {"type": "TIMER", "id": "TIMG0"},
+        {"type": "EVENT", "id": "1"}
+      ]
+    },
+    {
+      "name": "dac_dma",
+      "resources": [
+        {"type": "PIN", "id": "PA15", "config": {"function": "DAC0.OUT"}},
+        {"type": "DAC", "id": "DAC0"},
+        {"type": "DMA", "id": "1"},
+        {"type": "TIMER", "id": "TIMG6"},
+        {"type": "EVENT", "id": "3"}
+      ]
+    },
+    {
+      "name": "debug_uart",
+      "resources": [
+        {"type": "UART", "id": "UART0", "config": {"baud": 115200}},
+        {"type": "PIN", "id": "PA10", "config": {"function": "UART0_TX"}},
+        {"type": "PIN", "id": "PA11", "config": {"function": "UART0_RX"}}
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,21 @@
+{
+  "vectors": [
+    {
+      "raw": [
+        1000,
+        1100,
+        1200,
+        1300,
+        1400
+      ],
+      "adc_max_code": 4095,
+      "reference_voltage_v": 3.3,
+      "input_scale": 2.0,
+      "offset_voltage_v": -1.0,
+      "expected": {
+        "mean_code": 1200.0,
+        "dc_voltage_v": 0.9340659340659341
+      }
+    }
+  ]
+}

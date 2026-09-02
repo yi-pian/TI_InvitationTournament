@@ -1,0 +1,14 @@
+schema_version: 1
+snippets:
+- snippet: MSPM0_Signal_Contest/09_examples/snippets/adc_dma_minimal.c
+  source: MSPM0_Signal_Contest/09_examples/platform_closure/adc_dma_minimum/main.c
+  source_evidence_status: BUILD_VERIFIED
+  sha256: 95cec1cca607042988105afb38adbae833f6a29e171d5067456bf44c904a0819
+- snippet: MSPM0_Signal_Contest/09_examples/snippets/dac_fixed_minimal.c
+  source: MSPM0_Signal_Contest/09_examples/platform_closure/dac_dc_minimum/main.c
+  source_evidence_status: BUILD_VERIFIED
+  sha256: d662678ce12466d2a04b9228d7a9e3081c3beeb72a99431c52650465e03890af
+- snippet: MSPM0_Signal_Contest/09_examples/snippets/dds_dac_dma_build_verified.c
+  source: MSPM0_Signal_Contest/08_applications/dds_generator/main.c
+  source_evidence_status: BUILD_VERIFIED
+  sha256: 608679099dd52dcf3b0a2b0337d5aafb0a208a5cc766afc49a789eff87c9e7e4

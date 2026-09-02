@@ -1,0 +1,15 @@
+schema_version: 1
+reimplementation_type: SOURCE_LOST_CLEAN_REIMPLEMENTATION
+restored_from_source: false
+historical_verification: BUILD_VERIFIED
+current_verification: BUILD_VERIFIED
+evidence:
+  specification: MSPM0_Signal_Contest/05_precision/frequency_response_correction/REIMPLEMENTATION_SPEC.md
+  python_reference: MSPM0_Signal_Contest/10_tests/algorithm_reference/source_lost_remaining/reference_models.py
+  typical_vectors: MSPM0_Signal_Contest/10_tests/algorithm_reference/source_lost_remaining/test_vectors/frequency_response_correction.json
+  reference_test: PASS; six reference suites including fractional-bin scan
+  c_python_consistency: PASS; shared suite covers 8 modules, 94 fields and per-module errors
+  ti_arm_clang_compile: PASS; TI Arm Clang 5.1.1.LTS Cortex-M0+
+  ti_arm_clang_link: MSPM0_Signal_Contest/10_tests/ticlang/source_lost_remaining/build/source_lost_remaining.map
+  target_link_result: PASS; joint harness Flash 0x3B28; SRAM 0x02AC; includes startup/SysConfig/minimal caller
+  board: NOT_RUN

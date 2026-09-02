@@ -1,0 +1,27 @@
+﻿{
+    "date":  "2026-08-17",
+    "formal_readmes_scanned":  92,
+    "formal_headers_scanned":  103,
+    "platform_public_functions":  41,
+    "compile_verified_blocks":  2,
+    "binding_readmes_checked":  33,
+    "errors":  15,
+    "issues":  [
+                   "MISSING_PLATFORM_LINK section \u0027\\#\\#\\ Hardware\\ /\\ Platform\\ Binding\u0027 in \u002701_bsp\\gpamp\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK section \u0027\\#\\#\\ Hardware\\ /\\ Platform\\ Binding\u0027 in \u002701_bsp\\opa\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK section \u0027\\#\\#\\ Hardware\\ /\\ Platform\\ Binding\u0027 in \u002707_signal_frontend\\gpamp_buffer\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK section \u0027\\#\\#\\ Hardware\\ /\\ Platform\\ Binding\u0027 in \u002707_signal_frontend\\gpamp_gain\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK section \u0027\\#\\#\\ Hardware\\ /\\ Platform\\ Binding\u0027 in \u002707_signal_frontend\\opa_buffer\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK section \u0027\\#\\#\\ Hardware\\ /\\ Platform\\ Binding\u0027 in \u002707_signal_frontend\\opa_inverting\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK section \u0027\\#\\#\\ Hardware\\ /\\ Platform\\ Binding\u0027 in \u002707_signal_frontend\\opa_noninverting_pga\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027API_GAP\u0027 in \u002707_signal_frontend\\opa_inverting\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027API_GAP\u0027 in \u002707_signal_frontend\\opa_noninverting_pga\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027MODULE_INTEGRATION_GAPS.md\u0027 in \u002701_bsp\\gpamp\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027MODULE_INTEGRATION_GAPS.md\u0027 in \u002707_signal_frontend\\gpamp_buffer\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027MODULE_INTEGRATION_GAPS.md\u0027 in \u002707_signal_frontend\\gpamp_gain\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027MODULE_INTEGRATION_GAPS.md\u0027 in \u002707_signal_frontend\\opa_buffer\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027MODULE_INTEGRATION_GAPS.md\u0027 in \u002707_signal_frontend\\opa_inverting\\README.md\u0027",
+                   "MISSING_PLATFORM_LINK token \u0027MODULE_INTEGRATION_GAPS.md\u0027 in \u002707_signal_frontend\\opa_noninverting_pga\\README.md\u0027"
+               ],
+    "status":  "FAIL"
+}

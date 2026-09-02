@@ -1,0 +1,22 @@
+﻿[
+    {
+        "variant":  "rts",
+        "cpu_hz":  80000000,
+        "compiler":  "TI Arm Clang 5.1.1.LTS",
+        "sysconfig":  "PASS",
+        "compile_link":  "PASS",
+        "board_run":  "PENDING",
+        "flash_bytes":  51808,
+        "sram_bytes":  8839
+    },
+    {
+        "variant":  "mathacl",
+        "cpu_hz":  80000000,
+        "compiler":  "TI Arm Clang 5.1.1.LTS",
+        "sysconfig":  "PASS",
+        "compile_link":  "PASS",
+        "board_run":  "PENDING",
+        "flash_bytes":  49000,
+        "sram_bytes":  8839
+    }
+]

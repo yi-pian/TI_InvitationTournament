@@ -1,0 +1,32 @@
+/** PROFILE_08_ADC_FIFO_MAX: PA25/ADC0.2 -> FIFO -> 32-bit DMA_CH0. */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+const ProjectConfig = scripting.addModule("/ti/project_config/ProjectConfig");
+const Board = scripting.addModule("/ti/driverlib/Board");
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const ADC12 = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const SIGNAL_ADC_FIFO = ADC12.addInstance();
+
+ProjectConfig.genLibCMSIS = true;
+
+SIGNAL_ADC_FIFO.$name = "SIGNAL_ADC_FIFO";
+SIGNAL_ADC_FIFO.sampClkSrc = "DL_ADC12_CLOCK_SYSOSC";
+SIGNAL_ADC_FIFO.repeatMode = true;
+SIGNAL_ADC_FIFO.adcMem0chansel = "DL_ADC12_INPUT_CHAN_2";
+SIGNAL_ADC_FIFO.sampleTime0 = "62.5 ns";
+SIGNAL_ADC_FIFO.powerDownMode = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+SIGNAL_ADC_FIFO.enableFIFO = true;
+SIGNAL_ADC_FIFO.configureDMA = true;
+SIGNAL_ADC_FIFO.sampCnt = 6;
+SIGNAL_ADC_FIFO.enabledDMATriggers = ["DL_ADC12_DMA_MEM10_RESULT_LOADED"];
+SIGNAL_ADC_FIFO.enabledInterrupts = ["DL_ADC12_INTERRUPT_DMA_DONE"];
+SIGNAL_ADC_FIFO.peripheral.$assign = "ADC0";
+SIGNAL_ADC_FIFO.peripheral.adcPin2.$assign = "PA25";
+SIGNAL_ADC_FIFO.DMA_CHANNEL.$name = "SIGNAL_ADC_FIFO_DMA";
+SIGNAL_ADC_FIFO.DMA_CHANNEL.peripheral.$assign = "DMA_CH0";
+SIGNAL_ADC_FIFO.DMA_CHANNEL.addressMode = "f2b";
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;

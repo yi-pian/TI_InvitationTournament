@@ -1,0 +1,88 @@
+/** PROFILE_04_ADC_DAC: independent ADC and DAC Timer/Event/DMA chains plus UART. */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+const ProjectConfig = scripting.addModule("/ti/project_config/ProjectConfig");
+const Board = scripting.addModule("/ti/driverlib/Board");
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const ADC12 = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const ADC = ADC12.addInstance();
+const DAC12 = scripting.addModule("/ti/driverlib/DAC12");
+const TIMER = scripting.addModule("/ti/driverlib/TIMER", {}, false);
+const ADC_TIMER = TIMER.addInstance();
+const DAC_TIMER = TIMER.addInstance();
+const UART = scripting.addModule("/ti/driverlib/UART", {}, false);
+const SIGNAL_UART = UART.addInstance();
+
+ProjectConfig.genLibCMSIS = true;
+
+ADC.$name = "SIGNAL_ADC";
+ADC.sampClkSrc = "DL_ADC12_CLOCK_ULPCLK";
+ADC.adcMem0chansel = "DL_ADC12_INPUT_CHAN_2";
+ADC.sampleTime0 = "62.5ns";
+ADC.powerDownMode = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+ADC.trigSrc = "DL_ADC12_TRIG_SRC_EVENT";
+ADC.repeatMode = true;
+ADC.adcMem0trig = "DL_ADC12_TRIGGER_MODE_TRIGGER_NEXT";
+ADC.subChanID = 1;
+ADC.configureDMA = true;
+ADC.sampCnt = 1;
+ADC.enabledDMATriggers = ["DL_ADC12_DMA_MEM0_RESULT_LOADED"];
+ADC.enabledInterrupts = ["DL_ADC12_INTERRUPT_DMA_DONE"];
+ADC.peripheral.$assign = "ADC0";
+ADC.peripheral.adcPin2.$assign = "PA25";
+ADC.DMA_CHANNEL.$name = "SIGNAL_ADC_DMA";
+ADC.DMA_CHANNEL.peripheral.$assign = "DMA_CH0";
+ADC.DMA_CHANNEL.addressMode = "f2b";
+ADC.DMA_CHANNEL.srcLength = "HALF_WORD";
+ADC.DMA_CHANNEL.dstLength = "HALF_WORD";
+ADC.DMA_CHANNEL.transferMode = "SINGLE";
+
+ADC_TIMER.$name = "SIGNAL_SAMPLE_TIMER";
+ADC_TIMER.timerClkSrc = "BUSCLK";
+ADC_TIMER.timerPeriod = "10us";
+ADC_TIMER.timerMode = "PERIODIC";
+ADC_TIMER.event1PublisherChannel = 1;
+ADC_TIMER.event1ControllerInterruptEn = ["ZERO_EVENT"];
+ADC_TIMER.peripheral.$assign = "TIMG0";
+
+const mfpGate = system.clockTree["MFPCLKGATE"];
+mfpGate.enable = true;
+DAC12.dacConfigureDMA = true;
+DAC12.dacFIFOEn = true;
+DAC12.dacFIFOThresh = "TWO_QTRS_EMPTY";
+DAC12.dacFIFOTrigger = "HWTRIG0";
+DAC12.sub0ChanID = 3;
+DAC12.dacEnabledInterrupts = ["DMA_DONE"];
+DAC12.dacSampleTimerEn = false;
+DAC12.dacOutputPinEn = true;
+DAC12.dacAmplifier = "ON";
+DAC12.DMA_CHANNEL.$name = "SIGNAL_DAC_DMA";
+DAC12.DMA_CHANNEL.peripheral.$assign = "DMA_CH1";
+DAC12.DMA_CHANNEL.transferMode = "FULL_CH_REPEAT_SINGLE";
+DAC12.DMA_CHANNEL.addressMode = "b2f";
+DAC12.DMA_CHANNEL.srcLength = "HALF_WORD";
+DAC12.DMA_CHANNEL.dstLength = "HALF_WORD";
+
+DAC_TIMER.$name = "SIGNAL_DAC_TIMER";
+DAC_TIMER.timerClkSrc = "BUSCLK";
+DAC_TIMER.timerPeriod = "10us";
+DAC_TIMER.timerMode = "PERIODIC";
+DAC_TIMER.event1PublisherChannel = 3;
+DAC_TIMER.event1ControllerInterruptEn = ["ZERO_EVENT"];
+DAC_TIMER.peripheral.$assign = "TIMG6";
+
+SIGNAL_UART.$name = "SIGNAL_UART";
+SIGNAL_UART.profile = "CONFIG_PROFILE_1";
+SIGNAL_UART.peripheral.$assign = "UART0";
+SIGNAL_UART.uartClkSrc = "BUSCLK";
+SIGNAL_UART.targetBaudRate = 115200;
+SIGNAL_UART.enableInternalLoopback = false;
+SIGNAL_UART.enableFIFO = true;
+SIGNAL_UART.peripheral.txPin.$assign = "PA10";
+SIGNAL_UART.peripheral.rxPin.$assign = "PA11";
+
+SYSCTL.MFPCLKEn = true;
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;

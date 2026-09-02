@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "source_roots": [
+    "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest"
+  ],
+  "reference_roots": [
+    "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\00_docs\\measurement_recipes"
+  ],
+  "defined_signal_symbols": 98,
+  "referenced_signal_symbols": 30,
+  "missing": {}
+}

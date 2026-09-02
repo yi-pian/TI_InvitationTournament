@@ -1,0 +1,127 @@
+schema_version: 1
+module_id: clipping_detect
+name: ClippingDetect：检查信号是否撞到上下限
+path: MSPM0_Signal_Contest/04_dsp/clipping_detect
+category: algorithm/04_dsp
+implementation_type: RECIPE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: PC_VERIFIED
+purpose: 如果输入超过 ADC 或模拟前端范围，波峰会被“削平”。该模块统计有多少点低于低阈值或高于高阈值，给后续测量一个质量警告。
+use_when: Vpp、RMS、FFT/THD 前做数据质量检查；若报警，优先调整量程/增益，而不是继续相信幅值结果。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: voltage_v[] 单位 V，count>0；low_limit_v<high_limit_v，两者也为 V。
+output: low_clipped_count/high_clipped_count/clipped_count（点），clipped_ratio（0~1 无量纲），is_clipped（0/1）。
+unit:
+- ADC code
+- Hz
+- samples
+- V
+- dimensionless
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/clipping_detect
+selectable: false
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/clipping_detect/signal_clipping_detect.c
+- MSPM0_Signal_Contest/04_dsp/clipping_detect/signal_clipping_detect.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/clipping_detect/signal_clipping_detect.h
+main_apis:
+- SignalClippingDetect_Process
+contest_parameters:
+- low_limit_v
+- high_limit_v
+- low_clipped_count
+- high_clipped_count
+- clipped_count
+- clipped_ratio
+- is_clipped
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/clipping_detect/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/clipping_detect/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/clipping_detect/README.md
+- MSPM0_Signal_Contest/04_dsp/clipping_detect/signal_clipping_detect.c
+- MSPM0_Signal_Contest/04_dsp/clipping_detect/signal_clipping_detect.h
+source_fingerprint_sha256: 1877cb468bcde5f238c0259636d1d6ff12870fa63bb785c823435b9d1c68f098

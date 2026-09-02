@@ -1,0 +1,202 @@
+schema_version: 1
+module_id: tft_ili9341
+name: TFT ILI9341：SPI 彩屏
+path: MSPM0_Signal_Contest/01_bsp/tft_ili9341
+category: 01_bsp
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 通过回调式 SPI/GPIO 驱动 240×320 ILI9341，提供基础图形、RGB565、4 套 ASCII 字体和自定义单色字模输出
+use_when: 当题目需要显示多行数值、菜单、曲线或简单图形时使用；24_C 用它绘制一次静态坐标轴、单位和标签，再只刷新波形矩形和数字字段。只亮灭 LED 或输出串口无需它。当前比赛入口锁定 MSPM0G3507
+  + SysConfig SPI，使用内置 ASCII 字库和少量示例中文字模；ISR 不得调用 TFT/SPI。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 坐标、颜色 RGB565、ASCII 字符串、整数/浮点数或单色位图。
+output: ILI9341 屏幕图像。
+unit:
+- samples
+- V
+requires_sysconfig: true
+hardware_resources:
+- SPI/GPIO
+canonical_path: MSPM0_Signal_Contest/01_bsp/tft_ili9341
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - SPI
+  optional_peripherals: []
+  instance_requirements:
+  - role: SPI
+    type: SPI
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles:
+  - role: SPI_SCLK
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: SPI_MOSI
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: SPI_CS
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: TFT_DC
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: TFT_BLK
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  analog_pins: []
+  spi_mode:
+  - role: TFT
+    mode: controller-specific; preserve verified profile
+    clock: preserve verified profile
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols:
+  - SPI_TFT_INST
+  - GPIO_TFT_CTRL_PORT
+  - GPIO_TFT_CTRL_TFT_DC_PIN
+  - GPIO_TFT_CTRL_TFT_BLK_PIN
+  dependencies: &id001 []
+  constraints:
+  - TFT control pins are roles, not fixed board wiring; preserve fixed current assignments.
+  user_selectable_fields:
+  - SPI instance
+  - TFT SCLK/MOSI/CS/DC/BLK pins
+  profile_evidence:
+  - MSPM0_Signal_Contest/09_examples/tft_ili9341_lp_mspm0g3507/tft_ili9341.syscfg
+  resource_claims:
+  - type: SPI
+    role: SPI
+    shareable: false
+  pinmux:
+    required: true
+    roles:
+    - SPI_SCLK
+    - SPI_MOSI
+    - SPI_CS
+    - TFT_DC
+    - TFT_BLK
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341.c
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341.h
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341_font_data.inc
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341_mspm0g3507.c
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341_mspm0g3507.h
+dependency_headers:
+- signal_status.h
+- ti_msp_dl_config.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341.h
+main_apis:
+- TFT_ILI9341_Init
+- TFT_ILI9341_SetRotation
+- TFT_ILI9341_SetBacklight
+- TFT_ILI9341_GetWidth
+- TFT_ILI9341_GetHeight
+- TFT_ILI9341_WriteCommand
+- TFT_ILI9341_WriteData
+- TFT_ILI9341_SetAddressWindow
+- TFT_ILI9341_DrawPixel
+- TFT_ILI9341_FillRect
+- TFT_ILI9341_FillScreen
+- TFT_ILI9341_DrawLine
+- TFT_ILI9341_DrawRect
+- TFT_ILI9341_DrawRGB565
+- TFT_ILI9341_GetFontMetrics
+- TFT_ILI9341_DrawMonoBitmap
+contest_parameters:
+- context
+- write
+- set_cs
+- set_dc
+- set_reset
+- set_backlight
+- delay_ms
+- lock
+- unlock
+- config
+- width
+- height
+- rotation
+- initialized
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 动态分配 0；无全屏 framebuffer；字库位于 Flash；绘制函数栈缓冲 128 B
+  ram_estimate: 动态分配 0；无全屏 framebuffer；字库位于 Flash；绘制函数栈缓冲 128 B
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application:
+- MSPM0_Signal_Contest/09_examples/tft_ili9341_lp_mspm0g3507/README.md
+verified_example: MSPM0_Signal_Contest/09_examples/tft_ili9341_lp_mspm0g3507/README.md
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/tft_ili9341/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/README.md
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341.c
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341.h
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341_font_data.inc
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341_mspm0g3507.c
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341_mspm0g3507.h
+source_fingerprint_sha256: 5a1508cc0b781773b943e80ad0e6500a8f9b2b2ee646b7311370820795c5e737

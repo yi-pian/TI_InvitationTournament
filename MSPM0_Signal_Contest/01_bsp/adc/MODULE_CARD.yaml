@@ -1,0 +1,142 @@
+schema_version: 1
+module_id: adc
+name: adc
+path: MSPM0_Signal_Contest/01_bsp/adc
+category: 01_bsp
+implementation_type: DIRECT_DRIVERLIB
+recommendation: deprecated
+recommended_for_contest: false
+status: BUILD_VERIFIED
+purpose: 统一单次 ADC 原始码读取接口和通道/参考配置。
+use_when: 优先使用：输入在 0～VREF/VDD、1～2 路采集、12-bit/实际 ENOB 与最高 4 MSPS 能满足题目，并希望用 Timer/Event/DMA 内部触发。 - 慎用：接近
+  4 MSPS、高源阻、500 kHz 级输入、需要严格幅相/噪声指标；必须核对采样建立时间、每周期点数、VREF 和前端驱动。 - 不要强行使用：16/18/24-bit 精密测量、双极性/高压直入、超过两路严格同步或
+  >4 MSPS；应评估外置 ADC。 先看 MSPM0G3507 资源能力指南 和 内部/外置选择指南。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 输入由公开头文件中的指针、长度、配置结构或平台回调给出；所有单位写在字段名中。
+output: 输出写入调用者提供的结果/缓冲区，并返回 signal_result_t；不通过隐藏全局变量传递数据。
+unit:
+- ADC code
+- Hz
+- samples
+- V
+requires_sysconfig: true
+hardware_resources:
+- ADC12
+canonical_path: MSPM0_Signal_Contest/01_bsp/adc
+selectable: false
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - ADC12
+  optional_peripherals: []
+  instance_requirements:
+  - role: ADC
+    type: ADC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: ADC12
+    role: ADC
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/adc/signal_adc.c
+- MSPM0_Signal_Contest/01_bsp/adc/signal_adc.h
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/adc/signal_adc.h
+main_apis:
+- SignalADC_ValidateConfig
+- SignalADC_ReadRaw
+- SignalADC_GetBspModuleStatus
+contest_parameters:
+- channel
+- resolution_bits
+- reference_voltage_v
+- clock_hz
+- context
+- read
+- enable
+- disable
+- config
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/adc/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/adc/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/adc/README.md
+- MSPM0_Signal_Contest/01_bsp/adc/signal_adc.c
+- MSPM0_Signal_Contest/01_bsp/adc/signal_adc.h
+source_fingerprint_sha256: e507af64654992446bc91e88db1f5d4fd255ab0560a5bb03fe5cdbc75dfb762c

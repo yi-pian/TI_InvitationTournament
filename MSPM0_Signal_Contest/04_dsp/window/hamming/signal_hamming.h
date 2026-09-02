@@ -1,0 +1,14 @@
+#ifndef SIGNAL_HAMMING_H
+#define SIGNAL_HAMMING_H
+
+#include <stdint.h>
+#include "signal_window.h"
+
+/** @brief 应用对称 Hamming 窗，支持原地，并返回实际窗增益。 */
+signal_algorithm_status_t SignalHamming_Apply(
+    const float *input_samples,
+    float *output_samples,
+    uint32_t count,
+    signal_window_result_t *result);
+
+#endif /* SIGNAL_HAMMING_H */

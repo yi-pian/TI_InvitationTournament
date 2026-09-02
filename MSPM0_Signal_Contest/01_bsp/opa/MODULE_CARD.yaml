@@ -1,0 +1,135 @@
+schema_version: 1
+module_id: opa
+name: OPA 基础 BSP 接口
+path: MSPM0_Signal_Contest/01_bsp/opa
+category: 01_bsp
+implementation_type: DIRECT_DRIVERLIB
+recommendation: deprecated
+recommended_for_contest: false
+status: BUILD_VERIFIED
+purpose: 描述 OPA 缓冲、同相和反相配置并交给平台适配器。
+use_when: 需要先算放大倍数、检查电阻参数或给比赛方案做量程预算时使用。 - 需要把“配置对象”交给你自己的平台层时使用。 - 只是要在 CCS/SysConfig 里真正打开片上 OPA 时，不要只复制本目录；硬件配置要直接在
+  .syscfg 完成。 典型比赛链路如下：
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 公开结构或调用者缓冲区；无隐藏数据通道
+output: 公开结构或调用者缓冲区；无隐藏数据通道
+unit:
+- V
+requires_sysconfig: true
+hardware_resources:
+- OPA
+canonical_path: MSPM0_Signal_Contest/01_bsp/opa
+selectable: false
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - OPA
+  optional_peripherals: []
+  instance_requirements:
+  - role: OPA
+    type: OPA
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: OPA
+    role: OPA
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/opa/signal_opa.c
+- MSPM0_Signal_Contest/01_bsp/opa/signal_opa.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/opa/signal_opa.h
+main_apis:
+- SignalOPA_CalculateGain
+- SignalOPA_Apply
+- SignalOPA_GetModuleStatus
+contest_parameters:
+- mode
+- resistor_feedback_ohm
+- resistor_input_ohm
+- bias_voltage_v
+- context
+- apply
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/opa/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/opa/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/opa/README.md
+- MSPM0_Signal_Contest/01_bsp/opa/signal_opa.c
+- MSPM0_Signal_Contest/01_bsp/opa/signal_opa.h
+source_fingerprint_sha256: f2dfc5d1bddeed54ff7e129efdfdbf8ca170bcca341ad3d99dc6e12187adbd9c

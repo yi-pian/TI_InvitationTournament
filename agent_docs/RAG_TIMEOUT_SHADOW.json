@@ -1,0 +1,321 @@
+{
+  "benchmark": "rag_timeout_shadow",
+  "rag_dataset_name": "Electronic_Contest_KB",
+  "rag_dataset_id": "288ca61a986311f189a7759d94d5df5f",
+  "production_timeout_s": 5.0,
+  "production_retry": 0,
+  "query": "ADC采样值怎么转换成实际电压？",
+  "rounds_per_timeout": 10,
+  "conditions": [
+    "idle/read-only sequential samples",
+    "contended state observed separately in production proxy trace"
+  ],
+  "rows": [
+    {
+      "timeout_s": 1.0,
+      "rounds": 10,
+      "samples": [
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1079.96,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1015.34,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1014.47,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1013.39,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1001.99,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1015.49,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1016.11,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1028.74,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 447.23,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 460.22,
+          "chunks": 4
+        }
+      ],
+      "retrieval_success_rate": 0.2,
+      "fallback_rate": 0.8,
+      "latency_median_ms": 1014.9,
+      "latency_p95_ms": 1079.96,
+      "latency_max_ms": 1079.96
+    },
+    {
+      "timeout_s": 1.5,
+      "rounds": 10,
+      "samples": [
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1523.06,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1528.85,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1530.21,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1522.57,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 1375.4,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 319.35,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 305.79,
+          "chunks": 4
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1517.84,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1527.38,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 1518.89,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        }
+      ],
+      "retrieval_success_rate": 0.3,
+      "fallback_rate": 0.7,
+      "latency_median_ms": 1520.73,
+      "latency_p95_ms": 1530.21,
+      "latency_max_ms": 1530.21
+    },
+    {
+      "timeout_s": 2.0,
+      "rounds": 10,
+      "samples": [
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 2029.88,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 942.94,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 323.45,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 341.72,
+          "chunks": 4
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 2010.65,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 2028.53,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 2009.91,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 1737.93,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 308.9,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 289.01,
+          "chunks": 4
+        }
+      ],
+      "retrieval_success_rate": 0.6,
+      "fallback_rate": 0.4,
+      "latency_median_ms": 1340.43,
+      "latency_p95_ms": 2029.88,
+      "latency_max_ms": 2029.88
+    },
+    {
+      "timeout_s": 5.0,
+      "rounds": 10,
+      "samples": [
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 378.91,
+          "chunks": 4
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 5010.26,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 2406.64,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 305.93,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 335.59,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 376.83,
+          "chunks": 4
+        },
+        {
+          "ok": false,
+          "status": 599,
+          "latency_ms": 5028.92,
+          "chunks": 0,
+          "error_type": "TimeoutError"
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 2442.01,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 340.31,
+          "chunks": 4
+        },
+        {
+          "ok": true,
+          "status": 200,
+          "latency_ms": 288.86,
+          "chunks": 4
+        }
+      ],
+      "retrieval_success_rate": 0.8,
+      "fallback_rate": 0.2,
+      "latency_median_ms": 377.87,
+      "latency_p95_ms": 5028.92,
+      "latency_max_ms": 5028.92
+    }
+  ],
+  "recommendation": "NO_TIMEOUT_CHANGE_WITHOUT_STEADY_STATE_EVIDENCE"
+}

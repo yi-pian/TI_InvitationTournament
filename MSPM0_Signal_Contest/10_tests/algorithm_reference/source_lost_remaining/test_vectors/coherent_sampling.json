@@ -1,0 +1,61 @@
+{
+  "vectors": [
+    {
+      "input": {
+        "desired_frequency_hz": 997.0,
+        "sample_rate_hz": 48000.0,
+        "sample_count": 1024,
+        "minimum_cycles": 1,
+        "maximum_cycles": 511,
+        "require_coprime": false
+      },
+      "expected": {
+        "cycles_per_record": 21,
+        "samples_per_record": 1024,
+        "cycle_sample_gcd": 1,
+        "coherent_frequency_hz": 984.375,
+        "frequency_error_hz": -12.625,
+        "absolute_error_hz": 12.625,
+        "relative_error_ppm": -12662.988966900703
+      }
+    },
+    {
+      "input": {
+        "desired_frequency_hz": 1000.0,
+        "sample_rate_hz": 48000.0,
+        "sample_count": 1024,
+        "minimum_cycles": 1,
+        "maximum_cycles": 511,
+        "require_coprime": true
+      },
+      "expected": {
+        "cycles_per_record": 21,
+        "samples_per_record": 1024,
+        "cycle_sample_gcd": 1,
+        "coherent_frequency_hz": 984.375,
+        "frequency_error_hz": -15.625,
+        "absolute_error_hz": 15.625,
+        "relative_error_ppm": -15625.0
+      }
+    },
+    {
+      "input": {
+        "desired_frequency_hz": 1234.5,
+        "sample_rate_hz": 20000.0,
+        "sample_count": 1000,
+        "minimum_cycles": 3,
+        "maximum_cycles": 400,
+        "require_coprime": true
+      },
+      "expected": {
+        "cycles_per_record": 61,
+        "samples_per_record": 1000,
+        "cycle_sample_gcd": 1,
+        "coherent_frequency_hz": 1220.0,
+        "frequency_error_hz": -14.5,
+        "absolute_error_hz": 14.5,
+        "relative_error_ppm": -11745.64601053058
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+/**
+ * @file adc_dma.syscfg
+ * @brief Timer->Event->ADC->DMA->RAM 单通道采集配置
+ * 
+ * ADC: ADC12_CH0, REF_VREFP_INTERNALLV+, REF_VREFM_GND, FULL_SCALE_3.3V, DMA_0, MEM_0
+ * TimerG0: 事件触发，时钟源 BUSCLK (SYSCLKOUT0), 分频器 1x, 预分频器 1x, 上电清零 false
+ * Event Fabric: TimerG0_CH0 -> ADC12_EVT_TRIGGER_START
+ * DMA Channel 0: ADC12 MEM_0 -> RAM (uint16_t)
+ */
+
+#include "msp_msp432p40x.h"
+#include "ti_msp_dl_config.h"
+
+#define PROFILE_NAME "adc_dma_profile"
+
+/** ADC 配置：通道 0 单端输入，内部 1.2V 参考，满量程 3.3V，DMA 触发，MEM_0 */
+static const adc_config_t g_adc = {
+    .channel_index = DL_ADC12_IIDX_CH0,
+    .reference_voltage_plus = ADC_VREFP_INTERNAL_LV_PLUS,
+    .reference_voltage_minus = ADC_VREFM_GND,
+    .full_scale = 3.3F,
+    .trigger_source = ADC_TRIGGER_DMA,
+    .memory_buffer_index = DL_ADC12_IIDX_ADMAMEM_0,
+};
+
+/** TimerG0 配置：事件触发模式，BUSCLK 时钟源 */
+static const timer_config_t g_timer = {
+    .clock_source = TIMER_CLOCK_SOURCE_SYSCLKOUT0,
+    .counter_direction = TIMER_COUNTER_DIRECTION_UP,
+    .edge_sensitivity = TIMER_EDGE_SENSITIVITY_RISING,
+    .event_trigger = true,
+};
+
+/** DMA 通道配置：Channel 0，ADC12 MEM_0 到 RAM */
+static const dma_config_t g_dma = {
+    .interrupt_channel = DL_DMA_CHANNEL_0,
+    .source_address_type = DMA_ADDRESS_TYPE_PERIPHERAL,
+    .destination_address_type = DMA_ADDRESS_TYPE_MEMORY,
+    .transfer_size = 0U, /* 将在运行时设置 */
+};
+
+/** Event Fabric 路由：TimerG0_CH0 -> ADC12_EVENT_TRIGGER_START */
+static const event_config_t g_event = {
+    .source_pin_index = TIMER_TO_EVENT_PIN_INDEX(0),
+    .destination_event = EVENT_ADC12_TRIGGER_START,
+    .routing_mode = EVENT_ROUTING_MODE_DIRECT,
+};
+
+/**
+ * @brief 初始化 SysConfig 并生成 ti_msp_dl_config.*
+ */
+void SYSCFG_DL_init(void)
+{
+    /* 初始化时钟子系统：SYSCLKOUT0 (BUSCLK) */
+    SYSCTL_initSystemClock();
+    
+    /* 初始化 GPIO 复用（如需要） */
+    SYSCTL_initGPIO();
+
+    /* 配置 ADC */
+    DL_ADC12_init(&g_adc, ADC_INST);
+    
+    /* 配置 TimerG0 */
+    DL_TimerG_init(&g_timer, TIMER_G_INST);
+    
+    /* 配置 Event Fabric */
+    DL_EventFabric_init();
+    DL_Event_route(&g_event);
+
+    /* 配置 DMA */
+    DL_DMA_init(&g_dma, DMA);
+
+    /* 初始化 NVIC */
+    SYSCTL_initNVIC();
+
+    /* 配置中断向量表 */
+    SCB_SetVectorTable(0x00000000U, 0U);
+}

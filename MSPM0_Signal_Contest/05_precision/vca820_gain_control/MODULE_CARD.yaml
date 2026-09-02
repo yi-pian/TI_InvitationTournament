@@ -1,0 +1,126 @@
+schema_version: 1
+module_id: vca820_gain_control
+name: VCA820 增益控制算法模块
+path: MSPM0_Signal_Contest/05_precision/vca820_gain_control
+category: algorithm/05_precision
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 本模块把目标输出峰峰值换算为 VCA820 控制电压，再换算为 DAC12 code。它只处理公式和限幅，不访问 DAC、GPIO、DDS 或 SysConfig；应用层在成功返回后调用
+  DL_DAC12_output12()。
+use_when: Use only when the selected route matches this module's documented purpose and constraints.
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: Read the current public header parameter types and README input section before use.
+output: Read the current public header return/output contract before use.
+unit:
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/05_precision/vca820_gain_control
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/signal_vca820_gain_control.c
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/signal_vca820_gain_control.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/05_precision/vca820_gain_control/signal_vca820_gain_control.h
+main_apis:
+- SignalVCA820_TargetVppToDACCode
+contest_parameters:
+- dds_vpp_v
+- gain_max
+- vctrl0_v
+- vctrl_slope_v
+- control_min_v
+- control_max_v
+- dac_reference_v
+- dac_full_scale_code
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/05_precision/vca820_gain_control/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/MODULE_CARD.md
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/README.md
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/signal_vca820_gain_control.c
+- MSPM0_Signal_Contest/05_precision/vca820_gain_control/signal_vca820_gain_control.h
+source_fingerprint_sha256: 035d1a9dd58c073032ab5e80f70dbf772bd7aa7d6d4e5ab3275d6d89ff0f1869

@@ -1,0 +1,126 @@
+schema_version: 1
+module_id: fir
+name: FIR：外部系数、可跨帧的有限冲激响应滤波器
+path: MSPM0_Signal_Contest/04_dsp/fir
+category: algorithm/04_dsp
+implementation_type: RECIPE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: PC_VERIFIED
+purpose: 新比赛工程不复制本目录源码。 直接使用 arm_fir_init_f32/q15/q31 与 arm_fir_f32/q15/q31；系数、state 长度、block size 和完整最小代码见
+  00_docs/CMSIS_DSP_CONTEST_COOKBOOK.md。无 SysConfig/Pin。
+use_when: 需要明确设计的低通/高通/带通，或相位关系重要且能接受较多计算时。只想简单平滑可先用 MovingAverage。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 初始化传外部 coefficients[T]、tap_count、delay_line[T]；Process 传 float 输入/输出和 count。系数 0 号乘当前样本。
+output: float 滤波数组，可与输入同一地址。单位取决于系数总增益；低通 DC 增益常设计为系数和 1。
+unit:
+- Hz
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/fir
+selectable: false
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/fir/signal_fir.c
+- MSPM0_Signal_Contest/04_dsp/fir/signal_fir.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/fir/signal_fir.h
+main_apis:
+- SignalFIR_Init
+- SignalFIR_Reset
+- SignalFIR_Process
+contest_parameters:
+- coefficients
+- delay_line
+- tap_count
+- write_index
+- initialized
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/fir/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/fir/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/fir/README.md
+- MSPM0_Signal_Contest/04_dsp/fir/signal_fir.c
+- MSPM0_Signal_Contest/04_dsp/fir/signal_fir.h
+source_fingerprint_sha256: 7da9c5fa4d1dba423df25935054cdbefde02879d44ce73ad161ae7620a7b80cb
+implementation_backend: CMSIS_DSP

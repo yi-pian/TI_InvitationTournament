@@ -1,0 +1,123 @@
+schema_version: 1
+module_id: vref
+name: vref
+path: MSPM0_Signal_Contest/01_bsp/vref
+category: 01_bsp
+implementation_type: RECIPE
+recommendation: conditional
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 选择标称或实测参考电压，显式传递标定依据。
+use_when: 优先使用：内部 ADC/DAC/COMP 需要方便的 1.4 V 或 2.5 V 参考，且百分比级初始范围可校准或已满足题目。 - 慎用：精密幅值、温漂或低噪声测量；必须把 VREF
+  初始误差、约 80 ppm/°C 量级温漂、启动时间和去耦算入误差。 - 不要强行使用：题目需要更高绝对精度/更低温漂/噪声，或想把 VREF 当外部模块电源；应评估外部精密参考。 性能边界见 MSPM0G3507
+  资源能力指南 和 内部/外置选择指南。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 输入由公开头文件中的指针、长度、配置结构或平台回调给出；所有单位写在字段名中。
+output: 输出写入调用者提供的结果/缓冲区，并返回 signal_result_t；不通过隐藏全局变量传递数据。
+unit:
+- percent
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/01_bsp/vref
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/vref/signal_vref.c
+- MSPM0_Signal_Contest/01_bsp/vref/signal_vref.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/vref/signal_vref.h
+main_apis:
+- SignalVREF_GetEffectiveVoltage
+- SignalVREF_GetModuleStatus
+contest_parameters:
+- nominal_voltage_v
+- measured_voltage_v
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/vref/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/vref/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/vref/README.md
+- MSPM0_Signal_Contest/01_bsp/vref/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/vref/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/vref/signal_vref.c
+- MSPM0_Signal_Contest/01_bsp/vref/signal_vref.h
+source_fingerprint_sha256: 59b2a7b016fe5ddb71b9cc903b577a61eba4962c8e65e0564e99eb80b7e723f1

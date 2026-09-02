@@ -1,0 +1,54 @@
+﻿[
+    {
+        "application":  "Sweep Analyzer",
+        "target":  "sweep_analyzer_final",
+        "projectspec":  "08_applications\\sweep_analyzer\\ticlang\\sweep_analyzer_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_04_ADC_DAC",
+        "linked_c_sources":  10,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    },
+    {
+        "application":  "Wave Capture Replay",
+        "target":  "waveform_capture_replay_final",
+        "projectspec":  "08_applications\\waveform_capture_replay\\ticlang\\waveform_capture_replay_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_04_ADC_DAC",
+        "linked_c_sources":  7,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    },
+    {
+        "application":  "Signal Analyzer",
+        "target":  "signal_analyzer_final",
+        "projectspec":  "08_applications\\signal_analyzer\\ticlang\\signal_analyzer_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_02_DUAL_ADC",
+        "linked_c_sources":  27,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    },
+    {
+        "application":  "Signal Contest Template",
+        "target":  "signal_contest_template_final",
+        "projectspec":  "08_applications\\signal_contest_template\\ticlang\\signal_contest_template_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_06_FULL_SIGNAL",
+        "linked_c_sources":  25,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    }
+]

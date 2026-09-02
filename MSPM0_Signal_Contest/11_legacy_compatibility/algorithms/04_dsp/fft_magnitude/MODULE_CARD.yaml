@@ -1,0 +1,127 @@
+schema_version: 1
+module_id: fft_magnitude
+name: FFTMagnitude：复频谱变成非负频率强度
+path: MSPM0_Signal_Contest/04_dsp/fft_magnitude
+category: algorithm/04_dsp
+implementation_type: RECIPE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: PC_VERIFIED
+purpose: 适合： FFT 已产生 signal_complex_f32_t spectrum[N]，现在要得到可找峰的非负 magnitude[N/2+1]。
+use_when: 找基波、谐波、杂散和幅度谱。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 符合 signal_fft_magnitude.h 约定的 FFT 输出、FFT size 和输出 bin 容量。
+output: N/2+1 个 raw DFT magnitude，没有 /N、单边 x2、窗 CG 修正。
+unit:
+- Hz
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/fft_magnitude
+selectable: false
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/03_measurement/common/signal_complex.h
+- MSPM0_Signal_Contest/04_dsp/fft_magnitude/signal_fft_magnitude.c
+- MSPM0_Signal_Contest/04_dsp/fft_magnitude/signal_fft_magnitude.h
+dependency_headers:
+- signal_algorithm_status.h
+- signal_complex.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/03_measurement/common/signal_complex.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/fft_magnitude/signal_fft_magnitude.h
+main_apis:
+- SignalFFTMagnitude_Process
+contest_parameters:
+- bin_count
+buffer:
+  input_type: signal_complex_f32_t spectrum[N]
+  output_type: float magnitude[N/2+1]
+  input_length: N complex bins
+  output_length: N/2+1
+  in_place: false
+  workspace: none beyond caller output
+  ram_estimate: 4*(N/2+1) bytes output
+  n_restrictions: output capacity >= N/2+1
+next_modules:
+- window_gain_correction
+- recipe_peak_detect
+- harmonic
+reference_application:
+- MSPM0_Signal_Contest/08_applications/spectrum_analyzer/main.c
+verified_example: MSPM0_Signal_Contest/08_applications/spectrum_analyzer/main.c
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/fft_magnitude/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/fft_magnitude/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/fft_magnitude/README.md
+- MSPM0_Signal_Contest/04_dsp/fft_magnitude/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/fft_magnitude/signal_fft_magnitude.c
+- MSPM0_Signal_Contest/04_dsp/fft_magnitude/signal_fft_magnitude.h
+source_fingerprint_sha256: 222a40591c43e6c313d85f5b2cc2d9f62bd32ffd2cecf0ff672b0aa5ec0f5294
+implementation_backend: CMSIS_DSP

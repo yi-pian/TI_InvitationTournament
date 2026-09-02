@@ -1,0 +1,5 @@
+﻿"application","target","profile","sysconfig","compile","link","flash_used_bytes","flash_remaining_bytes","sram_used_bytes_including_stack","stack_reserved_bytes","sram_remaining_bytes","maturity"
+"Frequency Meter C","frequency_meter_c_round1","PROFILE_01_ADC_CAPTURE","PASS","PASS","PASS","89368","41704","16936","512","15832","BUILD_VERIFIED"
+"Spectrum Analyzer","spectrum_analyzer_round1","PROFILE_01_ADC_CAPTURE","PASS","PASS","PASS","89304","41768","17045","512","15723","BUILD_VERIFIED"
+"THD Analyzer","harmonic_thd_analyzer_round1","PROFILE_01_ADC_CAPTURE","PASS","PASS","PASS","90776","40296","16961","512","15807","BUILD_VERIFIED"
+"Phase Meter","dual_channel_phase_meter_round1","PROFILE_02_DUAL_ADC","PASS","PASS","PASS","89168","41904","15392","512","17376","BUILD_VERIFIED"

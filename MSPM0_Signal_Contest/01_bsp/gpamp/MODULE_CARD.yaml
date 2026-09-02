@@ -1,0 +1,133 @@
+schema_version: 1
+module_id: gpamp
+name: GPAMP 基础 BSP 接口
+path: MSPM0_Signal_Contest/01_bsp/gpamp
+category: 01_bsp
+implementation_type: DIRECT_DRIVERLIB
+recommendation: deprecated
+recommended_for_contest: false
+status: BUILD_VERIFIED
+purpose: 描述 GPAMP 增益与偏置配置并交给平台适配器。
+use_when: 低频传感器、慢变直流或需要低频精度前端时，先做 GPAMP 参数预算。 - 需要验证目标 gain 与 bias 参数是否为正/非负时。 - 要真正使用 GPAMP 时，应在 SysConfig
+  配置；不要把通过软件校验当成硬件已经启用。 对需要较高频率或较大增益的链路，应先比较 GPAMP 的带宽/压摆率与 OPA 或外置运放，而不是默认使用 GPAMP。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: SignalGPAMP_ValidateConfig() 要求 requested_gain > 0 且 bias_voltage_v >= 0。这只验证软件参数，不验证增益是否是当前芯片实际支持的离散档位。
+output: SignalGPAMP_ValidateConfig() 要求 requested_gain > 0 且 bias_voltage_v >= 0。这只验证软件参数，不验证增益是否是当前芯片实际支持的离散档位。
+unit:
+- V
+requires_sysconfig: true
+hardware_resources:
+- GPAMP
+canonical_path: MSPM0_Signal_Contest/01_bsp/gpamp
+selectable: false
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - GPAMP
+  optional_peripherals: []
+  instance_requirements:
+  - role: GPAMP
+    type: GPAMP
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: GPAMP
+    role: GPAMP
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/gpamp/signal_gpamp.c
+- MSPM0_Signal_Contest/01_bsp/gpamp/signal_gpamp.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/gpamp/signal_gpamp.h
+main_apis:
+- SignalGPAMP_ValidateConfig
+- SignalGPAMP_Apply
+- SignalGPAMP_GetModuleStatus
+contest_parameters:
+- requested_gain
+- bias_voltage_v
+- context
+- apply
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/gpamp/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/gpamp/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/gpamp/README.md
+- MSPM0_Signal_Contest/01_bsp/gpamp/signal_gpamp.c
+- MSPM0_Signal_Contest/01_bsp/gpamp/signal_gpamp.h
+source_fingerprint_sha256: 0fcc50734067b96c4e26010d4a6363129d24f05fd97a0e4209a028ec44c80fcc

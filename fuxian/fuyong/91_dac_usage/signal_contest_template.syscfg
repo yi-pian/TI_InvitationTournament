@@ -1,0 +1,55 @@
+/** PROFILE_07_BASIC_IO: software ADC0, DAC0 fixed output, UART0. */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+const ProjectConfig = scripting.addModule("/ti/project_config/ProjectConfig");
+const Board = scripting.addModule("/ti/driverlib/Board");
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const ADC12 = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const SIGNAL_BASIC_ADC = ADC12.addInstance();
+const DAC12 = scripting.addModule("/ti/driverlib/DAC12");
+const UART = scripting.addModule("/ti/driverlib/UART", {}, false);
+const SIGNAL_UART = UART.addInstance();
+const GPIO = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const SIGNAL_GPIO = GPIO.addInstance();
+
+ProjectConfig.genLibCMSIS = true;
+
+const mfpGate = system.clockTree["MFPCLKGATE"];
+mfpGate.enable = true;
+
+SIGNAL_BASIC_ADC.$name = "SIGNAL_BASIC_ADC";
+SIGNAL_BASIC_ADC.sampClkSrc = "DL_ADC12_CLOCK_ULPCLK";
+SIGNAL_BASIC_ADC.sampClkDiv = "DL_ADC12_CLOCK_DIVIDE_8";
+SIGNAL_BASIC_ADC.adcMem0chansel = "DL_ADC12_INPUT_CHAN_2";
+SIGNAL_BASIC_ADC.sampleTime0 = "125 us";
+SIGNAL_BASIC_ADC.enabledInterrupts = ["DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED"];
+SIGNAL_BASIC_ADC.powerDownMode = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+SIGNAL_BASIC_ADC.peripheral.$assign = "ADC0";
+SIGNAL_BASIC_ADC.peripheral.adcPin2.$assign = "PA25";
+
+DAC12.dacOutputPinEn = true;
+DAC12.dacAmplifier = "ON";
+
+SIGNAL_UART.$name = "SIGNAL_UART";
+SIGNAL_UART.profile = "CONFIG_PROFILE_1";
+SIGNAL_UART.peripheral.$assign = "UART0";
+SIGNAL_UART.uartClkSrc = "BUSCLK";
+SIGNAL_UART.targetBaudRate = 115200;
+SIGNAL_UART.enableInternalLoopback = false;
+SIGNAL_UART.enableFIFO = true;
+SIGNAL_UART.peripheral.txPin.$assign = "PA10";
+SIGNAL_UART.peripheral.rxPin.$assign = "PA11";
+
+SIGNAL_GPIO.$name = "SIGNAL_GPIO";
+SIGNAL_GPIO.associatedPins[0].$name = "OUTPUT";
+SIGNAL_GPIO.associatedPins[0].direction = "OUTPUT";
+SIGNAL_GPIO.associatedPins[0].assignedPort = "PORTA";
+SIGNAL_GPIO.associatedPins[0].assignedPin = "12";
+SIGNAL_GPIO.associatedPins[0].initialValue = "CLEARED";
+SIGNAL_GPIO.associatedPins[0].pin.$assign = "PA12";
+
+SYSCTL.MFPCLKEn = true;
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;

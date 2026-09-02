@@ -1,0 +1,122 @@
+schema_version: 1
+module_id: mad
+name: MAD：对离群点更稳的波动尺度
+path: MSPM0_Signal_Contest/04_dsp/mad
+category: algorithm/04_dsp
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 比赛复制清单： signal_mad.c、signal_mad.h、03_measurement/common/signal_algorithm_status.h。调用者提供至少 N 个
+  float workspace；无 SysConfig/Pin。
+use_when: 估计带少量毛刺的数据尺度、Hampel 阈值、比较异常值处理前后。标准差会被极端点平方放大时 MAD 很有价值。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 只读 float 数组、count>0、容量至少 count 的 float workspace；单位可为 V。
+output: median_value、mad_value、robust_sigma_estimate，均与输入相同单位。workspace 内容不保留。
+unit:
+- samples
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/mad
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/mad/signal_mad.c
+- MSPM0_Signal_Contest/04_dsp/mad/signal_mad.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/mad/signal_mad.h
+main_apis:
+- SignalMAD_Process
+contest_parameters:
+- median_value
+- mad_value
+- robust_sigma_estimate
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/mad/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/mad/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/mad/README.md
+- MSPM0_Signal_Contest/04_dsp/mad/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/mad/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/mad/signal_mad.c
+- MSPM0_Signal_Contest/04_dsp/mad/signal_mad.h
+source_fingerprint_sha256: 220d0e0f0619e0f355aadaf75c3bcac7a65a37b619e9c009b4588af984ee277a

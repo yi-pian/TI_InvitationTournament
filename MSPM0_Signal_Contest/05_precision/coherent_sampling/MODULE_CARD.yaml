@@ -1,0 +1,128 @@
+schema_version: 1
+module_id: coherent_sampling
+name: Coherent Sampling：相干采样频率规划
+path: MSPM0_Signal_Contest/05_precision/coherent_sampling
+category: algorithm/05_precision
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 这是 clean reimplementation，不是旧源码恢复。
+use_when: 当题目需要“coherent_sampling”目录对应的公开功能，并且输入数据、单位和硬件资源满足前文约束时使用本模块。若只需要更简单的上游功能、输入尚未准备好，或需要不同的数据模型/外设资源，应先选择相邻模块而不是强行调用本
+  API。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 输入由各 API 的只读数组、配置、频率/阈值和平台对象组成；输出写入 result/output/buffer 参数或由 Get API 返回。调用者负责数组容量、生命周期和物理单位；失败返回时输出不是有效结果。
+output: 输入由各 API 的只读数组、配置、频率/阈值和平台对象组成；输出写入 result/output/buffer 参数或由 Get API 返回。调用者负责数组容量、生命周期和物理单位；失败返回时输出不是有效结果。
+unit:
+- Hz
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/05_precision/coherent_sampling
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/signal_coherent_sampling.c
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/signal_coherent_sampling.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/05_precision/coherent_sampling/signal_coherent_sampling.h
+main_apis:
+- SignalCoherentSampling_GCDU32
+- SignalCoherentSampling_FindNearest
+contest_parameters:
+- cycles_per_record
+- samples_per_record
+- cycle_sample_gcd
+- coherent_frequency_hz
+- frequency_error_hz
+- absolute_error_hz
+- relative_error_ppm
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/10_tests/ticlang/source_lost_remaining/build/source_lost_remaining.map
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: BUILD_VERIFIED
+  restored_from_source: false
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/MODULE_CARD.md
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/README.md
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/signal_coherent_sampling.c
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/signal_coherent_sampling.h
+- MSPM0_Signal_Contest/05_precision/coherent_sampling/VERIFICATION.yaml
+source_fingerprint_sha256: d665c8e3a7b99ec540e48ef5feb1d02ee7d4ad51e7949af9b2a9519b8c6b07f2

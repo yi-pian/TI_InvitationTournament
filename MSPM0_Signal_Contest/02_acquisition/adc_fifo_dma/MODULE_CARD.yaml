@@ -1,0 +1,156 @@
+schema_version: 1
+module_id: adc_fifo_dma
+name: ADC FIFO DMA：MSPM0 满吞吐率单帧采集
+path: MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma
+category: 02_acquisition
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: ADC 自动连续转换，FIFO 将两个 12-bit 样本打包，32-bit DMA 采完整一帧
+use_when: 当题目需要“adc_fifo_dma”目录对应的公开功能，并且输入数据、单位和硬件资源满足前文约束时使用本模块。若只需要更简单的上游功能、输入尚未准备好，或需要不同的数据模型/外设资源，应先选择相邻模块而不是强行调用本
+  API。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 一个非零 nominal_sample_rate_hz。
+output: 输入由各 API 的只读数组、配置、频率/阈值和平台对象组成；输出写入 result/output/buffer 参数或由 Get API 返回。调用者负责数组容量、生命周期和物理单位；失败返回时输出不是有效结果。
+unit:
+- ADC code
+- Hz
+- samples
+- V
+requires_sysconfig: true
+hardware_resources:
+- ADC12
+- DMA
+canonical_path: MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - ADC12
+  - DMA
+  optional_peripherals: []
+  instance_requirements:
+  - role: ADC
+    type: ADC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: DMA
+    type: DMA
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: true
+    roles:
+    - transfer_channel
+    constraints:
+    - channel must not collide
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: ADC12
+    role: ADC
+    shareable: false
+  - type: DMA
+    role: DMA
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/signal_adc_fifo_dma.c
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/signal_adc_fifo_dma.h
+dependency_headers:
+- signal_status.h
+- ti_msp_dl_config.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/signal_adc_fifo_dma.h
+main_apis:
+- SignalADCFIFODMA_Init
+- SignalADCFIFODMA_Start
+- SignalADCFIFODMA_Stop
+- SignalADCFIFODMA_IsFinished
+- SignalADCFIFODMA_GetStatus
+- SignalADCFIFODMA_GetBuffer
+- SignalADCFIFODMA_GetSampleCount
+- SignalADCFIFODMA_GetNominalSampleRateHz
+- SignalADCFIFODMA_GetModuleMaturity
+contest_parameters:
+- nominal_sample_rate_hz
+buffer:
+  input_type: ADC FIFO packed conversion stream + aligned caller buffer
+  output_type: uint16_t raw_adc[N] expanded by DMA
+  input_length: even N required by documented 32-bit FIFO/DMA path
+  output_length: N samples
+  in_place: false
+  workspace: caller buffer; 4-byte alignment required
+  ram_estimate: 2*N bytes plus constant module state
+  n_restrictions: even N; read current header before selecting count
+next_modules:
+- recipe_adc_to_voltage
+- recipe_cmsis_fft_spectrum
+reference_application:
+- MSPM0_Signal_Contest/09_examples/integration_profiles/PROFILE_08_ADC_FIFO_MAX/README.md
+verified_example: MSPM0_Signal_Contest/09_examples/integration_profiles/PROFILE_08_ADC_FIFO_MAX/README.md
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/MODULE_CARD.md
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/README.md
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/signal_adc_fifo_dma.c
+- MSPM0_Signal_Contest/02_acquisition/adc_fifo_dma/signal_adc_fifo_dma.h
+source_fingerprint_sha256: b80755f6e6910f9d06e2c282c525ea7213e09d2c997e8ce15754d74a54b50b47

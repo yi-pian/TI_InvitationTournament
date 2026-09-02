@@ -1,0 +1,97 @@
+schema_version: 1
+device_id: device_tlc5615_family
+device: TLC5615 类串行 DAC 通用教程
+manufacturer: Texas Instruments
+path: MSPM0_Signal_Contest/12_external_devices/dac/tlc5615_family
+category: dac
+implementation_type: EXTERNAL_DEVICE
+recommendation: documentation_only
+recommended_for_contest: false
+status: DOCUMENTATION_ONLY
+interface: &id001
+- SPI
+- GPIO
+supply: read exact README/datasheet before wiring
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: 功能 | MSPM0/外部连接 | 先查什么 | |---|---|---| | DIN | SPI MOSI | 位顺序和有效位位置 | | SCLK | SPI SCLK
+  | 空闲电平、采样边沿、速率 | | CS | GPIO output | 有效电平和锁存边沿 | | LDAC（若有） | GPIO output | 是否独立更新 | | VREF | 参考源 |
+  允许范围和去耦 | | VOUT | 万用表/后级 | 输出范围、负载、建立时间 | SysConfig 新建低速 SPI Controller 和 CS GPIO。仅当你的具体器件确有 LDAC/CLR
+  时才添加相应 GPIO。不要照抄别的 DAC 的 SPI mode。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files: []
+public_header: null
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions: []
+datasheet_status: DATASHEET_REQUIRED
+compile_status: NOT_RUN
+board_status: NOT_RUN
+verification:
+  overall: DOCUMENTATION_ONLY
+  evidence: MSPM0_Signal_Contest/12_external_devices/dac/tlc5615_family/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/dac/tlc5615_family/README.md
+source_fingerprint_sha256: 893c1ebb5f6912aeffbb1fffdf61fd0403803cef38351a3001b2b71d45c89307

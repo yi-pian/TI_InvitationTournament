@@ -1,0 +1,146 @@
+schema_version: 1
+module_id: timer
+name: timer
+path: MSPM0_Signal_Contest/01_bsp/timer
+category: 01_bsp
+implementation_type: DIRECT_DRIVERLIB
+recommendation: deprecated
+recommended_for_contest: false
+status: BUILD_VERIFIED
+purpose: 统一 Timer 设置周期、启动、停止和读计数接口。
+use_when: 优先使用：固定采样/更新节拍、输入捕获、PWM，以及 Timer Event → ADC/DAC 的低抖动硬件链。 - 慎用：极低频/极高频测量；先算 Timer clock、divider、tick
+  分辨率、位宽和溢出。 - 不要强行使用：所需精度已超过时钟准确度，或实例/Event/PinMux 与现有采集、DAC、Capture 明确冲突；先重做资源分配或外加时基。 芯片 Timer 数量和系统能力见
+  MSPM0G3507 资源能力指南；内部/外置判断见 内部/外置选择指南。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 输入由公开头文件中的指针、长度、配置结构或平台回调给出；所有单位写在字段名中。
+output: 输出写入调用者提供的结果/缓冲区，并返回 signal_result_t；不通过隐藏全局变量传递数据。
+unit:
+- Hz
+- timer ticks
+requires_sysconfig: true
+hardware_resources:
+- Timer
+canonical_path: MSPM0_Signal_Contest/01_bsp/timer
+selectable: false
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - TIMER
+  optional_peripherals: []
+  instance_requirements:
+  - role: TIMER
+    type: TIMER
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: true
+    roles:
+    - sample_or_capture_trigger
+    constraints:
+    - preserve existing timer owners
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001
+  - system_clock
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: TIMER
+    role: TIMER
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/system_clock/signal_system_clock.h
+- MSPM0_Signal_Contest/01_bsp/timer/signal_timer.c
+- MSPM0_Signal_Contest/01_bsp/timer/signal_timer.h
+dependency_headers:
+- signal_status.h
+- signal_system_clock.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/system_clock/signal_system_clock.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/timer/signal_timer.h
+main_apis:
+- SignalTimer_SetRate
+- SignalTimer_Start
+- SignalTimer_Stop
+- SignalTimer_ReadCount
+- SignalTimer_GetModuleStatus
+contest_parameters:
+- context
+- set_period_count
+- start
+- stop
+- read_count
+- clock_hz
+- max_count
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/timer/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/timer/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/timer/README.md
+- MSPM0_Signal_Contest/01_bsp/timer/signal_timer.c
+- MSPM0_Signal_Contest/01_bsp/timer/signal_timer.h
+source_fingerprint_sha256: 41e3ca9dd5c4c33b0759db00df090874425e164921aa44d3d26b8c05cc8ef5bf

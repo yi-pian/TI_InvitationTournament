@@ -1,0 +1,227 @@
+schema_version: 1
+module_id: wave_output
+name: Wave Output 整合模块
+path: MSPM0_Signal_Contest/06_generator/wave_output
+category: 06_generator
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 遵循 Beginner README 标准。
+use_when: 当题目要求 MSPM0G3507 用片上 DAC 连续输出正弦波、方波、三角波或锯齿波，并希望 main.c 只填写频率、峰峰值和偏置时使用。只输出固定直流时直接用 DAC；捕获波形回放
+  应使用 Arbitrary Wave；没有完成 DAC/Timer/Event/DMA SysConfig 闭环时不要调用本模块。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 初始化输入：调用者提供静态 wave_table、静态 output_buffer、各自容量、DAC DMA 配置、DAC 位数和参考电压。这两个数组在 DMA 工作期间必须一直有效。 -
+  每次输出输入：frequency_hz（Hz）、vpp_v（Vpp）、offset_v（V）。 - 方波扩展输入：duty_fraction（0～1 的小数，占空比；0.5f=50%）。 - 锯齿波扩展输入：symmetry_fraction（0～1
+  的小数，上升段占周期比例；1.0f=标准上升锯齿，0.5f=上升/下降各半周期）。 - 硬件输出：DAC 引脚上的连续周期波形。 - 软件结果：SignalWaveOutput_GetLastResult()
+  返回请求/实际频率、Vpp、偏置和 DMA 点数。
+output: 初始化输入：调用者提供静态 wave_table、静态 output_buffer、各自容量、DAC DMA 配置、DAC 位数和参考电压。这两个数组在 DMA 工作期间必须一直有效。 -
+  每次输出输入：frequency_hz（Hz）、vpp_v（Vpp）、offset_v（V）。 - 方波扩展输入：duty_fraction（0～1 的小数，占空比；0.5f=50%）。 - 锯齿波扩展输入：symmetry_fraction（0～1
+  的小数，上升段占周期比例；1.0f=标准上升锯齿，0.5f=上升/下降各半周期）。 - 硬件输出：DAC 引脚上的连续周期波形。 - 软件结果：SignalWaveOutput_GetLastResult()
+  返回请求/实际频率、Vpp、偏置和 DMA 点数。
+unit:
+- Hz
+- percent
+- V
+requires_sysconfig: true
+hardware_resources:
+- DAC12
+- DMA
+- Event Fabric
+- Timer
+canonical_path: MSPM0_Signal_Contest/06_generator/wave_output
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - DAC12
+  - DMA
+  - EVENT
+  - TIMER
+  optional_peripherals: []
+  instance_requirements:
+  - role: DAC
+    type: DAC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: DMA
+    type: DMA
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: EVENT
+    type: EVENT
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: TIMER
+    type: TIMER
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: true
+    roles:
+    - transfer_channel
+    constraints:
+    - channel must not collide
+  timer:
+    required: true
+    roles:
+    - sample_or_capture_trigger
+    constraints:
+    - preserve existing timer owners
+  event:
+    required: true
+    roles:
+    - peripheral_trigger
+    constraints:
+    - route must match selected instance
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols:
+  - SIGNAL_DAC_DMA
+  - SIGNAL_DAC_TIMER
+  dependencies: &id001
+  - dac_wave_table
+  - dds
+  - sawtooth
+  - sine
+  - square
+  - triangle
+  constraints:
+  - DAC update timer, event route, and DMA channel must remain matched.
+  user_selectable_fields: []
+  profile_evidence:
+  - MSPM0_Signal_Contest/09_examples/platform_closure/dac_dma_minimum/dac_dma_minimum.syscfg
+  resource_claims:
+  - type: DAC12
+    role: DAC
+    shareable: false
+  - type: DMA
+    role: DMA
+    shareable: false
+  - type: EVENT
+    role: EVENT
+    shareable: true
+  - type: TIMER
+    role: TIMER
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.h
+- MSPM0_Signal_Contest/06_generator/dac_wave_table/signal_dac_wave_table.h
+- MSPM0_Signal_Contest/06_generator/dds/signal_dds.h
+- MSPM0_Signal_Contest/06_generator/sawtooth/signal_sawtooth.h
+- MSPM0_Signal_Contest/06_generator/sine/signal_sine.h
+- MSPM0_Signal_Contest/06_generator/square/signal_square.h
+- MSPM0_Signal_Contest/06_generator/triangle/signal_triangle.h
+- MSPM0_Signal_Contest/06_generator/wave_output/signal_wave_output_mspm0g3507.c
+- MSPM0_Signal_Contest/06_generator/wave_output/signal_wave_output_mspm0g3507.h
+dependency_headers:
+- signal_dac_dma_mspm0g3507.h
+- signal_dac_wave_table.h
+- signal_dds.h
+- signal_sawtooth.h
+- signal_sine.h
+- signal_square.h
+- signal_status.h
+- signal_triangle.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.h
+- MSPM0_Signal_Contest/06_generator/dac_wave_table/signal_dac_wave_table.h
+- MSPM0_Signal_Contest/06_generator/dds/signal_dds.h
+- MSPM0_Signal_Contest/06_generator/sawtooth/signal_sawtooth.h
+- MSPM0_Signal_Contest/06_generator/sine/signal_sine.h
+- MSPM0_Signal_Contest/06_generator/square/signal_square.h
+- MSPM0_Signal_Contest/06_generator/triangle/signal_triangle.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/06_generator/wave_output/signal_wave_output_mspm0g3507.h
+main_apis:
+- SignalWaveOutput_Init
+- SignalWaveOutput_SineWithOffset
+- SignalWaveOutput_SquareWithOffset
+- SignalWaveOutput_SquareWithDuty
+- SignalWaveOutput_TriangleWithOffset
+- SignalWaveOutput_SawtoothWithOffset
+- SignalWaveOutput_SawtoothWithSymmetry
+- SignalWaveOutput_GetLastResult
+- SignalWaveOutput_Stop
+- SignalWaveOutput_GetModuleStatus
+contest_parameters:
+- wave_table
+- wave_table_count
+- output_buffer
+- output_capacity
+- dac_config
+- dac_bits
+- reference_voltage_v
+- requested_frequency_hz
+- actual_frequency_hz
+- requested_vpp_v
+- actual_vpp_v
+- offset_v
+- dma_point_count
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application:
+- fuxian/example02/signal_contest_template_final/main.c
+- fuxian/example04/signal_contest_template_final/main.c
+verified_example: fuxian/example02/signal_contest_template_final/main.c
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/06_generator/wave_output/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/06_generator/wave_output/MODULE_CARD.md
+- MSPM0_Signal_Contest/06_generator/wave_output/README.md
+- MSPM0_Signal_Contest/06_generator/wave_output/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/wave_output/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/wave_output/signal_wave_output_mspm0g3507.c
+- MSPM0_Signal_Contest/06_generator/wave_output/signal_wave_output_mspm0g3507.h
+source_fingerprint_sha256: a193fe33a221283c00a55672c27ae90ec080a4662f75e1de10f03856ce33cd50

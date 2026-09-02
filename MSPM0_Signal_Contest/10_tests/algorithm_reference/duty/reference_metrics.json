@@ -1,0 +1,31 @@
+{
+  "reference": "duty_reference.py",
+  "total_cases": 540,
+  "failure_count": 0,
+  "metrics": {
+    "NOISELESS": {
+      "cases": 180,
+      "bias": -1.5573961873214002e-17,
+      "rmse": 1.461530123035953e-16,
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    "SNR_40_DB": {
+      "cases": 180,
+      "bias": 2.4102233576863787e-05,
+      "rmse": 0.0006033102035076378,
+      "max_abs_error": 0.0022756491550054436
+    },
+    "SNR_30_DB": {
+      "cases": 180,
+      "bias": -7.702743359325424e-05,
+      "rmse": 0.0017842932480901944,
+      "max_abs_error": 0.007924901393027595
+    }
+  },
+  "failure_cases": [],
+  "limits": {
+    "NOISELESS_MAX_ABS": 0.0002,
+    "SNR_40_DB_RMSE": 0.003,
+    "SNR_30_DB_RMSE": 0.01
+  }
+}

@@ -1,0 +1,96 @@
+schema_version: 1
+device_id: device_control_template
+device: 可编程模拟滤波器控制通用教程
+manufacturer: device-specific; exact filter required
+path: MSPM0_Signal_Contest/12_external_devices/programmable_filter/control_template
+category: programmable_filter
+implementation_type: EXTERNAL_DEVICE
+recommendation: documentation_only
+recommended_for_contest: false
+status: DOCUMENTATION_ONLY
+interface: &id001
+- I2C
+- SPI
+- GPIO
+supply: read exact README/datasheet before wiring
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: 按控制器件选择最少外设：GPIO 开关用 GPIO Output，数字电位器/专用芯片用 I2C 或 SPI，模拟控制电压用内部/外部 DAC。上电默认状态必须是不会短路、不会过增益的安全档。模拟输入输出不直接接普通
+  GPIO。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files: []
+public_header: null
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions: []
+datasheet_status: DATASHEET_REQUIRED
+compile_status: NOT_RUN
+board_status: NOT_RUN
+verification:
+  overall: DOCUMENTATION_ONLY
+  evidence: MSPM0_Signal_Contest/12_external_devices/programmable_filter/control_template/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/programmable_filter/control_template/README.md
+source_fingerprint_sha256: 143e5c17c5c41f680eb7b8e6ea937432223db95d6261ec27e6c93530b9608707

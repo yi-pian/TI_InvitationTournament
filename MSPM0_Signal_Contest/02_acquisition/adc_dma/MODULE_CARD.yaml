@@ -1,0 +1,198 @@
+schema_version: 1
+module_id: adc_dma
+name: ADC DMA：定时采样一帧波形
+path: MSPM0_Signal_Contest/02_acquisition/adc_dma
+category: 02_acquisition
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BOARD_VERIFIED
+purpose: Timer/Event 触发 ADC，DMA 完整搬运 N 点到调用者 RAM
+use_when: 当你要按固定采样率取得一帧 N 点 ADC 原始数据时使用。它把 Timer、Event、ADC 和 DMA 合成一次“启动—等待—得到 raw[N]”操作。只读一次 ADC 寄存器时不需要它，直接用
+  SysConfig + TI DriverLib。 > 不知道 Fs 为什么由 Timer event 决定，先读 Clock/Timer/ADC/DAC 保姆教程；不知道题目该选多少 Fs/N，读
+  采样率选择指南；现场回算看 一页速查。ADC Clock 不是 Fs。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 目标采样率 sample_rate_hz、采样点数 sample_count、ADC 模拟输入。
+output: uint16_t raw[N]、实际配置触发率 Hz 和完成状态。
+unit:
+- Hz
+- samples
+- V
+requires_sysconfig: true
+hardware_resources:
+- ADC12
+- DMA
+- Event Fabric
+- Timer
+canonical_path: MSPM0_Signal_Contest/02_acquisition/adc_dma
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - ADC12
+  - DMA
+  - EVENT
+  - TIMER
+  optional_peripherals: []
+  instance_requirements:
+  - role: ADC
+    type: ADC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: DMA
+    type: DMA
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: EVENT
+    type: EVENT
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: TIMER
+    type: TIMER
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins:
+  - role: ADC_INPUT
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: true
+    roles:
+    - transfer_channel
+    constraints:
+    - channel must not collide
+  timer:
+    required: true
+    roles:
+    - sample_or_capture_trigger
+    constraints:
+    - preserve existing timer owners
+  event:
+    required: true
+    roles:
+    - peripheral_trigger
+    constraints:
+    - route must match selected instance
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols:
+  - SIGNAL_ADC_INST
+  - SIGNAL_ADC_DMA_CHAN_ID
+  - SIGNAL_SAMPLE_TIMER_INST
+  dependencies: &id001 []
+  constraints:
+  - ADC trigger, DMA channel, event route, and sample timer must form one complete chain.
+  user_selectable_fields:
+  - ADC analog input pin
+  - sample rate/timer period
+  profile_evidence:
+  - MSPM0_Signal_Contest/09_examples/adc_dma_demo/signal_adc_dma_demo.syscfg
+  resource_claims:
+  - type: ADC12
+    role: ADC
+    shareable: false
+  - type: DMA
+    role: DMA
+    shareable: false
+  - type: EVENT
+    role: EVENT
+    shareable: true
+  - type: TIMER
+    role: TIMER
+    shareable: false
+  pinmux:
+    required: true
+    roles:
+    - ADC_INPUT
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/signal_adc_dma.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/signal_adc_dma.h
+dependency_headers:
+- signal_status.h
+- ti_msp_dl_config.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/02_acquisition/adc_dma/signal_adc_dma.h
+main_apis:
+- SignalADC_Init
+- SignalADC_SetSampleRate
+- SignalADC_Start
+- SignalADC_Stop
+- SignalADC_IsFinished
+- SignalADC_GetStatus
+- SignalADC_GetBuffer
+- SignalADC_GetSampleCount
+- SignalADC_GetConfiguredTriggerRate
+- SignalADC_GetModuleMaturity
+contest_parameters:
+- sample_rate_hz
+- timer_clock_hz
+- timer_max_count
+buffer:
+  input_type: hardware ADC sample stream + caller uint16_t buffer
+  output_type: uint16_t raw_adc[N]
+  input_length: sample_count 1..65535
+  output_length: N = sample_count
+  in_place: false
+  workspace: none; DMA writes caller buffer
+  ram_estimate: 2*N bytes plus constant module state
+  n_restrictions: 1 <= N <= 65535; buffer remains owned by DMA until done
+next_modules:
+- recipe_adc_to_voltage
+- recipe_vpp
+- recipe_rms
+- recipe_cmsis_fft_spectrum
+reference_application:
+- MSPM0_Signal_Contest/09_examples/platform_closure/adc_dma_minimum/main.c
+- MSPM0_Signal_Contest/09_examples/adc_dma_demo/README.md
+- MSPM0_Signal_Contest/08_applications/spectrum_analyzer/README.md
+verified_example: MSPM0_Signal_Contest/09_examples/platform_closure/adc_dma_minimum/main.c
+verification:
+  overall: BOARD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/02_acquisition/adc_dma/README.md
+  pc: PC_VERIFIED
+  board: BOARD_VERIFIED
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/MODULE_CARD.md
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/README.md
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/signal_adc_dma.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dma/signal_adc_dma.h
+source_fingerprint_sha256: d66e30b2bd60f52576be03ac095f8e04a2cbeff05078baeec5fc59d9f058a764

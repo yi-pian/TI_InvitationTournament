@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+    <applicability>
+        <when>
+            <context deviceFamily="ARM" deviceId="MSPM0G3507" />
+        </when>
+    </applicability>
+
+    <project
+        name="signal_adc_dma_demo_LP_MSPM0G3507_nortos_ticlang"
+        configurations="Debug"
+        toolChain="TICLANG"
+        connection="TIXDS110_Connection.xml"
+        device="MSPM0G3507"
+        ignoreDefaultDeviceSettings="true"
+        ignoreDefaultCCSSettings="true"
+        products="MSPM0-SDK;sysconfig"
+        compilerBuildOptions="
+            -I${PROJECT_ROOT}
+            -I${PROJECT_ROOT}/${ConfigName}
+            -I${PROJECT_ROOT}/../../../../02_acquisition/adc_dma
+            -I${PROJECT_ROOT}/../../../../01_bsp/common
+            -O2
+            @device.opt
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/Core/Include
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -mcpu=cortex-m0plus
+            -march=thumbv6m
+            -mfloat-abi=soft
+            -mthumb
+            -Wall
+            -Werror
+        "
+        linkerBuildOptions="
+            -ldevice.cmd.genlibs
+            -L${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -L${PROJECT_ROOT}
+            -L${PROJECT_BUILD_DIR}/syscfg
+            -Wl,--rom_model
+            -Wl,--warn_sections
+            -L${CG_TOOL_ROOT}/lib
+            -llibc.a
+        "
+        sysConfigBuildOptions="
+            --output .
+            --product ${COM_TI_MSPM0_SDK_INSTALL_DIR}/.metadata/product.json
+            --compiler ticlang
+        "
+        sourceLookupPath="${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/ti/driverlib"
+        description="Timer event triggered ADC0 sampling with DMA block capture">
+        <property name="buildProfile" value="release"/>
+        <property name="isHybrid" value="true"/>
+        <file path="../main.c" openOnCreation="false" excludeFromBuild="false" action="copy" />
+        <file path="../signal_config.h" openOnCreation="true" excludeFromBuild="false" action="copy" />
+        <file path="../signal_adc_dma_demo.syscfg" openOnCreation="true" excludeFromBuild="false" action="copy" />
+        <file path="../README.md" openOnCreation="true" excludeFromBuild="false" action="copy" />
+        <file path="../HARDWARE_ACCEPTANCE_TEST.md" openOnCreation="false" excludeFromBuild="false" action="copy" />
+        <!--
+            targetDirectory creates virtual Project Explorer folders only.
+            Header lookup uses the physical source directories configured in
+            compilerBuildOptions; it must not rely on PROJECT_ROOT/modules/*.
+        -->
+        <file path="../../../02_acquisition/adc_dma/signal_adc_dma.c"
+              targetDirectory="modules/adc_dma" createVirtualFolders="true"
+              openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="../../../02_acquisition/adc_dma/signal_adc_dma.h"
+              targetDirectory="modules/adc_dma" createVirtualFolders="true"
+              openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="../../../01_bsp/common/signal_status.h"
+              targetDirectory="modules/common" createVirtualFolders="true"
+              openOnCreation="false" excludeFromBuild="false" action="link" />
+    </project>
+</projectSpec>

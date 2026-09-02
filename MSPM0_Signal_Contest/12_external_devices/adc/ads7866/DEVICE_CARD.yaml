@@ -1,0 +1,101 @@
+schema_version: 1
+device_id: device_ads7866
+device: ADS7866：12-bit / 200-kSPS SPI SAR ADC
+manufacturer: Texas Instruments
+path: MSPM0_Signal_Contest/12_external_devices/adc/ads7866
+category: adc
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: COMPILE_VERIFIED
+interface: &id001
+- SPI
+- GPIO
+- ANALOG
+supply: 器件可在约 1.2～3.6 V 范围工作；要达到 200 kSPS，按数据手册使用满足吞吐要求的电压。MSPM0 最简单是 3.3 V。输入范围 0～REF/VDD。
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: SOT-23-6：CS(6)、SDO(5)、SCLK(4) 接 MCU；VIN(3)、GND(2)、REF/VDD(1) 接模拟信号和供电。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files:
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7866/ads7866.c
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7866/ads7866.h
+public_header: MSPM0_Signal_Contest/12_external_devices/adc/ads7866/ads7866.h
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions:
+- ADS7866_ReadRaw
+- ADS7866_RawToVoltage
+datasheet_status: DOCUMENTED_IN_README
+compile_status: COMPILE_VERIFIED
+board_status: NOT_RUN
+verification:
+  overall: COMPILE_VERIFIED
+  evidence: MSPM0_Signal_Contest/12_external_devices/adc/ads7866/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7866/ads7866.c
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7866/ads7866.h
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7866/README.md
+source_fingerprint_sha256: a04b544ed545033cc7e3e7923aee2163b893b0d81cdabf73486c0902781c6b98

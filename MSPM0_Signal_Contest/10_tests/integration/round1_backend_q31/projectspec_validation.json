@@ -1,0 +1,54 @@
+﻿[
+    {
+        "application":  "Frequency Meter C",
+        "target":  "frequency_meter_c_q31",
+        "projectspec":  "08_applications\\frequency_meter\\ticlang\\frequency_meter_c_q31_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_01_ADC_CAPTURE",
+        "linked_c_sources":  24,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    },
+    {
+        "application":  "Spectrum Analyzer",
+        "target":  "spectrum_analyzer_q31",
+        "projectspec":  "08_applications\\spectrum_analyzer\\ticlang\\spectrum_analyzer_q31_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_01_ADC_CAPTURE",
+        "linked_c_sources":  24,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    },
+    {
+        "application":  "THD Analyzer",
+        "target":  "harmonic_thd_analyzer_q31",
+        "projectspec":  "08_applications\\harmonic_thd_analyzer\\ticlang\\harmonic_thd_analyzer_q31_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_01_ADC_CAPTURE",
+        "linked_c_sources":  24,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    },
+    {
+        "application":  "Phase Meter",
+        "target":  "dual_channel_phase_meter_q31",
+        "projectspec":  "08_applications\\dual_channel_phase_meter\\ticlang\\dual_channel_phase_meter_q31_LP_MSPM0G3507_nortos_ticlang.projectspec",
+        "profile":  "PROFILE_02_DUAL_ADC",
+        "linked_c_sources":  24,
+        "algorithm_source_of_truth":  "PASS",
+        "peripheral_source_of_truth":  "PASS",
+        "include_paths":  "PASS",
+        "sysconfig_path":  "PASS",
+        "sdk_paths":  "PASS",
+        "xml":  "PASS"
+    }
+]

@@ -1,0 +1,123 @@
+schema_version: 1
+module_id: adc_to_voltage
+name: ADC_ToVoltage：把 ADC 数字翻译成电压
+path: MSPM0_Signal_Contest/03_measurement/adc_to_voltage
+category: algorithm/03_measurement
+implementation_type: RECIPE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: PC_VERIFIED
+purpose: 适合： 你已经有 uint16_t raw[N]，下一步算法需要单位为 V 的 float voltage_v[N]。
+use_when: 几乎所有以 ADC RAW 开始、最后要输出 V 的链都先用它：DC、Vpp、RMS、FFT 幅值、THD 幅值。只测 code 是否撞满量程时可以直接看 RAW，不必换算。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: const uint16_t raw[N]；真实 ADC full-scale code、VREF，以及前端比例/校准偏置。
+output: float voltage_v[count]，单位 V。调用者必须提前准备至少 4*count 字节。若发现 RAW 超过 adc_max_code，函数返回越界且不写任何输出。
+unit:
+- ADC code
+- V
+- dimensionless
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/03_measurement/adc_to_voltage
+selectable: false
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/adc_to_voltage/signal_adc_to_voltage.c
+- MSPM0_Signal_Contest/03_measurement/adc_to_voltage/signal_adc_to_voltage.h
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/03_measurement/adc_to_voltage/signal_adc_to_voltage.h
+main_apis:
+- SignalADCToVoltage_Process
+contest_parameters:
+- adc_max_code
+- reference_voltage_v
+- input_scale
+- offset_voltage_v
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/03_measurement/adc_to_voltage/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/03_measurement/adc_to_voltage/MODULE_CARD.md
+- MSPM0_Signal_Contest/03_measurement/adc_to_voltage/README.md
+- MSPM0_Signal_Contest/03_measurement/adc_to_voltage/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/03_measurement/adc_to_voltage/signal_adc_to_voltage.c
+- MSPM0_Signal_Contest/03_measurement/adc_to_voltage/signal_adc_to_voltage.h
+source_fingerprint_sha256: b855745744ca9e699633820f9ab951c5a36d24a046e607fb7d3edfece7293730

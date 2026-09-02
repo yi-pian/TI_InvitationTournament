@@ -1,0 +1,94 @@
+schema_version: 1
+device_id: device_x9c_family
+device: X9C 类三线数字电位器通用教程
+manufacturer: Renesas (Intersil)
+path: MSPM0_Signal_Contest/12_external_devices/digital_pot/x9c_family
+category: digital_pot
+implementation_type: EXTERNAL_DEVICE
+recommendation: documentation_only
+recommended_for_contest: false
+status: DOCUMENTATION_ONLY
+interface: &id001
+- SPI
+- GPIO
+supply: read exact README/datasheet before wiring
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: 只需三个 GPIO Output；不需要把它假装成 SPI。上电时先给 CS/INC 一个不会误步进或误保存的安全电平，然后调用 SYSCFG_DL_init()。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files: []
+public_header: null
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions: []
+datasheet_status: DATASHEET_REQUIRED
+compile_status: NOT_RUN
+board_status: NOT_RUN
+verification:
+  overall: DOCUMENTATION_ONLY
+  evidence: MSPM0_Signal_Contest/12_external_devices/digital_pot/x9c_family/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/digital_pot/x9c_family/README.md
+source_fingerprint_sha256: 57c231daf1b89b28bc14cfd933c901678dbe3be129c8775559f277dd7c6ed00e

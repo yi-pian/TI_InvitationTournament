@@ -1,0 +1,100 @@
+schema_version: 1
+device_id: device_ads7887
+device: ADS7887：10-bit / 1.25-MSPS SPI SAR ADC
+manufacturer: Texas Instruments
+path: MSPM0_Signal_Contest/12_external_devices/adc/ads7887
+category: adc
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: COMPILE_VERIFIED
+interface: &id001
+- SPI
+- GPIO
+supply: VDD 2.35～5.25 V；最简单是 3.3 V。输入范围为 0～VDD，VDD 同时参与满量程，因此要稳定并就近去耦。
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: CS、SCLK、SDO。没有配置寄存器，也不需要 MOSI；MCU 发送 dummy byte 只是为了产生时钟。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files:
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7887/ads7887.c
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7887/ads7887.h
+public_header: MSPM0_Signal_Contest/12_external_devices/adc/ads7887/ads7887.h
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions:
+- ADS7887_ReadRaw
+- ADS7887_RawToVoltage
+datasheet_status: DOCUMENTED_IN_README
+compile_status: COMPILE_VERIFIED
+board_status: NOT_RUN
+verification:
+  overall: COMPILE_VERIFIED
+  evidence: MSPM0_Signal_Contest/12_external_devices/adc/ads7887/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7887/ads7887.c
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7887/ads7887.h
+- MSPM0_Signal_Contest/12_external_devices/adc/ads7887/README.md
+source_fingerprint_sha256: 8a731d4cc82eda6312667f2ff6b2f1fbabc18f9438e3ff1af2eacf1c34a3438a

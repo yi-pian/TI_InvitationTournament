@@ -1,0 +1,51 @@
+/** PROFILE_05_FREQUENCY: COMP0 event -> TIMG6 capture, UART0. */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+const ProjectConfig = scripting.addModule("/ti/project_config/ProjectConfig");
+const Board = scripting.addModule("/ti/driverlib/Board");
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const CAPTURE = scripting.addModule("/ti/driverlib/CAPTURE", {}, false);
+const SIGNAL_CAPTURE = CAPTURE.addInstance();
+const COMP = scripting.addModule("/ti/driverlib/COMP", {}, false);
+const SIGNAL_COMP = COMP.addInstance();
+const UART = scripting.addModule("/ti/driverlib/UART", {}, false);
+const SIGNAL_UART = UART.addInstance();
+
+ProjectConfig.genLibCMSIS = true;
+
+SIGNAL_CAPTURE.$name = "SIGNAL_CAPTURE";
+SIGNAL_CAPTURE.timerClkSrc = "BUSCLK";
+SIGNAL_CAPTURE.timerClkDiv = 1;
+SIGNAL_CAPTURE.timerPeriod = "2ms";
+SIGNAL_CAPTURE.captSelect = "Trigger";
+SIGNAL_CAPTURE.subscriberPort = "FSUB0";
+SIGNAL_CAPTURE.subscriberChannel = 4;
+SIGNAL_CAPTURE.interrupts = ["CC0_DN", "ZERO"];
+SIGNAL_CAPTURE.peripheral.$assign = "TIMG6";
+
+SIGNAL_COMP.$name = "SIGNAL_COMP";
+SIGNAL_COMP.selectOutputFilter = "DL_COMP_FILTER_DELAY_1200";
+SIGNAL_COMP.compMode = "DL_COMP_MODE_ULP";
+SIGNAL_COMP.hysteresis = "DL_COMP_HYSTERESIS_30";
+SIGNAL_COMP.vSource = "DL_COMP_REF_SOURCE_VDDA_DAC";
+SIGNAL_COMP.controlSelect = "DL_COMP_DAC_CONTROL_SW";
+SIGNAL_COMP.pubChanID = 4;
+SIGNAL_COMP.enabledEvents = ["DL_COMP_EVENT_OUTPUT_EDGE"];
+SIGNAL_COMP.channelEnable = ["NEG"];
+SIGNAL_COMP.peripheral.$assign = "COMP0";
+SIGNAL_COMP.peripheral.compPinNeg0.$assign = "PA27";
+
+SIGNAL_UART.$name = "SIGNAL_UART";
+SIGNAL_UART.profile = "CONFIG_PROFILE_1";
+SIGNAL_UART.peripheral.$assign = "UART0";
+SIGNAL_UART.uartClkSrc = "BUSCLK";
+SIGNAL_UART.targetBaudRate = 115200;
+SIGNAL_UART.enableInternalLoopback = false;
+SIGNAL_UART.enableFIFO = true;
+SIGNAL_UART.peripheral.txPin.$assign = "PA10";
+SIGNAL_UART.peripheral.rxPin.$assign = "PA11";
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;

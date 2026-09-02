@@ -1,0 +1,126 @@
+schema_version: 1
+module_id: correlation
+name: Correlation：找两路最像时要错开多少点
+path: MSPM0_Signal_Contest/04_dsp/correlation
+category: algorithm/04_dsp
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 目标：“在两路等长波形中搜索 B 相对 A 的最佳 lag 和归一化相关系数”。
+use_when: 两路波形相似但非纯正弦、有谐波、需要对齐/相位。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 等长 float A/B、count、max_lag<count、容量2L+1输出。
+output: '[-L,+L]系数；best positive lag/coefficient；best absolute 用于可能反相的诊断。'
+unit:
+- samples
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/correlation
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/correlation/signal_correlation.c
+- MSPM0_Signal_Contest/04_dsp/correlation/signal_correlation.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/correlation/signal_correlation.h
+main_apis:
+- SignalCorrelation_Process
+contest_parameters:
+- best_lag_samples
+- best_coefficient
+- best_absolute_lag_samples
+- best_absolute_coefficient
+buffer:
+  input_type: two float arrays with equal count
+  output_type: correlation coefficients + signed best lag in samples
+  input_length: same N for A/B
+  output_length: lag range selected by caller
+  in_place: false
+  workspace: caller result storage as declared in header
+  ram_estimate: depends on requested lag range
+  n_restrictions: same sampling origin/Fs; lag convention must be preserved
+next_modules:
+- phase
+- channel_delay_calibration
+reference_application:
+- MSPM0_Signal_Contest/08_applications/dual_channel_phase_meter/main.c
+verified_example: MSPM0_Signal_Contest/08_applications/dual_channel_phase_meter/main.c
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/correlation/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/correlation/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/correlation/README.md
+- MSPM0_Signal_Contest/04_dsp/correlation/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/correlation/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/correlation/signal_correlation.c
+- MSPM0_Signal_Contest/04_dsp/correlation/signal_correlation.h
+source_fingerprint_sha256: 55b4d8778eddf476a7bf26df5e60a9bd5bc44775b0c0424acff30e0176def806
+implementation_backend: CMSIS_DSP_PLUS_CONTEST_GLUE

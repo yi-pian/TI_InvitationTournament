@@ -1,0 +1,120 @@
+schema_version: 1
+module_id: peak_detect
+name: PeakDetect：在指定频带找最大 bin
+path: MSPM0_Signal_Contest/04_dsp/peak_detect
+category: algorithm/04_dsp
+implementation_type: RECIPE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: PC_VERIFIED
+purpose: 适合： 已有 magnitude/energy 数组，要在已知索引范围找最大值。它返回 bin index，不直接知道 Fs。
+use_when: 已知搜索频带内找基波/杂散候选。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: const float magnitude[bin_count]，以及已经换算好的搜索起点/终点 bin。
+output: peak_index（bin）与 peak_value（输入谱单位）。
+unit:
+- Hz
+- dB
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/peak_detect
+selectable: false
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/peak_detect/signal_peak_detect.c
+- MSPM0_Signal_Contest/04_dsp/peak_detect/signal_peak_detect.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/peak_detect/signal_peak_detect.h
+main_apis:
+- SignalPeakDetect_Process
+contest_parameters:
+- peak_index
+- peak_value
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/peak_detect/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/peak_detect/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/peak_detect/README.md
+- MSPM0_Signal_Contest/04_dsp/peak_detect/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/04_dsp/peak_detect/signal_peak_detect.c
+- MSPM0_Signal_Contest/04_dsp/peak_detect/signal_peak_detect.h
+source_fingerprint_sha256: 7176e5c1f219b614c4cb014e108784f4c51d40cea7ecaccc5d8163275fd604d3

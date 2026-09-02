@@ -1,0 +1,4 @@
+﻿"application","target","profile","sysconfig","compile","link","flash_used_bytes","flash_remaining_bytes","sram_used_bytes_including_stack","stack_reserved_bytes","sram_remaining_bytes","maturity"
+"Frequency Meter A","frequency_meter_a_round1","PROFILE_05_FREQUENCY","PASS","PASS","PASS","2368","128704","780","512","31988","BUILD_VERIFIED"
+"Frequency Meter B","frequency_meter_b_round1","PROFILE_01_ADC_CAPTURE","PASS","PASS","PASS","6256","124816","14896","512","17872","BUILD_VERIFIED"
+"Frequency Meter C","frequency_meter_c_round1","PROFILE_01_ADC_CAPTURE","PASS","PASS","PASS","16560","114512","16936","512","15832","BUILD_VERIFIED"

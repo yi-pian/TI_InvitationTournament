@@ -1,0 +1,33 @@
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+const ProjectConfig = scripting.addModule("/ti/project_config/ProjectConfig");
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const MATHACL = scripting.addModule("/ti/driverlib/MATHACL");
+const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
+
+const pllClk2xDivider = system.clockTree["PLL_CLK2X_DIV"];
+pllClk2xDivider.divideValue = 4;
+const pllPredivider = system.clockTree["PLL_PDIV"];
+pllPredivider.divideValue = 2;
+const pllMultiplier = system.clockTree["PLL_QDIV"];
+pllMultiplier.multiplyValue = 10;
+const highSpeedClockMux = system.clockTree["HSCLKMUX"];
+highSpeedClockMux.inputSelect = "HSCLKMUX_SYSPLL2X";
+const ulpClockDivider = system.clockTree["UDIV"];
+ulpClockDivider.divideValue = 2;
+
+ProjectConfig.genLibCMSIS = true;
+ProjectConfig.genLibIQ = true;
+ProjectConfig.genLibIQVersion = "MATHACL";
+
+/* Exact 80 MHz pattern from the SDK LP_MSPM0G3507 sysctl_mclk_syspll example. */
+SYSCTL.MCLKSource = "HSCLK";
+SYSCTL.SYSPLL_CLK2XEn = true;
+SYSCTL.SYSPLL_CLK2XDiv = 1;
+SYSCTL.HSCLKSource = "SYSPLLCLK2X";
+SYSCTL.validateClkStatus = true;
+SYSCTL.SYSPLL_Qdiv = 5;
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;

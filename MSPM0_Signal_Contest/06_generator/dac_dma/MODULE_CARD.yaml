@@ -1,0 +1,187 @@
+schema_version: 1
+module_id: dac_dma
+name: DAC DMA：连续输出周期采样表
+path: MSPM0_Signal_Contest/06_generator/dac_dma
+category: 06_generator
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 管理调用者提供的 DAC DMA 平台启动/停止接口。
+use_when: 当你已经有一组 uint16_t samples[]，要由 Timer 定速、DMA 自动连续送到 MSPM0G3507 DAC 时使用。只输出一个固定电压时不要复制本模块，直接 SysConfig
+  + DL_DAC12_output12(...)。 > 不知道 DAC Clock、Timer event、Fupdate 和 Fout 的区别，先读 Clock/Timer/ADC/DAC 保姆教程；不知道该选多少更新率，读
+  采样率选择指南；现场回算看 一页速查。固定 DC 不需要 Timer/DMA。 比赛主入口是 signal_dac_dma_mspm0g3507.*，不需要 Application Platform
+  或 callback。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: const uint16_t samples[count]，每个值为 12-bit DAC code（通常 0～4095）。
+output: DAC0 引脚上的模拟阶梯波；示例输出脚为 PA15。
+unit:
+- samples
+- V
+requires_sysconfig: true
+hardware_resources:
+- DAC12
+- DMA
+- Event Fabric
+- Timer
+canonical_path: MSPM0_Signal_Contest/06_generator/dac_dma
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - DAC12
+  - DMA
+  - EVENT
+  - TIMER
+  optional_peripherals: []
+  instance_requirements:
+  - role: DAC
+    type: DAC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: DMA
+    type: DMA
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: EVENT
+    type: EVENT
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: TIMER
+    type: TIMER
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: true
+    roles:
+    - transfer_channel
+    constraints:
+    - channel must not collide
+  timer:
+    required: true
+    roles:
+    - sample_or_capture_trigger
+    constraints:
+    - preserve existing timer owners
+  event:
+    required: true
+    roles:
+    - peripheral_trigger
+    constraints:
+    - route must match selected instance
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols:
+  - SIGNAL_DAC_DMA
+  - SIGNAL_DAC_TIMER
+  dependencies: &id001 []
+  constraints:
+  - DAC update timer, event route, and DMA channel must remain matched.
+  user_selectable_fields: []
+  profile_evidence:
+  - MSPM0_Signal_Contest/09_examples/platform_closure/dac_dma_minimum/dac_dma_minimum.syscfg
+  resource_claims:
+  - type: DAC12
+    role: DAC
+    shareable: false
+  - type: DMA
+    role: DMA
+    shareable: false
+  - type: EVENT
+    role: EVENT
+    shareable: true
+  - type: TIMER
+    role: TIMER
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma.c
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma.h
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.c
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.h
+dependency_headers:
+- signal_status.h
+- ti_msp_dl_config.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma.h
+main_apis:
+- SignalDACDMA_Init
+- SignalDACDMA_Start
+- SignalDACDMA_Stop
+- SignalDACDMA_GetModuleStatus
+contest_parameters:
+- context
+- start
+- stop
+- state
+- active_count
+- repeat
+buffer:
+  input_type: const uint16_t dac_codes[N]
+  output_type: continuous DAC sample stream
+  input_length: count from current header
+  output_length: hardware stream; repeat policy is configuration
+  in_place: false
+  workspace: caller sample buffer must remain valid while DMA runs
+  ram_estimate: 2*N bytes owned by caller plus constant state
+  n_restrictions: code range and repeat boundary must match DAC configuration
+next_modules: []
+reference_application:
+- MSPM0_Signal_Contest/09_examples/platform_closure/dac_dma_minimum/main.c
+- MSPM0_Signal_Contest/08_applications/dds_generator/README.md
+verified_example: MSPM0_Signal_Contest/09_examples/platform_closure/dac_dma_minimum/main.c
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/06_generator/dac_dma/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/06_generator/dac_dma/MODULE_CARD.md
+- MSPM0_Signal_Contest/06_generator/dac_dma/README.md
+- MSPM0_Signal_Contest/06_generator/dac_dma/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/dac_dma/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma.c
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma.h
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.c
+- MSPM0_Signal_Contest/06_generator/dac_dma/signal_dac_dma_mspm0g3507.h
+source_fingerprint_sha256: c80723f0a2c7b4fb98f0edd35e27538616b1f6525d6419aed4def4e71d6aae75

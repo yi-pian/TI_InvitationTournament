@@ -1,0 +1,123 @@
+schema_version: 1
+module_id: vpp
+name: Vpp：峰峰值测量
+path: MSPM0_Signal_Contest/03_measurement/vpp
+category: algorithm/03_measurement
+implementation_type: RECIPE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: PC_VERIFIED
+purpose: 适合： 已有一帧 float voltage_v[N]，题目要离散样本的最大值、最小值和 Vpp。
+use_when: 测正弦、方波、三角波的电压摆幅，或快速判断输出范围。它不要求波形一定是正弦。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: const float voltage_v[N]；若仍是 ADC code，先接 ADC To Voltage。
+output: amplitude_vpp、min_voltage_v、max_voltage_v，全部单位 V。
+unit:
+- ADC code
+- samples
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/03_measurement/vpp
+selectable: false
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/03_measurement/vpp/signal_vpp.c
+- MSPM0_Signal_Contest/03_measurement/vpp/signal_vpp.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/03_measurement/vpp/signal_vpp.h
+main_apis:
+- SignalVPP_Process
+contest_parameters:
+- amplitude_vpp
+- min_voltage_v
+- max_voltage_v
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/03_measurement/vpp/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/03_measurement/vpp/MODULE_CARD.md
+- MSPM0_Signal_Contest/03_measurement/vpp/README.md
+- MSPM0_Signal_Contest/03_measurement/vpp/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/03_measurement/vpp/signal_vpp.c
+- MSPM0_Signal_Contest/03_measurement/vpp/signal_vpp.h
+source_fingerprint_sha256: 0a23c875bbc560dcbb6943d135e483dbe3b79c95c250ff9541d186c160d1b6ad
+implementation_backend: CMSIS_DSP

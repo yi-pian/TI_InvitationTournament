@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+    <applicability>
+        <when><context deviceFamily="ARM" deviceId="MSPM0G3507" /></when>
+    </applicability>
+    <project
+        name="spectrum_analyzer_q31"
+        configurations="Debug"
+        toolChain="TICLANG"
+        connection="TIXDS110_Connection.xml"
+        device="MSPM0G3507"
+        ignoreDefaultDeviceSettings="true"
+        ignoreDefaultCCSSettings="true"
+        products="MSPM0-SDK;sysconfig"
+        compilerBuildOptions="
+            -I${PROJECT_ROOT}
+            -I${PROJECT_ROOT}/${ConfigName}
+            -I${APP_SOURCE_ROOT}
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/01_bsp/common
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/02_acquisition/adc_dma
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/ac_rms
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/adc_to_voltage
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/03_measurement/common
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/03_measurement/frequency_zero_cross
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/mean
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/minmax
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/03_measurement/phase
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/rms
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/vpp
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/04_dsp/correlation
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/fft
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/fft_magnitude
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/04_dsp/harmonic
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/peak_detect
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/remove_dc
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/04_dsp/thd
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/04_dsp/window
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/04_dsp/window/hann
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/05_precision/fft_parabolic_interpolation
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/05_precision/multi_bin_energy
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/05_precision/multi_cycle_average
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/05_precision/window_gain_correction
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/05_precision/zero_cross_interpolation
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/08_applications/common
+            -DARM_MATH_CM0
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/DSP/Include
+            -DSIGNAL_FFT_BACKEND=2
+            -fno-strict-aliasing
+            -std=c11
+            -O2
+            -g
+            -Wall
+            -Werror
+            -ffunction-sections
+            -fdata-sections
+            @device.opt
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/Core/Include
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -mcpu=cortex-m0plus
+            -march=thumbv6m
+            -mfloat-abi=soft
+            -mthumb
+        "
+        linkerBuildOptions="
+            -ldevice.cmd.genlibs
+            -L${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -L${PROJECT_ROOT}
+            -L${PROJECT_BUILD_DIR}/syscfg
+            -Wl,--rom_model
+            -Wl,--warn_sections
+            -L${CG_TOOL_ROOT}/lib
+            -llibc.a
+        "
+        sysConfigBuildOptions="
+            --output .
+            --product ${COM_TI_MSPM0_SDK_INSTALL_DIR}/.metadata/product.json
+            --compiler ticlang
+        "
+        sourceLookupPath="${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/ti/driverlib"
+        description="CMSIS-ready integration, Q31 FFT selected: Spectrum Analyzer">
+        <pathVariable name="APP_SOURCE_ROOT" path="../" scope="project"/>
+        <property name="buildProfile" value="release"/>
+        <property name="isHybrid" value="true"/>
+        <file path="../main.c" openOnCreation="false" excludeFromBuild="false" action="copy" />
+        <file path="../signal_config.h" openOnCreation="false" excludeFromBuild="false" action="copy" />
+        <file path="../README.md" openOnCreation="false" excludeFromBuild="false" action="copy" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/09_examples/integration_profiles/PROFILE_01_ADC_CAPTURE/profile.syscfg" openOnCreation="true" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/08_applications/common/signal_integration.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/02_acquisition/adc_dma/signal_adc_dma.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/adc_to_voltage/signal_adc_to_voltage.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/mean/signal_mean.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/minmax/signal_minmax.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/vpp/signal_vpp.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/rms/signal_rms.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/03_measurement/ac_rms/signal_ac_rms.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/03_measurement/frequency_zero_cross/signal_zero_cross.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/03_measurement/phase/signal_phase.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/remove_dc/signal_remove_dc.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/04_dsp/window/signal_window.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/04_dsp/window/hann/signal_hann.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/fft/signal_fft.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/fft_magnitude/signal_fft_magnitude.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/peak_detect/signal_peak_detect.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/04_dsp/correlation/signal_correlation.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/04_dsp/harmonic/signal_harmonic.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/04_dsp/thd/signal_thd.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/05_precision/zero_cross_interpolation/signal_zero_cross_interpolation.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/05_precision/multi_cycle_average/signal_multi_cycle_average.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/05_precision/fft_parabolic_interpolation/signal_fft_parabolic_interpolation.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/05_precision/window_gain_correction/signal_window_gain_correction.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/05_precision/multi_bin_energy/signal_multi_bin_energy.c" targetDirectory="sources/algorithm" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    </project>
+</projectSpec>

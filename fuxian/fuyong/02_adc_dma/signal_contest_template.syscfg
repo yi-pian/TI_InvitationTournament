@@ -1,0 +1,61 @@
+/** PROFILE_01_ADC_CAPTURE: PA25/ADC0.2 -> DMA_CH0, TIMG0 trigger, UART0. */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+const ProjectConfig = scripting.addModule("/ti/project_config/ProjectConfig");
+const Board = scripting.addModule("/ti/driverlib/Board");
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const ADC12 = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const SIGNAL_ADC = ADC12.addInstance();
+const TIMER = scripting.addModule("/ti/driverlib/TIMER", {}, false);
+const SIGNAL_SAMPLE_TIMER = TIMER.addInstance();
+const UART = scripting.addModule("/ti/driverlib/UART", {}, false);
+const SIGNAL_UART = UART.addInstance();
+
+ProjectConfig.genLibCMSIS = true;
+
+SIGNAL_ADC.$name = "SIGNAL_ADC";
+SIGNAL_ADC.sampClkSrc = "DL_ADC12_CLOCK_ULPCLK";
+SIGNAL_ADC.adcMem0chansel = "DL_ADC12_INPUT_CHAN_2";
+SIGNAL_ADC.sampleTime0 = "62.5ns";
+SIGNAL_ADC.powerDownMode = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+SIGNAL_ADC.trigSrc = "DL_ADC12_TRIG_SRC_EVENT";
+SIGNAL_ADC.repeatMode = true;
+SIGNAL_ADC.adcMem0trig = "DL_ADC12_TRIGGER_MODE_TRIGGER_NEXT";
+SIGNAL_ADC.subChanID = 1;
+SIGNAL_ADC.configureDMA = true;
+SIGNAL_ADC.sampCnt = 1;
+SIGNAL_ADC.enabledDMATriggers = ["DL_ADC12_DMA_MEM0_RESULT_LOADED"];
+SIGNAL_ADC.enabledInterrupts = ["DL_ADC12_INTERRUPT_DMA_DONE"];
+SIGNAL_ADC.peripheral.$assign = "ADC0";
+SIGNAL_ADC.peripheral.adcPin2.$assign = "PA25";
+SIGNAL_ADC.DMA_CHANNEL.$name = "SIGNAL_ADC_DMA";
+SIGNAL_ADC.DMA_CHANNEL.peripheral.$assign = "DMA_CH0";
+SIGNAL_ADC.DMA_CHANNEL.addressMode = "f2b";
+SIGNAL_ADC.DMA_CHANNEL.srcLength = "HALF_WORD";
+SIGNAL_ADC.DMA_CHANNEL.dstLength = "HALF_WORD";
+SIGNAL_ADC.DMA_CHANNEL.transferMode = "SINGLE";
+
+SIGNAL_SAMPLE_TIMER.$name = "SIGNAL_SAMPLE_TIMER";
+SIGNAL_SAMPLE_TIMER.timerClkSrc = "BUSCLK";
+SIGNAL_SAMPLE_TIMER.timerClkDiv = 1;
+SIGNAL_SAMPLE_TIMER.timerClkPrescale = 1;
+SIGNAL_SAMPLE_TIMER.timerPeriod = "10us";
+SIGNAL_SAMPLE_TIMER.timerMode = "PERIODIC";
+SIGNAL_SAMPLE_TIMER.event1PublisherChannel = 1;
+SIGNAL_SAMPLE_TIMER.event1ControllerInterruptEn = ["ZERO_EVENT"];
+SIGNAL_SAMPLE_TIMER.peripheral.$assign = "TIMG0";
+
+SIGNAL_UART.$name = "SIGNAL_UART";
+SIGNAL_UART.profile = "CONFIG_PROFILE_1";
+SIGNAL_UART.peripheral.$assign = "UART0";
+SIGNAL_UART.uartClkSrc = "BUSCLK";
+SIGNAL_UART.targetBaudRate = 115200;
+SIGNAL_UART.enableInternalLoopback = false;
+SIGNAL_UART.enableFIFO = true;
+SIGNAL_UART.peripheral.txPin.$assign = "PA10";
+SIGNAL_UART.peripheral.rxPin.$assign = "PA11";
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;

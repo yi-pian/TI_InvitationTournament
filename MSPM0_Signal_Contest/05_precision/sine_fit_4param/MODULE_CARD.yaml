@@ -1,0 +1,130 @@
+schema_version: 1
+module_id: sine_fit_4param
+name: Sine Fit 4-Param：窄频带搜索频率再拟合正弦
+path: MSPM0_Signal_Contest/05_precision/sine_fit_4param
+category: algorithm/05_precision
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 比赛复制清单： signal_sine_fit_4param.c、signal_sine_fit_4param.h、05_precision/sine_fit_3param/signal_sine_fit_3param.c、signal_sine_fit_3param.h、03_measurement/common/signal_algorithm_status.h。无
+  SysConfig/Pin；先用 FFT/过零获得窄初值。
+use_when: 已知是单一正弦，粗频率已经由 FFT/过零得到，且希望进一步联合优化频率和幅相时。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: float V、count≥4、initial_frequency_hz、search_half_width_hz、Fs、6~40 次迭代。
+output: frequency_hz、实际迭代次数，以及 3 参数拟合的幅值/相位/DC/residual。
+unit:
+- Hz
+- samples
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/05_precision/sine_fit_4param
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001
+  - sine_fit_3param
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/05_precision/sine_fit_3param/signal_sine_fit_3param.h
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/signal_sine_fit_4param.c
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/signal_sine_fit_4param.h
+dependency_headers:
+- signal_algorithm_status.h
+- signal_sine_fit_3param.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/05_precision/sine_fit_3param/signal_sine_fit_3param.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/05_precision/sine_fit_4param/signal_sine_fit_4param.h
+main_apis:
+- SignalSineFit4Param_Process
+contest_parameters:
+- initial_frequency_hz
+- search_half_width_hz
+- sample_rate_hz
+- iteration_count
+- frequency_hz
+- waveform
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/05_precision/sine_fit_4param/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/MODULE_CARD.md
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/README.md
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/signal_sine_fit_4param.c
+- MSPM0_Signal_Contest/05_precision/sine_fit_4param/signal_sine_fit_4param.h
+source_fingerprint_sha256: 9a9a946161039d5485f74dcd736a4ccbd45a6a935ccb9214084a3f24f150d018

@@ -1,0 +1,21 @@
+# Module Assembly Checklist
+
+- [ ] 找到每个模块 README
+- [ ] 找到每个模块主 `.h`
+- [ ] 知道每个输入的 C 类型、长度和单位
+- [ ] 知道每个输出的 C 类型、长度和单位
+- [ ] 在 Interface Matrix 确认是否需要 Adapter
+- [ ] 确认初始化函数和顺序
+- [ ] 确认处理函数和顺序
+- [ ] 列出所有 Buffer 长度、元素类型和 workspace capacity
+- [ ] 正式 `.c` 从唯一模块路径加入，没有复制源码
+- [ ] include 对应 `.h`，没有直接调用 CMSIS/IQMath/MATHACL
+- [ ] Fs/N/VREF/范围/阈值/窗口/DDS 参数已集中修改
+- [ ] 若资源变化，已修改 `.syscfg` 而不是生成文件
+- [ ] 检查 ADC/DAC/Timer/DMA/Event/IRQ/pin 冲突
+- [ ] SysConfig generate PASS；warning 已单独记录
+- [ ] 所有 translation units compile PASS
+- [ ] final application link PASS，已有 `.out` 和 `.map`
+- [ ] map 中 Flash/SRAM/stack/大 Buffer/余量已检查
+- [ ] PC truth 或已知输入结果已验证
+- [ ] 未实板项目仍标 `PENDING_BOARD`

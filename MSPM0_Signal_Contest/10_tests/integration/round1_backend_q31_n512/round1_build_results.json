@@ -1,0 +1,202 @@
+{
+    "date":  "2026-08-08",
+    "compiler":  "TI Arm Clang Compiler 5.1.1.LTS",
+    "compiler_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmclang.exe",
+    "tiarmsize_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmsize.exe",
+    "sysconfig_path":  "D:\\TI\\CCS\\ccs\\utils\\sysconfig_1.28.0\\sysconfig_cli.bat",
+    "sdk_root":  "C:\\TI\\mspm0_sdk_2_11_00_07",
+    "algorithm_root":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest",
+    "fft_backend":  2,
+    "sample_count_override":  512,
+    "target_count":  4,
+    "results":  [
+                    {
+                        "application":  "Frequency Meter C",
+                        "target":  "frequency_meter_c_round1",
+                        "profile":  "PROFILE_01_ADC_CAPTURE",
+                        "projectspec":  "08_applications/frequency_meter/ticlang/frequency_meter_c_round1_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  27,
+                        "fft_backend":  2,
+                        "sample_count_override":  512,
+                        "flash_used_bytes":  89368,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  41704,
+                        "sram_used_bytes_including_stack":  8744,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  8232,
+                        "sram_remaining_bytes":  24024,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_fft",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_voltage",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_magnitude",
+                                                  "bytes":  1028
+                                              },
+                                              {
+                                                  "name":  "g_raw",
+                                                  "bytes":  1024
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\frequency_meter_c_round1\\frequency_meter_c_round1.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\frequency_meter_c_round1\\frequency_meter_c_round1.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "Spectrum Analyzer",
+                        "target":  "spectrum_analyzer_round1",
+                        "profile":  "PROFILE_01_ADC_CAPTURE",
+                        "projectspec":  "08_applications/spectrum_analyzer/ticlang/spectrum_analyzer_round1_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  27,
+                        "fft_backend":  2,
+                        "sample_count_override":  512,
+                        "flash_used_bytes":  89304,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  41768,
+                        "sram_used_bytes_including_stack":  8853,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  8341,
+                        "sram_remaining_bytes":  23915,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_fft",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_voltage",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_magnitude",
+                                                  "bytes":  1028
+                                              },
+                                              {
+                                                  "name":  "g_raw",
+                                                  "bytes":  1024
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\spectrum_analyzer_round1\\spectrum_analyzer_round1.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\spectrum_analyzer_round1\\spectrum_analyzer_round1.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "THD Analyzer",
+                        "target":  "harmonic_thd_analyzer_round1",
+                        "profile":  "PROFILE_01_ADC_CAPTURE",
+                        "projectspec":  "08_applications/harmonic_thd_analyzer/ticlang/harmonic_thd_analyzer_round1_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  27,
+                        "fft_backend":  2,
+                        "sample_count_override":  512,
+                        "flash_used_bytes":  90776,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  40296,
+                        "sram_used_bytes_including_stack":  8769,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  8257,
+                        "sram_remaining_bytes":  23999,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_fft",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_voltage",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_magnitude",
+                                                  "bytes":  1028
+                                              },
+                                              {
+                                                  "name":  "g_raw",
+                                                  "bytes":  1024
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\harmonic_thd_analyzer_round1\\harmonic_thd_analyzer_round1.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\harmonic_thd_analyzer_round1\\harmonic_thd_analyzer_round1.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "Phase Meter",
+                        "target":  "dual_channel_phase_meter_round1",
+                        "profile":  "PROFILE_02_DUAL_ADC",
+                        "projectspec":  "08_applications/dual_channel_phase_meter/ticlang/dual_channel_phase_meter_round1_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  27,
+                        "fft_backend":  2,
+                        "sample_count_override":  512,
+                        "flash_used_bytes":  89168,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  41904,
+                        "sram_used_bytes_including_stack":  15392,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  14880,
+                        "sram_remaining_bytes":  17376,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_fft_b",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_fft_a",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_voltage_b",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_voltage_a",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_raw_b",
+                                                  "bytes":  1024
+                                              },
+                                              {
+                                                  "name":  "g_raw_a",
+                                                  "bytes":  1024
+                                              },
+                                              {
+                                                  "name":  "g_correlation",
+                                                  "bytes":  516
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\dual_channel_phase_meter_round1\\dual_channel_phase_meter_round1.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\round1_backend_q31_n512\\dual_channel_phase_meter_round1\\dual_channel_phase_meter_round1.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    }
+                ]
+}

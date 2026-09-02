@@ -1,0 +1,320 @@
+schema_version: 1
+selection_rule: exact normalized alias first; otherwise highest trigger coverage; load only selected documents
+algorithm_boundary: numeric algorithms remain in MSPM0_Signal_Contest; this mapping selects analog and measurement knowledge
+tasks:
+  - task_id: generator_termination
+    aliases:
+      - 为什么信号发生器1Vpp接1M示波器变成2Vpp
+      - 信号发生器显示1V实际为什么2V
+    triggers: [信号发生器, 1Vpp, 1M, 2Vpp, 50Ω, High-Z]
+    extract: [generator_load_setting, scope_input_impedance, displayed_amplitude_unit, external_termination]
+    signal_chain: [50ohm_thevenin_source, cable, load_termination]
+    documents:
+      - analog/impedance/generator_scope_50ohm.md
+      - analog/signal_generator/amplitude_termination.md
+      - analog/quick_reference/impedance_quick.md
+    recipes: []
+    requires_datasheet: false
+
+  - task_id: multiple_loads
+    aliases:
+      - 一个信号同时接1MΩ和50Ω模块为什么幅度下降
+      - 接两个50Ω负载为什么幅度变化
+    triggers: [一个信号, 多个模块, 1MΩ, 50Ω, 并联负载, 幅度下降]
+    extract: [source_impedance, each_load_impedance, cable_and_termination, required_fanout]
+    signal_chain: [thevenin_source, parallel_load_equivalent, buffer_or_distribution]
+    documents:
+      - analog/fundamentals/thevenin_load_effect.md
+      - analog/impedance/multiple_loads_and_buffer.md
+    recipes: []
+    requires_datasheet: false
+
+  - task_id: opamp_selection
+    aliases:
+      - 500kHz 2Vpp增益10倍运放怎么选
+      - 运放应该怎么选
+    triggers: [运放选型, GBW, SR, 增益, Vpp, 输出摆幅]
+    extract: [fmax, vin_vpp, closed_loop_gain, supply, load, allowed_error]
+    signal_chain: [range_check, noise_gain, gbw_check, slew_check, load_and_error_check]
+    documents:
+      - analog/opamp/selection.md
+      - analog/device_selection/opamp_requirements.md
+      - analog/quick_reference/opamp_selection_quick.md
+    recipes: []
+    requires_datasheet: true
+
+  - task_id: slew_rate_design
+    aliases:
+      - 500kHz、4Vpp正弦波至少需要多大压摆率
+      - 500kHz 4Vpp正弦波至少需要多大压摆率
+    triggers: [压摆率, SR, 正弦波, Vpp, 高频]
+    extract: [frequency_hz, output_vpp, margin]
+    signal_chain: [calculate_peak, calculate_dvdt, compare_datasheet_minimum, verify_waveform]
+    documents:
+      - analog/opamp/slew_rate.md
+      - analog/quick_reference/opamp_selection_quick.md
+    recipes: []
+    requires_datasheet: true
+
+  - task_id: filter_close_interferer
+    aliases:
+      - 1MHz干扰比500kHz目标信号强模拟前端怎么滤
+      - 10kHz到500kHz目标且1MHz抑制40dB怎么设计
+    triggers: [1MHz干扰, 500kHz目标, 40dB, 滤波器阶数, 抗混叠]
+    extract: [passband_edge, passband_ripple, stopband_edge, stopband_attenuation, adc_full_scale]
+    signal_chain: [overload_protection, analog_lowpass, adc, digital_filter_or_lockin]
+    documents:
+      - analog/filter/case_500k_1m.md
+      - analog/filter/order_estimation.md
+      - analog/filter/anti_alias.md
+    recipes: [measurement_weak_signal_amplitude]
+    requires_datasheet: false
+
+  - task_id: adc_bipolar_range
+    aliases:
+      - ADC输入0～3.3V信号±5V怎么办
+      - ADC输入0到3.3V信号正负5V怎么办
+    triggers: [ADC, 0～3.3V, ±5V, 衰减, 偏置, 钳位]
+    extract: [adc_range, vin_min_max, dc_information_required, bandwidth, fault_voltage]
+    signal_chain: [limit_and_protect, attenuate_and_level_shift, buffer, anti_alias, adc]
+    documents:
+      - analog/adc_frontend/range_shift_pm5_to_3v3.md
+      - analog/adc_frontend/protection.md
+      - analog/quick_reference/adc_frontend_quick.md
+    recipes: [recipe_adc_to_voltage]
+    requires_datasheet: true
+
+  - task_id: ad9226_frontend
+    aliases:
+      - AD9226输入范围和驱动要注意什么
+      - AD9226前端怎么设计
+    triggers: [AD9226, 65MSPS, 差分输入, 并行ADC, ADC驱动]
+    extract: [input_span, common_mode, sample_rate, interface_receiver, clock, desired_snr_sfdr]
+    signal_chain: [protection, gain_or_attenuation, differential_driver, reference, adc, parallel_capture]
+    documents:
+      - analog/adc_frontend/ad9226.md
+      - analog/adc_frontend/adc_input_drive.md
+      - analog/device_selection/board_vs_external.md
+    recipes: []
+    requires_datasheet: true
+
+  - task_id: dds_selection
+    aliases:
+      - AD9850和AD9833怎么选
+      - 什么时候用外置DDS
+    triggers: [AD9850, AD9833, 外置DDS, 软件DDS, 频率源]
+    extract: [fmax, waveform_set, phase_resolution, spectral_purity, interface, amplitude_control]
+    signal_chain: [dds_core, internal_dac, reconstruction_filter, amplitude_stage, output_buffer]
+    documents:
+      - analog/dac_dds/ad9850_ad9833.md
+      - analog/dac_dds/dds_fundamentals.md
+      - analog/contest_recipes/signal_source.md
+    recipes: []
+    requires_datasheet: true
+
+  - task_id: dds_amplitude
+    aliases:
+      - DDS输出幅度为什么不能任意调
+      - DDS已经带DAC为什么还需要独立DAC
+    triggers: [DDS, 幅度控制, 独立DAC, VGA, 数字电位器]
+    extract: [output_type, target_amplitude_range, frequency_range, load, required_snr]
+    signal_chain: [dds_dac, reconstruction, vga_or_attenuator, fixed_gain_buffer]
+    documents:
+      - analog/dac_dds/amplitude_control.md
+      - analog/dac_dds/dds_fundamentals.md
+      - analog/dac_dds/reconstruction_filter.md
+    recipes: []
+    requires_datasheet: true
+
+  - task_id: automatic_gain
+    aliases:
+      - AD603为什么不能自己把输出稳定到1.2Vpp
+      - 30mVpp到600mVpp如何稳定输出1.2Vpp
+    triggers: [AD603, VGA, AGC, 1.2Vpp, 自动增益, 稳幅]
+    extract: [vin_range, target_window, frequency_range, settling_time, control_interface]
+    signal_chain: [vga, adc_measure, mcu_controller, dac_control, remeasure]
+    documents:
+      - analog/vga_agc/ad603.md
+      - analog/vga_agc/auto_gain_30mv_600mv.md
+      - analog/troubleshooting/agc_oscillation.md
+      - analog/contest_recipes/automatic_gain.md
+    recipes: [measurement_automatic_gain, measurement_vga_calibration]
+    requires_datasheet: true
+
+  - task_id: lm393_edges
+    aliases:
+      - LM393输出边沿慢应该检查什么
+      - 正弦波经过比较器为什么有毛刺
+    triggers: [LM393, 比较器, 边沿慢, 毛刺, 上拉, 迟滞]
+    extract: [output_type, pullup_voltage, load_capacitance, input_overdrive, frequency, hysteresis]
+    signal_chain: [input_bias_and_filter, hysteresis_comparator, pullup_or_pushpull, timer_capture]
+    documents:
+      - analog/comparator/hysteresis_lm393.md
+      - analog/comparator/sine_to_square.md
+      - analog/troubleshooting/comparator_slow_edges.md
+    recipes: [measurement_frequency_period]
+    requires_datasheet: true
+
+  - task_id: vpp_rms_measurement
+    aliases:
+      - 有谐波信号为什么不能用Vpp除以2根号2
+      - 多频信号RMS怎么测
+    triggers: [Vpp, RMS, 真有效值, 谐波, 多频, 峰峰值]
+    extract: [waveform, dc_offset, harmonic_content, sample_rate, noise_and_outliers]
+    signal_chain: [range_and_adc, code_to_voltage, dc_handling, robust_vpp_or_rms]
+    documents:
+      - analog/measurement/vpp_rms.md
+      - analog/fundamentals/signal_units_and_power.md
+    recipes: [measurement_vpp, measurement_rms_ac_dc]
+    requires_datasheet: false
+
+  - task_id: frequency_measurement
+    aliases:
+      - 1Hz到10MHz分别用什么方法测频
+      - 不同频率范围如何测频
+    triggers: [频率测量, 计数法, 周期法, 等精度, FFT, Timer Capture]
+    extract: [frequency_range, waveform, amplitude, snr, error, update_rate]
+    signal_chain: [conditioning_or_adc, capture_or_fft, multi_cycle_average, calibration]
+    documents:
+      - analog/measurement/frequency.md
+      - analog/comparator/sine_to_square.md
+    recipes: [measurement_frequency_period]
+    requires_datasheet: false
+
+  - task_id: phase_measurement
+    aliases:
+      - 测相位为什么要校准通道延时
+      - 双通道ADC怎么测相位
+    triggers: [相位测量, 通道延时, FFT相位, 互相关, Lissajous]
+    extract: [frequency, channel_count, sampling_skew, frontend_filters, phase_error]
+    signal_chain: [dual_channel_frontend, synchronous_adc, phase_estimator, delay_compensation]
+    documents:
+      - analog/measurement/phase.md
+      - analog/contest_recipes/frequency_phase_meter.md
+    recipes: [measurement_phase_delay, measurement_multichannel_delay_compensation]
+    requires_datasheet: false
+
+  - task_id: frequency_response
+    aliases:
+      - 如何自动扫频测Bode图
+      - 如何测放大器-3dB带宽
+    triggers: [扫频, Bode图, 频率响应, -3dB, DDS]
+    extract: [frequency_span, points, gain_phase_error, settle_time, reference_channel]
+    signal_chain: [dds, dut, dual_channel_adc, complex_ratio, thru_compensation]
+    documents:
+      - analog/measurement/frequency_response.md
+      - analog/contest_recipes/sweep_analyzer.md
+    recipes: [measurement_frequency_response, measurement_frequency_response_compensation]
+    requires_datasheet: false
+
+  - task_id: opamp_measurement
+    aliases:
+      - 如何测运放单位增益带宽
+      - 压摆率测上升沿还是下降沿
+    triggers: [运放参数, 单位增益带宽, GBW测量, 压摆率测量, SR+, SR-]
+    extract: [dut_supply, stable_gain, expected_bandwidth, expected_slew, load, instrument_bandwidth]
+    signal_chain: [programmable_source, dut_test_network, scope_or_adc, estimator, calibration]
+    documents:
+      - analog/measurement/opamp_gbw.md
+      - analog/measurement/opamp_slew_rate.md
+      - analog/measurement/opamp_dc_parameters.md
+      - analog/contest_recipes/opamp_tester.md
+    recipes: [measurement_bandwidth, measurement_slew_rate]
+    requires_datasheet: true
+
+  - task_id: thd_spectrum
+    aliases:
+      - 如何测THD和各次谐波
+      - 失真度测量前端怎么设计
+    triggers: [THD, 谐波, SFDR, SNR, 频谱分析]
+    extract: [fundamental_range, harmonic_count, dynamic_range, source_residual, adc_sfdr]
+    signal_chain: [low_distortion_frontend, adc, window_fft, multibin_energy, quality_metrics]
+    documents:
+      - analog/measurement/harmonic_thd.md
+      - analog/contest_recipes/thd_analyzer.md
+    recipes: [measurement_harmonic_quality]
+    requires_datasheet: true
+
+  - task_id: impedance_rlc
+    aliases:
+      - 如何测输入输出阻抗和RLC
+      - 电路模型探究装置需要哪些模拟电路
+    triggers: [阻抗测量, RLC, 谐振, 输入电阻, 输出电阻, 电路模型]
+    extract: [impedance_range, frequency_span, complex_or_magnitude, test_level, fixture]
+    signal_chain: [dds, range_resistor_or_bridge, dual_channel_adc, complex_ratio, model_fit]
+    documents:
+      - analog/measurement/impedance_rlc.md
+      - analog/contest_recipes/impedance_meter.md
+      - analog/contest_analysis/representative_problems.md
+    recipes: [measurement_frequency_response]
+    requires_datasheet: false
+
+  - task_id: weak_signal
+    aliases:
+      - 强干扰背景下如何测微弱单音
+      - 同步检波前端怎么设计
+    triggers: [微弱信号, 强干扰, 同步检波, Lock-in, 带噪]
+    extract: [known_target_frequency, minimum_signal, maximum_interferer, response_time, phase_reference]
+    signal_chain: [analog_preselection, low_noise_gain, adc, lockin_or_sinefit]
+    documents:
+      - analog/contest_recipes/weak_signal_detector.md
+      - analog/filter/anti_alias.md
+      - analog/filter/case_500k_1m.md
+    recipes: [measurement_weak_signal_amplitude]
+    requires_datasheet: true
+
+  - task_id: modulation_analysis
+    aliases:
+      - AM FM ASK FSK如何识别和解调
+      - 调制方式识别需要哪些模拟前端
+    triggers: [AM, FM, ASK, FSK, 调制识别, 解调]
+    extract: [carrier_range, baseband_or_symbol_rate, deviation_or_depth, dynamic_range, adjacent_interference]
+    signal_chain: [preselector, lna_vga, adc_or_mixer_if, envelope_or_phase_frequency_features]
+    documents:
+      - analog/contest_recipes/modulation_analyzer.md
+      - analog/contest_analysis/representative_problems.md
+    recipes: []
+    requires_datasheet: true
+
+  - task_id: oscilloscope_diagnosis
+    aliases:
+      - 为什么一个探头接上以后电路就不起振
+      - 为什么示波器看到50Hz和毛刺
+    triggers: [示波器, 探头, 50Hz, 毛刺, 不起振, 方波变圆]
+    extract: [probe_ratio, input_impedance, bandwidth_limit, ground_lead, sample_rate]
+    signal_chain: [node, probe_loading, scope_frontend, acquisition_and_display]
+    documents:
+      - analog/oscilloscope/settings.md
+      - analog/oscilloscope/common_failures.md
+      - analog/quick_reference/oscilloscope_quick.md
+    recipes: []
+    requires_datasheet: false
+
+  - task_id: power_ground
+    aliases:
+      - 为什么接上大负载正负电源开始跳动
+      - 为什么数字屏幕影响模拟信号
+    triggers: [电源跳动, 数字屏幕, 模拟噪声, 地环路, DC/DC, 去耦]
+    extract: [supply_topology, each_rail_load, dynamic_current, grounding, instrument_earth]
+    signal_chain: [source_supply, branch_filtering, local_decoupling, load_return]
+    documents:
+      - analog/power_ground/supply_instability.md
+      - analog/power_ground/decoupling.md
+      - analog/power_ground/grounding.md
+    recipes: []
+    requires_datasheet: true
+
+  - task_id: board_vs_external
+    aliases:
+      - 什么时候MSPM0G3507板载ADC够用什么时候上AD9226
+      - 什么时候板载什么时候外置
+    triggers: [板载资源, 外置ADC, AD9226, MSPM0G3507, STM32F407, STM32H743, ENOB]
+    extract: [resolution_enob, sample_rate_and_bandwidth, input_range, channels, synchronization, sfdr_thd, interface_budget]
+    signal_chain: [requirements, internal_resource_check, interface_and_ram_check, exact_external_datasheet]
+    documents:
+      - analog/device_selection/board_vs_external.md
+      - 00_docs/INTERNAL_VS_EXTERNAL_SELECTION_GUIDE.md
+      - analog/adc_frontend/ad9226.md
+    recipes: []
+    requires_datasheet: true
+

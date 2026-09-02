@@ -1,0 +1,23 @@
+{
+  "vectors": [
+    {
+      "values": [
+        0.1,
+        0.4,
+        2.0,
+        1.2,
+        2.0,
+        0.3
+      ],
+      "first_bin": 1,
+      "last_bin": 5,
+      "sample_rate_hz": 12000.0,
+      "fft_size": 12,
+      "expected": {
+        "bin": 2,
+        "peak_value": 2.0,
+        "frequency_hz": 2000.0
+      }
+    }
+  ]
+}

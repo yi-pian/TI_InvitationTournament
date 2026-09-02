@@ -1,0 +1,119 @@
+schema_version: 1
+module_id: am_modulation
+name: am_modulation
+path: MSPM0_Signal_Contest/06_generator/am_modulation
+category: 06_generator
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 用消息序列和调制度生成 AM 数字样本。
+use_when: 当题目需要“am_modulation”目录对应的公开功能，并且输入数据、单位和硬件资源满足前文约束时使用本模块。若只需要更简单的上游功能、输入尚未准备好，或需要不同的数据模型/外设资源，应先选择相邻模块而不是强行调用本
+  API。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 输入由公开头文件中的指针、长度、配置结构或平台回调给出；所有单位写在字段名中。
+output: 输出写入调用者提供的结果/缓冲区，并返回 signal_result_t；不通过隐藏全局变量传递数据。
+unit:
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/06_generator/am_modulation
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/06_generator/am_modulation/signal_am_modulation.c
+- MSPM0_Signal_Contest/06_generator/am_modulation/signal_am_modulation.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/06_generator/am_modulation/signal_am_modulation.h
+main_apis:
+- SignalAMModulation_Apply
+- SignalAMModulation_GetModuleStatus
+contest_parameters: []
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/06_generator/am_modulation/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/06_generator/am_modulation/MODULE_CARD.md
+- MSPM0_Signal_Contest/06_generator/am_modulation/README.md
+- MSPM0_Signal_Contest/06_generator/am_modulation/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/am_modulation/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/am_modulation/signal_am_modulation.c
+- MSPM0_Signal_Contest/06_generator/am_modulation/signal_am_modulation.h
+source_fingerprint_sha256: 6bed479eb1b3c062e34fc08563efbb41fc41b6330b5b04af8a07ff0ebf6a78f6

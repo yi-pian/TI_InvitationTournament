@@ -1,0 +1,122 @@
+schema_version: 1
+module_id: fft_peak
+name: FFT Peak：离散频谱主峰
+path: MSPM0_Signal_Contest/04_dsp/fft_peak
+category: algorithm/04_dsp
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 这是源码丢失后的 clean reimplementation。它通过正式 PeakDetect 找峰，只额外把 bin 换成 Hz，不复制第二套最大值算法。
+use_when: Use only when the selected route matches this module's documented purpose and constraints.
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: magnitude + search bins + Fs/N → discrete peak + Hz
+output: magnitude + search bins + Fs/N → discrete peak + Hz
+unit:
+- Hz
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/fft_peak
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/fft_peak/signal_fft_peak.c
+- MSPM0_Signal_Contest/04_dsp/fft_peak/signal_fft_peak.h
+- MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/peak_detect/signal_peak_detect.h
+dependency_headers:
+- signal_algorithm_status.h
+- signal_peak_detect.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/11_legacy_compatibility/algorithms/04_dsp/peak_detect/signal_peak_detect.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/fft_peak/signal_fft_peak.h
+main_apis:
+- SignalFFTPeak_Process
+contest_parameters:
+- bin
+- peak_value
+- frequency_hz
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/10_tests/ticlang/source_lost_remaining/build/source_lost_remaining.map
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: BUILD_VERIFIED
+  restored_from_source: false
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/fft_peak/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/fft_peak/README.md
+- MSPM0_Signal_Contest/04_dsp/fft_peak/signal_fft_peak.c
+- MSPM0_Signal_Contest/04_dsp/fft_peak/signal_fft_peak.h
+- MSPM0_Signal_Contest/04_dsp/fft_peak/VERIFICATION.yaml
+source_fingerprint_sha256: b0f61ec4c80245564d457747548c826f5963076e5d106f7481261c733957cbdd

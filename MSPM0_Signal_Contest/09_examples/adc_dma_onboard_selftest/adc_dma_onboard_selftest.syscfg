@@ -1,0 +1,68 @@
+/**
+ * LP-MSPM0G3507 BOARD-ONLY ADC_DMA 验收配置。
+ * TMP6131: J9 1-2 -> PB24 / ADC0.5；J13 必须安装。
+ */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+const Board = scripting.addModule("/ti/driverlib/Board");
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const ADC12 = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const ADC12Instance = ADC12.addInstance();
+const TIMER = scripting.addModule("/ti/driverlib/TIMER", {}, false);
+const TIMERInstance = TIMER.addInstance();
+
+ADC12Instance.$name = "SIGNAL_ADC";
+ADC12Instance.sampClkSrc = "DL_ADC12_CLOCK_ULPCLK";
+ADC12Instance.adcMem0chansel = "DL_ADC12_INPUT_CHAN_5";
+/* TI thermistor 示例使用约 3.25 us，给 10 kΩ 分压源充分建立时间。 */
+ADC12Instance.sampleTime0 = "3.25 us";
+ADC12Instance.powerDownMode = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+ADC12Instance.trigSrc = "DL_ADC12_TRIG_SRC_EVENT";
+/* Keep ADC armed, but require one new Timer event for each conversion. */
+ADC12Instance.repeatMode = true;
+ADC12Instance.adcMem0trig = "DL_ADC12_TRIGGER_MODE_TRIGGER_NEXT";
+ADC12Instance.subChanID = 1;
+ADC12Instance.configureDMA = true;
+ADC12Instance.sampCnt = 1;
+ADC12Instance.enabledDMATriggers = ["DL_ADC12_DMA_MEM0_RESULT_LOADED"];
+ADC12Instance.enabledInterrupts = ["DL_ADC12_INTERRUPT_DMA_DONE"];
+ADC12Instance.peripheral.$assign = "ADC0";
+ADC12Instance.peripheral.adcPin5.$assign = "PB24";
+ADC12Instance.DMA_CHANNEL.$name = "SIGNAL_ADC_DMA";
+ADC12Instance.DMA_CHANNEL.peripheral.$assign = "DMA_CH0";
+ADC12Instance.DMA_CHANNEL.addressMode = "f2b";
+ADC12Instance.DMA_CHANNEL.srcLength = "HALF_WORD";
+ADC12Instance.DMA_CHANNEL.dstLength = "HALF_WORD";
+ADC12Instance.DMA_CHANNEL.transferMode = "SINGLE";
+
+TIMERInstance.$name = "SIGNAL_SAMPLE_TIMER";
+TIMERInstance.timerClkSrc = "BUSCLK";
+TIMERInstance.timerClkDiv = 1;
+TIMERInstance.timerClkPrescale = 1;
+TIMERInstance.timerPeriod = "10us";
+TIMERInstance.timerMode = "PERIODIC";
+TIMERInstance.event1PublisherChannel = 1;
+TIMERInstance.event1ControllerInterruptEn = ["ZERO_EVENT"];
+TIMERInstance.peripheral.$assign = "TIMG0";
+
+/* 以下 FCC/LFXT 配置来自 SDK sysctl_frequency_clock_counter 官方例程。 */
+const fcc = system.clockTree["FCC"];
+fcc.enable = true;
+fcc.fccPeriods = "02";
+system.clockTree["EXLFMUX"].inputSelect = "EXLFMUX_XTAL";
+system.clockTree["FCCSELCLKMUX"].inputSelect = "FCCSELCLKMUX_SYSOSC";
+system.clockTree["FCCTRIGMUX"].inputSelect = "FCCTRIGMUX_LFCLK";
+system.clockTree["LFXTMUX"].inputSelect = "LFXTMUX_TRUE";
+const lfxt = system.clockTree["LFXT"];
+lfxt.enable = true;
+lfxt.inputFreq = 32.768;
+
+SYSCTL.LFCLKSource = "LFXT";
+SYSCTL.LFCLKDriveStrength = "HIGHEST";
+SYSCTL.fccClkSrc = "SYSOSC";
+SYSCTL.fccTrigSrc = "LFCLK";
+SYSCTL.fccPeriods = "03";
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;

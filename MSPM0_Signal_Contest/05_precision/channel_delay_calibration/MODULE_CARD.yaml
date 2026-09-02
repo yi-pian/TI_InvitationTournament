@@ -1,0 +1,124 @@
+schema_version: 1
+module_id: channel_delay_calibration
+name: Channel Delay Calibration：补偿双通道固定延迟
+path: MSPM0_Signal_Contest/05_precision/channel_delay_calibration
+category: algorithm/05_precision
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 比赛复制清单： signal_channel_delay_calibration.c、signal_channel_delay_calibration.h、03_measurement/common/signal_algorithm_status.h。先用已知同相信号
+  Compute 固定通道 delay，再把补偿用于目标频率相位；无 SysConfig/Pin。
+use_when: 双 ADC/双模拟通道测相位，且延迟近似固定、已经用同相信号完成校准时。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 实测与期望 phase_b_minus_a_deg、frequency_hz；约定正 delay 表示 B 更晚。
+output: delay_b_relative_to_a_s（s）和补偿后的 B-A 相位（deg，[-180,180)）。
+unit:
+- Hz
+- degrees
+- s
+- samples
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/05_precision/channel_delay_calibration
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/signal_channel_delay_calibration.c
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/signal_channel_delay_calibration.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/05_precision/channel_delay_calibration/signal_channel_delay_calibration.h
+main_apis:
+- SignalChannelDelayCalibration_Compute
+- SignalChannelDelayCalibration_Apply
+contest_parameters:
+- delay_b_relative_to_a_s
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/05_precision/channel_delay_calibration/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/MODULE_CARD.md
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/README.md
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/signal_channel_delay_calibration.c
+- MSPM0_Signal_Contest/05_precision/channel_delay_calibration/signal_channel_delay_calibration.h
+source_fingerprint_sha256: 49f95ab972a9aab7490dfa921df386f4877a8c0b16277d97dc38760fab7af598

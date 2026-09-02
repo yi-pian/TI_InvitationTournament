@@ -1,0 +1,95 @@
+schema_version: 1
+device_id: device_x9c104
+device: X9C104S：100-kΩ 三线非易失数字电位器
+manufacturer: Renesas (Intersil)
+path: MSPM0_Signal_Contest/12_external_devices/digital_pot/x9c104
+category: digital_pot
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: DOCUMENTATION_ONLY
+interface: &id001
+- I2C
+- SPI
+- GPIO
+supply: X9C104S 使用 5 V 电源（按数据手册允许范围设计）。VH/VL/VW 的电压、电流和功耗都要满足手册；滑动端电流不可超限。
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: DIP/SOIC-8 功能：INC(1)、U/D(2)、CS(7) 接 GPIO；VH(3)、VSS(4)、VW(5)、VL(6)、VCC(8) 接模拟网络与电源。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files: []
+public_header: null
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions: []
+datasheet_status: DOCUMENTED_IN_README
+compile_status: NOT_RUN
+board_status: NOT_RUN
+verification:
+  overall: DOCUMENTATION_ONLY
+  evidence: MSPM0_Signal_Contest/12_external_devices/digital_pot/x9c104/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/digital_pot/x9c104/README.md
+source_fingerprint_sha256: 0f2755e9ff5b042abbbf6d81941282c7c9d08a529accf18c14cb4cb6302f3ebc

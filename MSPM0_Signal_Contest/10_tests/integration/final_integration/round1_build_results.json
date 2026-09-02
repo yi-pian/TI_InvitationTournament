@@ -1,0 +1,186 @@
+﻿{
+    "date":  "2026-08-13",
+    "compiler":  "TI Arm Clang Compiler 5.1.1.LTS",
+    "compiler_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmclang.exe",
+    "tiarmsize_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmsize.exe",
+    "sysconfig_path":  "D:\\TI\\CCS\\ccs\\utils\\sysconfig_1.28.0\\sysconfig_cli.bat",
+    "sdk_root":  "C:\\TI\\mspm0_sdk_2_11_00_07",
+    "algorithm_root":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest",
+    "requested_fft_backend":  0,
+    "extra_defines":  [
+
+                      ],
+    "sample_count_override":  0,
+    "target_count":  4,
+    "results":  [
+                    {
+                        "application":  "Sweep Analyzer",
+                        "target":  "sweep_analyzer_final",
+                        "profile":  "PROFILE_04_ADC_DAC",
+                        "projectspec":  "08_applications/sweep_analyzer/ticlang/sweep_analyzer_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  13,
+                        "fft_backend":  0,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  18336,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  112736,
+                        "sram_used_bytes_including_stack":  9687,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  9175,
+                        "sram_remaining_bytes":  23081,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_voltage_v",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_raw",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_dds_block",
+                                                  "bytes":  2000
+                                              },
+                                              {
+                                                  "name":  "g_dds_table",
+                                                  "bytes":  512
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\sweep_analyzer_final\\sweep_analyzer_final.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\sweep_analyzer_final\\sweep_analyzer_final.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "Wave Capture Replay",
+                        "target":  "waveform_capture_replay_final",
+                        "profile":  "PROFILE_04_ADC_DAC",
+                        "projectspec":  "08_applications/waveform_capture_replay/ticlang/waveform_capture_replay_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  10,
+                        "fft_backend":  0,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  7448,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  123624,
+                        "sram_used_bytes_including_stack":  18173,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  17661,
+                        "sram_remaining_bytes":  14595,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_ring_storage",
+                                                  "bytes":  4098
+                                              },
+                                              {
+                                                  "name":  "g_period_segment",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_ordered_capture",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_dma_capture",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_replay_table",
+                                                  "bytes":  1024
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\waveform_capture_replay_final\\waveform_capture_replay_final.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\waveform_capture_replay_final\\waveform_capture_replay_final.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "Signal Analyzer",
+                        "target":  "signal_analyzer_final",
+                        "profile":  "PROFILE_02_DUAL_ADC",
+                        "projectspec":  "08_applications/signal_analyzer/ticlang/signal_analyzer_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  30,
+                        "fft_backend":  2,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  91016,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  40056,
+                        "sram_used_bytes_including_stack":  9999,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  9487,
+                        "sram_remaining_bytes":  22769,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_fft_a",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_voltage_a",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_magnitude",
+                                                  "bytes":  1028
+                                              },
+                                              {
+                                                  "name":  "g_raw_b",
+                                                  "bytes":  1024
+                                              },
+                                              {
+                                                  "name":  "g_raw_a",
+                                                  "bytes":  1024
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\signal_analyzer_final\\signal_analyzer_final.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\signal_analyzer_final\\signal_analyzer_final.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "Signal Contest Template",
+                        "target":  "signal_contest_template_final",
+                        "profile":  "PROFILE_06_FULL_SIGNAL",
+                        "projectspec":  "08_applications/signal_contest_template/ticlang/signal_contest_template_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  28,
+                        "fft_backend":  2,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  2728,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  128344,
+                        "sram_used_bytes_including_stack":  838,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  326,
+                        "sram_remaining_bytes":  31930,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\signal_contest_template_final\\signal_contest_template_final.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_integration\\signal_contest_template_final\\signal_contest_template_final.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    }
+                ]
+}

@@ -1,0 +1,130 @@
+schema_version: 1
+module_id: dds
+name: DDS：按相位累加器产生可调频采样序列
+path: MSPM0_Signal_Contest/06_generator/dds
+category: 06_generator
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 用 32 位相位累加器和 2^n 波表生成任意配置频率。
+use_when: 当你要在固定 DAC 更新率下，软件修改输出频率/初相，并把查表样本交给 DAC DMA 时使用。DDS 本身不碰 DAC、不配置 Pin，也不会直接产生模拟电压。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: uint16_t table[table_count]、目标频率 Hz、DAC 更新率 Hz、初始相位累加值。
+output: uint16_t output[count]，可直接作为 DAC DMA 样本。
+unit:
+- Hz
+- degrees
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/06_generator/dds
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/06_generator/dds/signal_dds.c
+- MSPM0_Signal_Contest/06_generator/dds/signal_dds.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/06_generator/dds/signal_dds.h
+main_apis:
+- SignalDDS_Init
+- SignalDDS_SetFrequency
+- SignalDDS_Next
+- SignalDDS_Fill
+- SignalDDS_GetConfiguredFrequency
+- SignalDDS_GetModuleStatus
+contest_parameters:
+- phase_accumulator
+- tuning_word
+- table
+- table_count
+buffer:
+  input_type: wave table + phase/frequency configuration
+  output_type: uint16_t DAC code block
+  input_length: table length and output capacity from current header
+  output_length: requested output count
+  in_place: false
+  workspace: constant phase accumulator state
+  ram_estimate: caller table + caller output block
+  n_restrictions: table length/capacity and DAC code limits must be checked
+next_modules:
+- dac_dma
+reference_application:
+- MSPM0_Signal_Contest/08_applications/dds_generator/main.c
+verified_example: MSPM0_Signal_Contest/08_applications/dds_generator/main.c
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/06_generator/dds/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/06_generator/dds/MODULE_CARD.md
+- MSPM0_Signal_Contest/06_generator/dds/README.md
+- MSPM0_Signal_Contest/06_generator/dds/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/dds/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/06_generator/dds/signal_dds.c
+- MSPM0_Signal_Contest/06_generator/dds/signal_dds.h
+source_fingerprint_sha256: 27da442b614cf30eced95f2f7682700d7a9d70ac4bb6cfd218068e2fc1c149dd

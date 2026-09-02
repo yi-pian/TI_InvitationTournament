@@ -1,0 +1,103 @@
+{
+  "vectors": [
+    {
+      "table": [
+        {
+          "frequency_hz": 100.0,
+          "gain_correction_linear": 1.1,
+          "phase_correction_deg": 170.0
+        },
+        {
+          "frequency_hz": 1000.0,
+          "gain_correction_linear": 1.0,
+          "phase_correction_deg": -170.0
+        },
+        {
+          "frequency_hz": 10000.0,
+          "gain_correction_linear": 0.9,
+          "phase_correction_deg": -130.0
+        }
+      ],
+      "frequency_hz": 550.0,
+      "measured_gain_linear": 2.0,
+      "measured_phase_deg": 25.0,
+      "log_frequency": false,
+      "clamp": false,
+      "expected": {
+        "corrected_gain_linear": 2.1,
+        "corrected_phase_deg": -155.0,
+        "applied_gain_correction_linear": 1.05,
+        "applied_phase_correction_deg": 180.0,
+        "interpolation_fraction": 0.5,
+        "lower_index": 0,
+        "upper_index": 1
+      }
+    },
+    {
+      "table": [
+        {
+          "frequency_hz": 100.0,
+          "gain_correction_linear": 1.1,
+          "phase_correction_deg": 170.0
+        },
+        {
+          "frequency_hz": 1000.0,
+          "gain_correction_linear": 1.0,
+          "phase_correction_deg": -170.0
+        },
+        {
+          "frequency_hz": 10000.0,
+          "gain_correction_linear": 0.9,
+          "phase_correction_deg": -130.0
+        }
+      ],
+      "frequency_hz": 3162.2776601683795,
+      "measured_gain_linear": 2.0,
+      "measured_phase_deg": 25.0,
+      "log_frequency": true,
+      "clamp": false,
+      "expected": {
+        "corrected_gain_linear": 1.9,
+        "corrected_phase_deg": -125.0,
+        "applied_gain_correction_linear": 0.95,
+        "applied_phase_correction_deg": -150.0,
+        "interpolation_fraction": 0.5,
+        "lower_index": 1,
+        "upper_index": 2
+      }
+    },
+    {
+      "table": [
+        {
+          "frequency_hz": 100.0,
+          "gain_correction_linear": 1.1,
+          "phase_correction_deg": 170.0
+        },
+        {
+          "frequency_hz": 1000.0,
+          "gain_correction_linear": 1.0,
+          "phase_correction_deg": -170.0
+        },
+        {
+          "frequency_hz": 10000.0,
+          "gain_correction_linear": 0.9,
+          "phase_correction_deg": -130.0
+        }
+      ],
+      "frequency_hz": 50.0,
+      "measured_gain_linear": 2.0,
+      "measured_phase_deg": 25.0,
+      "log_frequency": false,
+      "clamp": true,
+      "expected": {
+        "corrected_gain_linear": 2.2,
+        "corrected_phase_deg": -165.0,
+        "applied_gain_correction_linear": 1.1,
+        "applied_phase_correction_deg": 170.0,
+        "interpolation_fraction": 0.0,
+        "lower_index": 0,
+        "upper_index": 0
+      }
+    }
+  ]
+}

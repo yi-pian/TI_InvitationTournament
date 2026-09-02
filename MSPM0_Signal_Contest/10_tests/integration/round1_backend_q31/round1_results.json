@@ -1,0 +1,54 @@
+﻿{
+    "date":  "2026-08-08",
+    "pc_truth_tests":  "4/4 PASS",
+    "fft_backend":  2,
+    "ti_source_checks":  "11/11 PASS",
+    "compile_link":  "NOT_RUN",
+    "board":  "NOT_RUN",
+    "targets":  [
+                    {
+                        "target":  "integration_core",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "dual_adc_adapter",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "dac_dma_adapter",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "signal_meter",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "frequency_method_a",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "frequency_method_b",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "frequency_method_c",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "spectrum_analyzer",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "harmonic_thd_analyzer",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "dual_channel_phase_meter",
+                        "ti_source_compile":  "PASS"
+                    },
+                    {
+                        "target":  "dds_generator",
+                        "ti_source_compile":  "PASS"
+                    }
+                ]
+}

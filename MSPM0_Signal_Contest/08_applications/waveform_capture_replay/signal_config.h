@@ -1,0 +1,25 @@
+#ifndef WAVEFORM_CAPTURE_REPLAY_CONFIG_H
+#define WAVEFORM_CAPTURE_REPLAY_CONFIG_H
+
+#define SIGNAL_CAPTURE_SAMPLE_RATE_HZ      (100000U)
+#define SIGNAL_CAPTURE_SAMPLE_COUNT        (2048U)
+#define SIGNAL_TRIGGER_LEVEL_CODE          (2048U)
+#define SIGNAL_TRIGGER_HYSTERESIS_CODE     (16U)
+#define SIGNAL_TRIGGER_MIN_PERIOD_SAMPLES  (8U)
+#define SIGNAL_TRIGGER_EDGE                SIGNAL_TRIGGER_RISING
+
+#define SIGNAL_REPLAY_TABLE_COUNT          (512U)
+#define SIGNAL_DAC_BITS                    (12U)
+#define SIGNAL_REPLAY_REPEAT               (1U)
+
+#if SIGNAL_CAPTURE_SAMPLE_COUNT > 65535U
+#error "ADC DMA count exceeds uint16_t API"
+#endif
+#if SIGNAL_REPLAY_TABLE_COUNT > 65535U
+#error "DAC DMA count exceeds uint16_t API"
+#endif
+#if SIGNAL_TRIGGER_MIN_PERIOD_SAMPLES >= SIGNAL_CAPTURE_SAMPLE_COUNT
+#error "Minimum period must be smaller than capture"
+#endif
+
+#endif

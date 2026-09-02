@@ -1,0 +1,117 @@
+schema_version: 1
+module_id: window_gain_correction
+name: WindowGainCorrection：为什么 Hann 后幅值要修正
+path: MSPM0_Signal_Contest/05_precision/window_gain_correction
+category: algorithm/05_precision
+implementation_type: MODULE
+recommendation: conditional
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 目标：“把 FFT Magnitude 的 raw DFT 标度换成实信号单边峰值幅度，并补偿实际窗 coherent gain”。
+use_when: FFT 输出要报告正弦 Vpeak/幅度谱时。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: raw magnitude N/2+1、FFT N、实际 CG。
+output: 单边 peak amplitude，若时域单位 V 则输出 Vpeak。
+unit:
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/05_precision/window_gain_correction
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/signal_window_gain_correction.c
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/signal_window_gain_correction.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/05_precision/window_gain_correction/signal_window_gain_correction.h
+main_apis:
+- SignalWindowGainCorrection_Apply
+contest_parameters: []
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/05_precision/window_gain_correction/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/MODULE_CARD.md
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/README.md
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/signal_window_gain_correction.c
+- MSPM0_Signal_Contest/05_precision/window_gain_correction/signal_window_gain_correction.h
+source_fingerprint_sha256: 0823a0b8fa60a839e844ff4d91d9dba7b67c1a38404cb8d1eccf062b922ceb1b

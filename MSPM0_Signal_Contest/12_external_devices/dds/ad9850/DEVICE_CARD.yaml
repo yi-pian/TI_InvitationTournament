@@ -1,0 +1,113 @@
+schema_version: 1
+device_id: device_ad9850
+device: AD9850：40-bit 串行 / 5-byte 并行 DDS
+manufacturer: Analog Devices
+path: MSPM0_Signal_Contest/12_external_devices/dds/ad9850
+category: dds
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: COMPILE_VERIFIED
+interface: &id001
+- SPI
+- GPIO
+- ANALOG
+supply: 裸芯片支持 3.3 V 或 5 V。常见模块可能带 100/125 MHz 有源晶振，模块供电必须按其原理图/丝印确认。5 V 裸芯片条件下数字 VIH 不能保证由 MSPM0 3.3 V
+  高电平满足，需电平转换；不要用 GPIO 给模块供电。
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: 常见 4-wire 模块：W_CLK、FQ_UD、DATA、RESET。裸芯片串行 DATA 是 D7(pin25)，W_CLK pin7，FQ_UD pin8，RESET pin22；pin12
+  是 RSET，不是 RESET。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files:
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850.c
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850.h
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850_mspm0_platform.c
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850_mspm0_platform.h
+public_header: MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850.h
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions:
+- AD9850_Init
+- AD9850_Reset
+- AD9850_SetFrequencyHz
+- AD9850_SetOutput
+- AD9850_SetPowerDown
+- AD9850_SetDualOutput
+- AD9850_ComputeTuningWord
+datasheet_status: DOCUMENTED_IN_README
+compile_status: COMPILE_VERIFIED
+board_status: NOT_RUN
+verification:
+  overall: COMPILE_VERIFIED
+  evidence: MSPM0_Signal_Contest/12_external_devices/dds/ad9850/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850.c
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850.h
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850_mspm0_platform.c
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/ad9850_mspm0_platform.h
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/MODULE_CARD.md
+- MSPM0_Signal_Contest/12_external_devices/dds/ad9850/README.md
+source_fingerprint_sha256: 048fc69f7f8640a191fc148481e167e362c83d76f68f70be61ae2b8814d115b5

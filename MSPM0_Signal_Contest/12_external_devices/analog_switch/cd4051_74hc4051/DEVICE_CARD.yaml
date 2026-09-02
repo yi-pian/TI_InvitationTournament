@@ -1,0 +1,95 @@
+schema_version: 1
+device_id: device_cd4051_74hc4051
+device: CD4051 / 74HC4051 类 8:1 模拟多路开关教程
+manufacturer: multiple vendors; confirm exact suffix
+path: MSPM0_Signal_Contest/12_external_devices/analog_switch/cd4051_74hc4051
+category: analog_switch
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: DOCUMENTATION_ONLY
+interface: &id001
+- GPIO
+supply: read exact README/datasheet before wiring
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: 功能 | MSPM0/模拟电路 | 必须确认 | |---|---|---| | S0/S1/S2 | 3 个 GPIO output | 真值表和逻辑电平 | | EN/INH
+  | GPIO output | 高/低有效 | | COM/Z | 公共模拟节点 | 信号方向和允许范围 | | X0...X7 | 8 路模拟节点 | 不得超出电源轨/器件规定 | | VCC/VEE/GND
+  | 电源 | 单/双电源接法和去耦 | SysConfig 配置 4 个 GPIO output，初始化时先置于禁用状态。Pin 号由实际板卡决定。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files: []
+public_header: null
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions: []
+datasheet_status: DOCUMENTED_IN_README
+compile_status: NOT_RUN
+board_status: NOT_RUN
+verification:
+  overall: DOCUMENTATION_ONLY
+  evidence: MSPM0_Signal_Contest/12_external_devices/analog_switch/cd4051_74hc4051/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/analog_switch/cd4051_74hc4051/README.md
+source_fingerprint_sha256: 67a41a0249202823cb416872404ca9afea40bbc92da44385a1706bc82b1d9cc2

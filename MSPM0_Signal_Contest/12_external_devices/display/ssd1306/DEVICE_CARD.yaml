@@ -1,0 +1,128 @@
+schema_version: 1
+device_id: device_ssd1306
+device: SSD1306 0.96 寸 4-pin I2C OLED
+manufacturer: Solomon Systech
+path: MSPM0_Signal_Contest/12_external_devices/display/ssd1306
+category: display
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: BUILD_VERIFIED
+interface: &id001
+- I2C
+supply: read exact README/datasheet before wiring
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: 推荐使用本库独立复制测试的 I2C profile：I2C Controller，PB2=SCL、PB3=SDA。 | OLED Pin | LP-MSPM0G3507 | SysConfig
+  | |---|---|---| | GND | GND | 无 | | VCC | 3.3 V | 无 | | SCL | PB2 | I2C SCL | | SDA | PB3 | I2C SDA
+  | 如果应用已占用 PB2/PB3，可在 SysConfig 换到该 I2C 实例支持的其他 Pin，并以生成的 ti_msp_dl_config.h 为准。模块板已有 4.7 kΩ 上拉，组合其他
+  I2C 板时先计算并联上拉，不要无条件重复焊接。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files:
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306.c
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306.h
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_font_6x8.inc
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0_i2c.c
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0_i2c.h
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0g3507.c
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0g3507.h
+public_header: MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306.h
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions:
+- SSD1306_Init
+- SSD1306_SetDisplayOn
+- SSD1306_SetContrast
+- SSD1306_SetInverse
+- SSD1306_SetRotation
+- SSD1306_Update
+- SSD1306_GetWidth
+- SSD1306_GetHeight
+- SSD1306_ClearBuffer
+- SSD1306_DrawPixel
+- SSD1306_DrawLine
+- SSD1306_DrawChar6x8
+- SSD1306_DrawString6x8
+- SSD1306_DrawRect
+- SSD1306_DrawBitmap
+- SignalSSD1306_GetModuleStatus
+datasheet_status: DOCUMENTED_IN_README
+compile_status: COMPILE_VERIFIED
+board_status: NOT_RUN
+verification:
+  overall: BUILD_VERIFIED
+  evidence: MSPM0_Signal_Contest/12_external_devices/display/ssd1306/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/MODULE_CARD.md
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/README.md
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306.c
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306.h
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_font_6x8.inc
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0_i2c.c
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0_i2c.h
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0g3507.c
+- MSPM0_Signal_Contest/12_external_devices/display/ssd1306/ssd1306_mspm0g3507.h
+source_fingerprint_sha256: 8e04c098cd3094d19a827ca6e6f8165c63b74439742b5c79ee2efe301f9b6693

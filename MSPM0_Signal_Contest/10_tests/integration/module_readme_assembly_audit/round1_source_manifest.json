@@ -1,0 +1,797 @@
+[
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\signal_meter\\main.c",
+        "sha256":  "FF825844A07BD573918B3A208C67D3C45A063DAE1DEA95439375096EE4587A84"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_integration.c",
+        "sha256":  "AE07DB722BCAAC9DC914EC2B49224D26FCF86AD480713B0EA74C30BF29D66C5C"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\02_acquisition\\adc_dma\\signal_adc_dma.c",
+        "sha256":  "3FC9D81DECD80146B66F2144608288346392C4140B0901B724017F1489BEA289"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\adc_to_voltage\\signal_adc_to_voltage.c",
+        "sha256":  "A3EFD9B41F723DFF04F740B922B788E4EDF853DF3F792227FE710AD7DD72D819"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\mean\\signal_mean.c",
+        "sha256":  "2C1926B0290C693D2C7E0D1A16A1F94D2FD2EF38381144723370513188D5DF9E"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\minmax\\signal_minmax.c",
+        "sha256":  "5906428399720A9FC257B26D24757CB7A7042E05791151468237079BBB0CCA79"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\vpp\\signal_vpp.c",
+        "sha256":  "6C43B764482B28B53BAEAFF7A96297860BB0F0E9FFD382BEE58AC262A05636C3"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\rms\\signal_rms.c",
+        "sha256":  "80C73072EB23C6A7EB7A3358D5301ACB249EDD42CE757393EBCCA001BD8661AF"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\ac_rms\\signal_ac_rms.c",
+        "sha256":  "E29867299991E849F6C0EF92D6722242B1D50082CD92D89A07463525B92E3BE1"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\frequency_zero_cross\\signal_zero_cross.c",
+        "sha256":  "3651814862070FE890F23E8D8C14258FB585D15E98B4FA4E1D53E074A35D2F77"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\phase\\signal_phase.c",
+        "sha256":  "265AA0429088A50E41FE5F558243A41C492EB81F7F4FC112799EDB7AFA58E5D9"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\remove_dc\\signal_remove_dc.c",
+        "sha256":  "C5997FB48DAB1355AA53787F7AECD1ACEA30C1EFC5A38B6671A1B76BB08FE945"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\signal_window.c",
+        "sha256":  "05038E77DBF6F84AF92F031E96E5B28147BA692821B44A89989E1E36DBC7632E"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\hann\\signal_hann.c",
+        "sha256":  "60902BDC59A08B2755235BB48A2B6FB55A5D6CAA4FD72CE6C7A3FBDDB41E52AA"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft\\signal_fft.c",
+        "sha256":  "DA1EE2F35D8A61C509BE35E7181B6F3A84A629600A936AA8CB262FE2E9BB00EC"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft_magnitude\\signal_fft_magnitude.c",
+        "sha256":  "570014D0FE1D78891E0197CCACED56E20F17C51316562CDCDB1D3FD424BC2141"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\peak_detect\\signal_peak_detect.c",
+        "sha256":  "61FB510C50F17DA04C49C85B16896C98B5ECF5C9DBE5D810B6B8992BE97F8E61"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\correlation\\signal_correlation.c",
+        "sha256":  "3B585753198D699D4363F0DC625F7BE2B2B940DC36CECF1A3FB87A5A24E68EC8"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\harmonic\\signal_harmonic.c",
+        "sha256":  "C8F43CCD6EDECDE6826C721436D5284C163F8B55D9A218B22C1699924C856F60"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\thd\\signal_thd.c",
+        "sha256":  "027D219557F7A9DB3EE13B83E6A8781A021921AB0ACA56D7E8DA6374596A41EB"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\zero_cross_interpolation\\signal_zero_cross_interpolation.c",
+        "sha256":  "062EF905011EFAB4768F52CEA962B561FD8C2834B4807A8461DD33C29706B715"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_cycle_average\\signal_multi_cycle_average.c",
+        "sha256":  "621359923609F9D1431232CBE024029196F98684048BBE27384813C310A818DC"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\fft_parabolic_interpolation\\signal_fft_parabolic_interpolation.c",
+        "sha256":  "39661A32B9C901FD6A8EEE759AFC373EE082CAE3A60AFB3101A59C4782433CB6"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\window_gain_correction\\signal_window_gain_correction.c",
+        "sha256":  "2C92868577A2875D2EC2F9E8AFF4ED5711BC9B882BA787754A00D970D306C032"
+    },
+    {
+        "target":  "signal_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_bin_energy\\signal_multi_bin_energy.c",
+        "sha256":  "054A4F36B2607314D04A2B18058A2387B6BECFA2F965E5C91E5B7FBDF9E9B3FA"
+    },
+    {
+        "target":  "frequency_meter_a_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\frequency_meter\\main.c",
+        "sha256":  "3E7E6A2E2481B183196916CD7C860E7A9D9576D9243225590CBA107AEF5843EB"
+    },
+    {
+        "target":  "frequency_meter_a_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\mspm0g3507\\signal_mspm0g3507_capture_platform.c",
+        "sha256":  "732D0904BE5514F9D859ECA48E0417A63DDF3C92DA184C9D8D27BAB421B8A3B4"
+    },
+    {
+        "target":  "frequency_meter_a_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\02_acquisition\\timer_capture\\signal_timer_capture.c",
+        "sha256":  "E78A00B7E721CEFB878F0D591A9899D06900D9D7326A0BEC3E765E6151707F65"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\frequency_meter\\main.c",
+        "sha256":  "3E7E6A2E2481B183196916CD7C860E7A9D9576D9243225590CBA107AEF5843EB"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_integration.c",
+        "sha256":  "AE07DB722BCAAC9DC914EC2B49224D26FCF86AD480713B0EA74C30BF29D66C5C"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\02_acquisition\\adc_dma\\signal_adc_dma.c",
+        "sha256":  "3FC9D81DECD80146B66F2144608288346392C4140B0901B724017F1489BEA289"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\adc_to_voltage\\signal_adc_to_voltage.c",
+        "sha256":  "A3EFD9B41F723DFF04F740B922B788E4EDF853DF3F792227FE710AD7DD72D819"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\mean\\signal_mean.c",
+        "sha256":  "2C1926B0290C693D2C7E0D1A16A1F94D2FD2EF38381144723370513188D5DF9E"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\minmax\\signal_minmax.c",
+        "sha256":  "5906428399720A9FC257B26D24757CB7A7042E05791151468237079BBB0CCA79"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\vpp\\signal_vpp.c",
+        "sha256":  "6C43B764482B28B53BAEAFF7A96297860BB0F0E9FFD382BEE58AC262A05636C3"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\rms\\signal_rms.c",
+        "sha256":  "80C73072EB23C6A7EB7A3358D5301ACB249EDD42CE757393EBCCA001BD8661AF"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\ac_rms\\signal_ac_rms.c",
+        "sha256":  "E29867299991E849F6C0EF92D6722242B1D50082CD92D89A07463525B92E3BE1"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\frequency_zero_cross\\signal_zero_cross.c",
+        "sha256":  "3651814862070FE890F23E8D8C14258FB585D15E98B4FA4E1D53E074A35D2F77"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\phase\\signal_phase.c",
+        "sha256":  "265AA0429088A50E41FE5F558243A41C492EB81F7F4FC112799EDB7AFA58E5D9"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\remove_dc\\signal_remove_dc.c",
+        "sha256":  "C5997FB48DAB1355AA53787F7AECD1ACEA30C1EFC5A38B6671A1B76BB08FE945"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\signal_window.c",
+        "sha256":  "05038E77DBF6F84AF92F031E96E5B28147BA692821B44A89989E1E36DBC7632E"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\hann\\signal_hann.c",
+        "sha256":  "60902BDC59A08B2755235BB48A2B6FB55A5D6CAA4FD72CE6C7A3FBDDB41E52AA"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft\\signal_fft.c",
+        "sha256":  "DA1EE2F35D8A61C509BE35E7181B6F3A84A629600A936AA8CB262FE2E9BB00EC"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft_magnitude\\signal_fft_magnitude.c",
+        "sha256":  "570014D0FE1D78891E0197CCACED56E20F17C51316562CDCDB1D3FD424BC2141"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\peak_detect\\signal_peak_detect.c",
+        "sha256":  "61FB510C50F17DA04C49C85B16896C98B5ECF5C9DBE5D810B6B8992BE97F8E61"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\correlation\\signal_correlation.c",
+        "sha256":  "3B585753198D699D4363F0DC625F7BE2B2B940DC36CECF1A3FB87A5A24E68EC8"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\harmonic\\signal_harmonic.c",
+        "sha256":  "C8F43CCD6EDECDE6826C721436D5284C163F8B55D9A218B22C1699924C856F60"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\thd\\signal_thd.c",
+        "sha256":  "027D219557F7A9DB3EE13B83E6A8781A021921AB0ACA56D7E8DA6374596A41EB"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\zero_cross_interpolation\\signal_zero_cross_interpolation.c",
+        "sha256":  "062EF905011EFAB4768F52CEA962B561FD8C2834B4807A8461DD33C29706B715"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_cycle_average\\signal_multi_cycle_average.c",
+        "sha256":  "621359923609F9D1431232CBE024029196F98684048BBE27384813C310A818DC"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\fft_parabolic_interpolation\\signal_fft_parabolic_interpolation.c",
+        "sha256":  "39661A32B9C901FD6A8EEE759AFC373EE082CAE3A60AFB3101A59C4782433CB6"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\window_gain_correction\\signal_window_gain_correction.c",
+        "sha256":  "2C92868577A2875D2EC2F9E8AFF4ED5711BC9B882BA787754A00D970D306C032"
+    },
+    {
+        "target":  "frequency_meter_b_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_bin_energy\\signal_multi_bin_energy.c",
+        "sha256":  "054A4F36B2607314D04A2B18058A2387B6BECFA2F965E5C91E5B7FBDF9E9B3FA"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\frequency_meter\\main.c",
+        "sha256":  "3E7E6A2E2481B183196916CD7C860E7A9D9576D9243225590CBA107AEF5843EB"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_integration.c",
+        "sha256":  "AE07DB722BCAAC9DC914EC2B49224D26FCF86AD480713B0EA74C30BF29D66C5C"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\02_acquisition\\adc_dma\\signal_adc_dma.c",
+        "sha256":  "3FC9D81DECD80146B66F2144608288346392C4140B0901B724017F1489BEA289"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\adc_to_voltage\\signal_adc_to_voltage.c",
+        "sha256":  "A3EFD9B41F723DFF04F740B922B788E4EDF853DF3F792227FE710AD7DD72D819"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\mean\\signal_mean.c",
+        "sha256":  "2C1926B0290C693D2C7E0D1A16A1F94D2FD2EF38381144723370513188D5DF9E"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\minmax\\signal_minmax.c",
+        "sha256":  "5906428399720A9FC257B26D24757CB7A7042E05791151468237079BBB0CCA79"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\vpp\\signal_vpp.c",
+        "sha256":  "6C43B764482B28B53BAEAFF7A96297860BB0F0E9FFD382BEE58AC262A05636C3"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\rms\\signal_rms.c",
+        "sha256":  "80C73072EB23C6A7EB7A3358D5301ACB249EDD42CE757393EBCCA001BD8661AF"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\ac_rms\\signal_ac_rms.c",
+        "sha256":  "E29867299991E849F6C0EF92D6722242B1D50082CD92D89A07463525B92E3BE1"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\frequency_zero_cross\\signal_zero_cross.c",
+        "sha256":  "3651814862070FE890F23E8D8C14258FB585D15E98B4FA4E1D53E074A35D2F77"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\phase\\signal_phase.c",
+        "sha256":  "265AA0429088A50E41FE5F558243A41C492EB81F7F4FC112799EDB7AFA58E5D9"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\remove_dc\\signal_remove_dc.c",
+        "sha256":  "C5997FB48DAB1355AA53787F7AECD1ACEA30C1EFC5A38B6671A1B76BB08FE945"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\signal_window.c",
+        "sha256":  "05038E77DBF6F84AF92F031E96E5B28147BA692821B44A89989E1E36DBC7632E"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\hann\\signal_hann.c",
+        "sha256":  "60902BDC59A08B2755235BB48A2B6FB55A5D6CAA4FD72CE6C7A3FBDDB41E52AA"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft\\signal_fft.c",
+        "sha256":  "DA1EE2F35D8A61C509BE35E7181B6F3A84A629600A936AA8CB262FE2E9BB00EC"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft_magnitude\\signal_fft_magnitude.c",
+        "sha256":  "570014D0FE1D78891E0197CCACED56E20F17C51316562CDCDB1D3FD424BC2141"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\peak_detect\\signal_peak_detect.c",
+        "sha256":  "61FB510C50F17DA04C49C85B16896C98B5ECF5C9DBE5D810B6B8992BE97F8E61"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\correlation\\signal_correlation.c",
+        "sha256":  "3B585753198D699D4363F0DC625F7BE2B2B940DC36CECF1A3FB87A5A24E68EC8"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\harmonic\\signal_harmonic.c",
+        "sha256":  "C8F43CCD6EDECDE6826C721436D5284C163F8B55D9A218B22C1699924C856F60"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\thd\\signal_thd.c",
+        "sha256":  "027D219557F7A9DB3EE13B83E6A8781A021921AB0ACA56D7E8DA6374596A41EB"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\zero_cross_interpolation\\signal_zero_cross_interpolation.c",
+        "sha256":  "062EF905011EFAB4768F52CEA962B561FD8C2834B4807A8461DD33C29706B715"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_cycle_average\\signal_multi_cycle_average.c",
+        "sha256":  "621359923609F9D1431232CBE024029196F98684048BBE27384813C310A818DC"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\fft_parabolic_interpolation\\signal_fft_parabolic_interpolation.c",
+        "sha256":  "39661A32B9C901FD6A8EEE759AFC373EE082CAE3A60AFB3101A59C4782433CB6"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\window_gain_correction\\signal_window_gain_correction.c",
+        "sha256":  "2C92868577A2875D2EC2F9E8AFF4ED5711BC9B882BA787754A00D970D306C032"
+    },
+    {
+        "target":  "frequency_meter_c_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_bin_energy\\signal_multi_bin_energy.c",
+        "sha256":  "054A4F36B2607314D04A2B18058A2387B6BECFA2F965E5C91E5B7FBDF9E9B3FA"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\spectrum_analyzer\\main.c",
+        "sha256":  "86CD21E3B14D07A7757FFE226361316C6EAAF4D5B4C7A9FFDE6F7C1A93533A3A"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_integration.c",
+        "sha256":  "AE07DB722BCAAC9DC914EC2B49224D26FCF86AD480713B0EA74C30BF29D66C5C"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\02_acquisition\\adc_dma\\signal_adc_dma.c",
+        "sha256":  "3FC9D81DECD80146B66F2144608288346392C4140B0901B724017F1489BEA289"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\adc_to_voltage\\signal_adc_to_voltage.c",
+        "sha256":  "A3EFD9B41F723DFF04F740B922B788E4EDF853DF3F792227FE710AD7DD72D819"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\mean\\signal_mean.c",
+        "sha256":  "2C1926B0290C693D2C7E0D1A16A1F94D2FD2EF38381144723370513188D5DF9E"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\minmax\\signal_minmax.c",
+        "sha256":  "5906428399720A9FC257B26D24757CB7A7042E05791151468237079BBB0CCA79"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\vpp\\signal_vpp.c",
+        "sha256":  "6C43B764482B28B53BAEAFF7A96297860BB0F0E9FFD382BEE58AC262A05636C3"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\rms\\signal_rms.c",
+        "sha256":  "80C73072EB23C6A7EB7A3358D5301ACB249EDD42CE757393EBCCA001BD8661AF"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\ac_rms\\signal_ac_rms.c",
+        "sha256":  "E29867299991E849F6C0EF92D6722242B1D50082CD92D89A07463525B92E3BE1"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\frequency_zero_cross\\signal_zero_cross.c",
+        "sha256":  "3651814862070FE890F23E8D8C14258FB585D15E98B4FA4E1D53E074A35D2F77"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\phase\\signal_phase.c",
+        "sha256":  "265AA0429088A50E41FE5F558243A41C492EB81F7F4FC112799EDB7AFA58E5D9"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\remove_dc\\signal_remove_dc.c",
+        "sha256":  "C5997FB48DAB1355AA53787F7AECD1ACEA30C1EFC5A38B6671A1B76BB08FE945"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\signal_window.c",
+        "sha256":  "05038E77DBF6F84AF92F031E96E5B28147BA692821B44A89989E1E36DBC7632E"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\hann\\signal_hann.c",
+        "sha256":  "60902BDC59A08B2755235BB48A2B6FB55A5D6CAA4FD72CE6C7A3FBDDB41E52AA"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft\\signal_fft.c",
+        "sha256":  "DA1EE2F35D8A61C509BE35E7181B6F3A84A629600A936AA8CB262FE2E9BB00EC"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft_magnitude\\signal_fft_magnitude.c",
+        "sha256":  "570014D0FE1D78891E0197CCACED56E20F17C51316562CDCDB1D3FD424BC2141"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\peak_detect\\signal_peak_detect.c",
+        "sha256":  "61FB510C50F17DA04C49C85B16896C98B5ECF5C9DBE5D810B6B8992BE97F8E61"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\correlation\\signal_correlation.c",
+        "sha256":  "3B585753198D699D4363F0DC625F7BE2B2B940DC36CECF1A3FB87A5A24E68EC8"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\harmonic\\signal_harmonic.c",
+        "sha256":  "C8F43CCD6EDECDE6826C721436D5284C163F8B55D9A218B22C1699924C856F60"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\thd\\signal_thd.c",
+        "sha256":  "027D219557F7A9DB3EE13B83E6A8781A021921AB0ACA56D7E8DA6374596A41EB"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\zero_cross_interpolation\\signal_zero_cross_interpolation.c",
+        "sha256":  "062EF905011EFAB4768F52CEA962B561FD8C2834B4807A8461DD33C29706B715"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_cycle_average\\signal_multi_cycle_average.c",
+        "sha256":  "621359923609F9D1431232CBE024029196F98684048BBE27384813C310A818DC"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\fft_parabolic_interpolation\\signal_fft_parabolic_interpolation.c",
+        "sha256":  "39661A32B9C901FD6A8EEE759AFC373EE082CAE3A60AFB3101A59C4782433CB6"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\window_gain_correction\\signal_window_gain_correction.c",
+        "sha256":  "2C92868577A2875D2EC2F9E8AFF4ED5711BC9B882BA787754A00D970D306C032"
+    },
+    {
+        "target":  "spectrum_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_bin_energy\\signal_multi_bin_energy.c",
+        "sha256":  "054A4F36B2607314D04A2B18058A2387B6BECFA2F965E5C91E5B7FBDF9E9B3FA"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\harmonic_thd_analyzer\\main.c",
+        "sha256":  "9132C7E81F427CFC4217E69A31DF7E656D60CA9168DCE887910ACD6763EC7EAD"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_integration.c",
+        "sha256":  "AE07DB722BCAAC9DC914EC2B49224D26FCF86AD480713B0EA74C30BF29D66C5C"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\02_acquisition\\adc_dma\\signal_adc_dma.c",
+        "sha256":  "3FC9D81DECD80146B66F2144608288346392C4140B0901B724017F1489BEA289"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\adc_to_voltage\\signal_adc_to_voltage.c",
+        "sha256":  "A3EFD9B41F723DFF04F740B922B788E4EDF853DF3F792227FE710AD7DD72D819"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\mean\\signal_mean.c",
+        "sha256":  "2C1926B0290C693D2C7E0D1A16A1F94D2FD2EF38381144723370513188D5DF9E"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\minmax\\signal_minmax.c",
+        "sha256":  "5906428399720A9FC257B26D24757CB7A7042E05791151468237079BBB0CCA79"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\vpp\\signal_vpp.c",
+        "sha256":  "6C43B764482B28B53BAEAFF7A96297860BB0F0E9FFD382BEE58AC262A05636C3"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\rms\\signal_rms.c",
+        "sha256":  "80C73072EB23C6A7EB7A3358D5301ACB249EDD42CE757393EBCCA001BD8661AF"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\ac_rms\\signal_ac_rms.c",
+        "sha256":  "E29867299991E849F6C0EF92D6722242B1D50082CD92D89A07463525B92E3BE1"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\frequency_zero_cross\\signal_zero_cross.c",
+        "sha256":  "3651814862070FE890F23E8D8C14258FB585D15E98B4FA4E1D53E074A35D2F77"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\phase\\signal_phase.c",
+        "sha256":  "265AA0429088A50E41FE5F558243A41C492EB81F7F4FC112799EDB7AFA58E5D9"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\remove_dc\\signal_remove_dc.c",
+        "sha256":  "C5997FB48DAB1355AA53787F7AECD1ACEA30C1EFC5A38B6671A1B76BB08FE945"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\signal_window.c",
+        "sha256":  "05038E77DBF6F84AF92F031E96E5B28147BA692821B44A89989E1E36DBC7632E"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\hann\\signal_hann.c",
+        "sha256":  "60902BDC59A08B2755235BB48A2B6FB55A5D6CAA4FD72CE6C7A3FBDDB41E52AA"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft\\signal_fft.c",
+        "sha256":  "DA1EE2F35D8A61C509BE35E7181B6F3A84A629600A936AA8CB262FE2E9BB00EC"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft_magnitude\\signal_fft_magnitude.c",
+        "sha256":  "570014D0FE1D78891E0197CCACED56E20F17C51316562CDCDB1D3FD424BC2141"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\peak_detect\\signal_peak_detect.c",
+        "sha256":  "61FB510C50F17DA04C49C85B16896C98B5ECF5C9DBE5D810B6B8992BE97F8E61"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\correlation\\signal_correlation.c",
+        "sha256":  "3B585753198D699D4363F0DC625F7BE2B2B940DC36CECF1A3FB87A5A24E68EC8"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\harmonic\\signal_harmonic.c",
+        "sha256":  "C8F43CCD6EDECDE6826C721436D5284C163F8B55D9A218B22C1699924C856F60"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\thd\\signal_thd.c",
+        "sha256":  "027D219557F7A9DB3EE13B83E6A8781A021921AB0ACA56D7E8DA6374596A41EB"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\zero_cross_interpolation\\signal_zero_cross_interpolation.c",
+        "sha256":  "062EF905011EFAB4768F52CEA962B561FD8C2834B4807A8461DD33C29706B715"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_cycle_average\\signal_multi_cycle_average.c",
+        "sha256":  "621359923609F9D1431232CBE024029196F98684048BBE27384813C310A818DC"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\fft_parabolic_interpolation\\signal_fft_parabolic_interpolation.c",
+        "sha256":  "39661A32B9C901FD6A8EEE759AFC373EE082CAE3A60AFB3101A59C4782433CB6"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\window_gain_correction\\signal_window_gain_correction.c",
+        "sha256":  "2C92868577A2875D2EC2F9E8AFF4ED5711BC9B882BA787754A00D970D306C032"
+    },
+    {
+        "target":  "harmonic_thd_analyzer_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_bin_energy\\signal_multi_bin_energy.c",
+        "sha256":  "054A4F36B2607314D04A2B18058A2387B6BECFA2F965E5C91E5B7FBDF9E9B3FA"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\dual_channel_phase_meter\\main.c",
+        "sha256":  "B7185B851F52BF5125CC07B9D1A9BD954A2ADAAB92B864C849310F5C97C05D1D"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_integration.c",
+        "sha256":  "AE07DB722BCAAC9DC914EC2B49224D26FCF86AD480713B0EA74C30BF29D66C5C"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_dual_adc_platform.c",
+        "sha256":  "8EB29F163777A02843EB7971DA6588FE5A3AFE98B56F2307BC8EDDC27AB163C8"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\adc_to_voltage\\signal_adc_to_voltage.c",
+        "sha256":  "A3EFD9B41F723DFF04F740B922B788E4EDF853DF3F792227FE710AD7DD72D819"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\mean\\signal_mean.c",
+        "sha256":  "2C1926B0290C693D2C7E0D1A16A1F94D2FD2EF38381144723370513188D5DF9E"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\minmax\\signal_minmax.c",
+        "sha256":  "5906428399720A9FC257B26D24757CB7A7042E05791151468237079BBB0CCA79"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\vpp\\signal_vpp.c",
+        "sha256":  "6C43B764482B28B53BAEAFF7A96297860BB0F0E9FFD382BEE58AC262A05636C3"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\rms\\signal_rms.c",
+        "sha256":  "80C73072EB23C6A7EB7A3358D5301ACB249EDD42CE757393EBCCA001BD8661AF"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\ac_rms\\signal_ac_rms.c",
+        "sha256":  "E29867299991E849F6C0EF92D6722242B1D50082CD92D89A07463525B92E3BE1"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\frequency_zero_cross\\signal_zero_cross.c",
+        "sha256":  "3651814862070FE890F23E8D8C14258FB585D15E98B4FA4E1D53E074A35D2F77"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\03_measurement\\phase\\signal_phase.c",
+        "sha256":  "265AA0429088A50E41FE5F558243A41C492EB81F7F4FC112799EDB7AFA58E5D9"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\remove_dc\\signal_remove_dc.c",
+        "sha256":  "C5997FB48DAB1355AA53787F7AECD1ACEA30C1EFC5A38B6671A1B76BB08FE945"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\signal_window.c",
+        "sha256":  "05038E77DBF6F84AF92F031E96E5B28147BA692821B44A89989E1E36DBC7632E"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\window\\hann\\signal_hann.c",
+        "sha256":  "60902BDC59A08B2755235BB48A2B6FB55A5D6CAA4FD72CE6C7A3FBDDB41E52AA"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft\\signal_fft.c",
+        "sha256":  "DA1EE2F35D8A61C509BE35E7181B6F3A84A629600A936AA8CB262FE2E9BB00EC"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\fft_magnitude\\signal_fft_magnitude.c",
+        "sha256":  "570014D0FE1D78891E0197CCACED56E20F17C51316562CDCDB1D3FD424BC2141"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\peak_detect\\signal_peak_detect.c",
+        "sha256":  "61FB510C50F17DA04C49C85B16896C98B5ECF5C9DBE5D810B6B8992BE97F8E61"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\correlation\\signal_correlation.c",
+        "sha256":  "3B585753198D699D4363F0DC625F7BE2B2B940DC36CECF1A3FB87A5A24E68EC8"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\harmonic\\signal_harmonic.c",
+        "sha256":  "C8F43CCD6EDECDE6826C721436D5284C163F8B55D9A218B22C1699924C856F60"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\04_dsp\\thd\\signal_thd.c",
+        "sha256":  "027D219557F7A9DB3EE13B83E6A8781A021921AB0ACA56D7E8DA6374596A41EB"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\zero_cross_interpolation\\signal_zero_cross_interpolation.c",
+        "sha256":  "062EF905011EFAB4768F52CEA962B561FD8C2834B4807A8461DD33C29706B715"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_cycle_average\\signal_multi_cycle_average.c",
+        "sha256":  "621359923609F9D1431232CBE024029196F98684048BBE27384813C310A818DC"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\fft_parabolic_interpolation\\signal_fft_parabolic_interpolation.c",
+        "sha256":  "39661A32B9C901FD6A8EEE759AFC373EE082CAE3A60AFB3101A59C4782433CB6"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\window_gain_correction\\signal_window_gain_correction.c",
+        "sha256":  "2C92868577A2875D2EC2F9E8AFF4ED5711BC9B882BA787754A00D970D306C032"
+    },
+    {
+        "target":  "dual_channel_phase_meter_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\05_precision\\multi_bin_energy\\signal_multi_bin_energy.c",
+        "sha256":  "054A4F36B2607314D04A2B18058A2387B6BECFA2F965E5C91E5B7FBDF9E9B3FA"
+    },
+    {
+        "target":  "dds_generator_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\dds_generator\\main.c",
+        "sha256":  "608679099DD52DCF3B0A2B0337D5AAFB0A208A5CC766AFC49A789EFF87C9E7E4"
+    },
+    {
+        "target":  "dds_generator_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\08_applications\\common\\signal_dac_dma_platform.c",
+        "sha256":  "28794AC59ED1DFB04348E5D9A542C0BDE4B840BDE09D58BCE7D8E2ED8BCD632D"
+    },
+    {
+        "target":  "dds_generator_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\06_generator\\dac_dma\\signal_dac_dma.c",
+        "sha256":  "F3EE1766CD18DEA7205BB36E77CFE9AA5F9ADB8F93DBD31841631BC2CD69D886"
+    },
+    {
+        "target":  "dds_generator_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\06_generator\\dac_wave_table\\signal_dac_wave_table.c",
+        "sha256":  "74087547BAF03D8580CA4FC9DC239BE6599AF541BF55BFCDCC5507B90BB44730"
+    },
+    {
+        "target":  "dds_generator_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\06_generator\\dds\\signal_dds.c",
+        "sha256":  "AD0D6F643192ED42A68EF07D85797E706BDF4AF0628386946CA9760FEFBA7D5E"
+    },
+    {
+        "target":  "dds_generator_round1",
+        "source":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\06_generator\\sine\\signal_sine.c",
+        "sha256":  "901069262D700965492173841B0DBF88F4A0421B2285AD30BC77768260EEACCC"
+    }
+]

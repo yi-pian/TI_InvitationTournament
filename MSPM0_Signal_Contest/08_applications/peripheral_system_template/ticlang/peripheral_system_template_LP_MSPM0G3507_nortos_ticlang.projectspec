@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+    <applicability>
+        <when>
+            <context deviceFamily="ARM" deviceId="MSPM0G3507" />
+        </when>
+    </applicability>
+
+    <project
+        name="peripheral_system_template_LP_MSPM0G3507_nortos_ticlang"
+        configurations="Debug"
+        toolChain="TICLANG"
+        connection="TIXDS110_Connection.xml"
+        device="MSPM0G3507"
+        ignoreDefaultDeviceSettings="true"
+        ignoreDefaultCCSSettings="true"
+        products="MSPM0-SDK;sysconfig"
+        compilerBuildOptions="
+            -I${PROJECT_ROOT}
+            -I${PROJECT_ROOT}/${ConfigName}
+            -I${APP_SOURCE_ROOT}
+            -I${MSPM0_SIGNAL_LIBRARY_ROOT}/MSPM0_Signal_Contest/01_bsp/common
+            -DARM_MATH_CM0
+            -O2
+            @device.opt
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/Core/Include
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/DSP/Include
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -mcpu=cortex-m0plus
+            -march=thumbv6m
+            -mfloat-abi=soft
+            -mthumb
+            -Wall
+            -Werror
+        "
+        linkerBuildOptions="
+            -ldevice.cmd.genlibs
+            -L${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -L${PROJECT_ROOT}
+            -L${PROJECT_BUILD_DIR}/syscfg
+            -Wl,--rom_model
+            -Wl,--warn_sections
+            -L${CG_TOOL_ROOT}/lib
+            -llibc.a
+        "
+        sysConfigBuildOptions="
+            --output .
+            --product ${COM_TI_MSPM0_SDK_INSTALL_DIR}/.metadata/product.json
+            --compiler ticlang
+        "
+        sourceLookupPath="${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/ti/driverlib"
+        description="Importable MSPM0 signal peripheral application skeleton">
+        <pathVariable name="APP_SOURCE_ROOT" path="../" scope="project"/>
+        <property name="buildProfile" value="release"/>
+        <property name="isHybrid" value="true"/>
+
+        <file path="../main_template.c" openOnCreation="true" excludeFromBuild="false" action="copy" />
+        <file path="../peripheral_system_template.c" openOnCreation="false" excludeFromBuild="false" action="copy" />
+        <file path="../peripheral_system_template.h" openOnCreation="false" excludeFromBuild="false" action="copy" />
+        <file path="../signal_hw_config.h" openOnCreation="true" excludeFromBuild="false" action="copy" />
+        <file path="../README.md" openOnCreation="true" excludeFromBuild="false" action="copy" />
+        <!-- Default import starts from P01. Replace this project-owned copy
+             with another validated profile when selecting P02..P06. -->
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/09_examples/integration_profiles/PROFILE_01_ADC_CAPTURE/profile.syscfg"
+              openOnCreation="true" excludeFromBuild="false" action="copy" />
+        <!-- Linked common headers remain the single source of truth. -->
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/01_bsp/common/signal_status.h"
+              targetDirectory="modules/common" createVirtualFolders="true"
+              openOnCreation="false" excludeFromBuild="false" action="link" />
+        <file path="MSPM0_SIGNAL_LIBRARY_ROOT/MSPM0_Signal_Contest/01_bsp/common/signal_types.h"
+              targetDirectory="modules/common" createVirtualFolders="true"
+              openOnCreation="false" excludeFromBuild="false" action="link" />
+    </project>
+</projectSpec>

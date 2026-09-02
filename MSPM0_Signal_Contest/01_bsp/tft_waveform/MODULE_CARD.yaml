@@ -1,0 +1,195 @@
+schema_version: 1
+module_id: tft_waveform
+name: TFT Waveform：ILI9341 波形绘制辅助
+path: MSPM0_Signal_Contest/01_bsp/tft_waveform
+category: 01_bsp
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 把 float 波形映射到 ILI9341 绘图区，提供普通抽点和每列 min-max envelope
+use_when: 当上游已经选择好显示窗口的 float samples[N] 时使用。24_C 周期信号按硬件频率截取 3 周期，复合信号按 FFT 基波设 X 轴，猝发使用 marker 锁存的完整窗口并优先
+  min-max envelope；轴、刻度、V/ms 单位和触发判定由应用层提供。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 项目 | 内容 | |---|---| | 输入 | 已转换、已选择显示窗口的 float samples[N] | | 输入单位 | 可以是 V，也可以是其他线性单位；scale/baseline
+  必须同单位 | | 输出 | 直接调用 TFT 基础图元；result 返回数据范围、实际 scale 和列数 | | RAM | O(1)，动态分配 0，无 framebuffer | | CPU
+  | O(N + 屏宽)；真正耗时通常是阻塞 SPI 绘制
+output: 项目 | 内容 | |---|---| | 输入 | 已转换、已选择显示窗口的 float samples[N] | | 输入单位 | 可以是 V，也可以是其他线性单位；scale/baseline
+  必须同单位 | | 输出 | 直接调用 TFT 基础图元；result 返回数据范围、实际 scale 和列数 | | RAM | O(1)，动态分配 0，无 framebuffer | | CPU
+  | O(N + 屏宽)；真正耗时通常是阻塞 SPI 绘制
+unit:
+- caller input unit (V for a voltage buffer)
+- pixel
+requires_sysconfig: true
+hardware_resources:
+- SPI/GPIO
+canonical_path: MSPM0_Signal_Contest/01_bsp/tft_waveform
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - SPI
+  optional_peripherals: []
+  instance_requirements:
+  - role: SPI
+    type: SPI
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles:
+  - role: SPI_SCLK
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: SPI_MOSI
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: SPI_CS
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: TFT_DC
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  - role: TFT_BLK
+    direction: output
+    actual_pin: current_template_or_user
+    preserve_existing: true
+  analog_pins: []
+  spi_mode:
+  - role: TFT
+    mode: controller-specific; preserve verified profile
+    clock: preserve verified profile
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols:
+  - SPI_TFT_INST
+  - GPIO_TFT_CTRL_PORT
+  - GPIO_TFT_CTRL_TFT_DC_PIN
+  - GPIO_TFT_CTRL_TFT_BLK_PIN
+  dependencies: &id001
+  - tft_ili9341
+  constraints:
+  - TFT control pins are roles, not fixed board wiring; preserve fixed current assignments.
+  user_selectable_fields:
+  - SPI instance
+  - TFT SCLK/MOSI/CS/DC/BLK pins
+  profile_evidence:
+  - MSPM0_Signal_Contest/09_examples/tft_ili9341_lp_mspm0g3507/tft_ili9341.syscfg
+  resource_claims:
+  - type: SPI
+    role: SPI
+    shareable: false
+  pinmux:
+    required: true
+    roles:
+    - SPI_SCLK
+    - SPI_MOSI
+    - SPI_CS
+    - TFT_DC
+    - TFT_BLK
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341.h
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/signal_tft_waveform.c
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/signal_tft_waveform.h
+dependency_headers:
+- signal_status.h
+- signal_tft_ili9341.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/tft_ili9341/signal_tft_ili9341.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/tft_waveform/signal_tft_waveform.h
+main_apis:
+- SignalTFTWaveform_MapY
+- SignalTFTWaveform_GetEnvelopeColumn
+- SignalTFTWaveform_Draw
+- SignalTFTWaveform_GetModuleStatus
+contest_parameters:
+- x
+- y
+- width
+- height
+- mode
+- scale_mode
+- minimum_value
+- maximum_value
+- baseline_value
+- waveform_color
+- background_color
+- grid_color
+- baseline_color
+- horizontal_grid_divisions
+- vertical_grid_divisions
+- clear_background
+buffer:
+  input_type: trigger/timebase-selected float samples[N]
+  output_type: ILI9341 line or min-max envelope plot
+  input_length: N >= 1; displayed columns=min(N, plot width)
+  output_length: screen pixels; no output array
+  in_place: false
+  workspace: O(1); no framebuffer or column array
+  ram_estimate: constant helper state; caller owns input frame
+  n_restrictions: input must be stable while blocking TFT drawing runs
+next_modules:
+- tft_ili9341
+reference_application:
+- MSPM0_Signal_Contest/10_tests/pc/test_signal_library.c
+- MSPM0_Signal_Contest/00_docs/WAVEFORM_DISPLAY_RECIPE.md
+verified_example: MSPM0_Signal_Contest/10_tests/pc/test_signal_library.c
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/tft_waveform/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/README.md
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/signal_tft_waveform.c
+- MSPM0_Signal_Contest/01_bsp/tft_waveform/signal_tft_waveform.h
+source_fingerprint_sha256: 1724e8531a527c3ecb8dc0467ebb0c7eb7768402b520fddd37939967a7913352

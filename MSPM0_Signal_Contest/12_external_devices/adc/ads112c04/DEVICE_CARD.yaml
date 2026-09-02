@@ -1,0 +1,109 @@
+schema_version: 1
+device_id: device_ads112c04
+device: ADS112C04：I2C 16-bit 精密 ADC
+manufacturer: Texas Instruments
+path: MSPM0_Signal_Contest/12_external_devices/adc/ads112c04
+category: adc
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: COMPILE_VERIFIED
+interface: &id001
+- I2C
+- GPIO
+supply: AVDD-AVSS 和 DVDD-DGND 推荐范围均为 2.3～5.5 V。最容易联调的单电源方案是 AVDD=DVDD=3.3 V、AVSS=DGND=GND，每组电源就近放至少 100
+  nF 去耦。模拟输入绝对电压及 PGA 共模范围仍须遵守数据手册，不能仅按数字满量程判断。
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: SDA：I2C 数据； - SCL：I2C 时钟； - RESET：低有效复位，可接 GPIO，也可拉高仅使用 RESET 命令； - DRDY：低有效数据就绪，可接 GPIO；初次可不接，轮询寄存器
+  2 的 DRDY 位； - A0/A1：地址选择，通常硬接 GND 或 DVDD，不需要 MCU 动态控制。 封装引脚号不同：TSSOP 的 SDA/SCL 为 15/16，WQFN 的 SDA/SCL
+  为 13/14。连线时按你手上封装的 Pin Functions 表，不按本 README 猜脚号。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files:
+- MSPM0_Signal_Contest/12_external_devices/adc/ads112c04/ads112c04.c
+- MSPM0_Signal_Contest/12_external_devices/adc/ads112c04/ads112c04.h
+public_header: MSPM0_Signal_Contest/12_external_devices/adc/ads112c04/ads112c04.h
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions:
+- ADS112C04_SendCommand
+- ADS112C04_WriteRegister
+- ADS112C04_ReadRegister
+- ADS112C04_Reset
+- ADS112C04_StartSingle
+- ADS112C04_IsReady
+- ADS112C04_ReadRaw
+- ADS112C04_RawToVoltage
+datasheet_status: DOCUMENTED_IN_README
+compile_status: COMPILE_VERIFIED
+board_status: NOT_RUN
+verification:
+  overall: COMPILE_VERIFIED
+  evidence: MSPM0_Signal_Contest/12_external_devices/adc/ads112c04/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/adc/ads112c04/ads112c04.c
+- MSPM0_Signal_Contest/12_external_devices/adc/ads112c04/ads112c04.h
+- MSPM0_Signal_Contest/12_external_devices/adc/ads112c04/README.md
+source_fingerprint_sha256: 2a84225c739fda1b29e2b3b15722925faadcca008fdd79ca34acc7b65be93881

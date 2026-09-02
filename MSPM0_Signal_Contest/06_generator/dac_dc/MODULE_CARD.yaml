@@ -1,0 +1,135 @@
+schema_version: 1
+module_id: dac_dc
+name: DAC 固定直流输出
+path: MSPM0_Signal_Contest/06_generator/dac_dc
+category: 06_generator
+implementation_type: DIRECT_DRIVERLIB
+recommendation: deprecated
+recommended_for_contest: false
+status: BUILD_VERIFIED
+purpose: 把目标直流电压换算为 DAC 码并通过适配器输出。
+use_when: 固定 DC：直接 DriverLib。 - 连续周期波：Wave Table/DDS → DAC DMA。 - 任意波回放：捕获/重采样 → DAC DMA。 连续输出包含 Timer/Event/DMA/DAC
+  协作，继续使用正式复杂模块，不要在循环里反复调用固定 DC 写函数。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 旧 API 输入 signal_dac_t descriptor、目标 voltage_v 与结果指针。
+output: DAC0：MSPM0G3507 的 DAC12 instance；换工程时以生成头和 .syscfg 为准。 - code：12-bit 无符号码，范围 0..4095。 - 0U：接近零量程；2048U：约半量程；4095U：接近满量程。
+  - 题目要求改变输出时，直接修改 code。 理想换算为 code ≈ voltage_v / reference_voltage_v × 4095。真实输出还受参考电压、DAC 误差、放大器设置和负载影响；先用
+  2048U 配合万用表/示波器验证约半量程。
+unit:
+- V
+requires_sysconfig: true
+hardware_resources:
+- DAC12
+canonical_path: MSPM0_Signal_Contest/06_generator/dac_dc
+selectable: false
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - DAC12
+  optional_peripherals: []
+  instance_requirements:
+  - role: DAC
+    type: DAC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001
+  - dac
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: DAC12
+    role: DAC
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/dac/signal_dac.h
+- MSPM0_Signal_Contest/06_generator/dac_dc/signal_dac_dc.c
+- MSPM0_Signal_Contest/06_generator/dac_dc/signal_dac_dc.h
+dependency_headers:
+- signal_dac.h
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/dac/signal_dac.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/06_generator/dac_dc/signal_dac_dc.h
+main_apis:
+- SignalDACDC_SetVoltage
+- SignalDACDC_GetModuleStatus
+contest_parameters: []
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application:
+- MSPM0_Signal_Contest/09_examples/platform_closure/dac_dc_minimum/main.c
+verified_example: MSPM0_Signal_Contest/09_examples/platform_closure/dac_dc_minimum/main.c
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/06_generator/dac_dc/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/06_generator/dac_dc/MODULE_CARD.md
+- MSPM0_Signal_Contest/06_generator/dac_dc/README.md
+- MSPM0_Signal_Contest/06_generator/dac_dc/signal_dac_dc.c
+- MSPM0_Signal_Contest/06_generator/dac_dc/signal_dac_dc.h
+source_fingerprint_sha256: 674434ed6b34a5e89edc02e926ed0a08faa6d81b5909f16c9b8bf92e451001fb

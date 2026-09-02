@@ -1,0 +1,153 @@
+schema_version: 1
+module_id: adc_pingpong_dma
+name: ADC Ping-Pong DMA：连续采集时交替使用两块缓冲区
+path: MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma
+category: 02_acquisition
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 管理双缓冲 DMA 的 ready、release 和 overrun 状态。
+use_when: 适合：连续显示波形、连续 FFT、持续 RMS；DMA 一帧完成后 CPU 仍要处理较长时间；或需要发现 CPU 未处理完而 DMA 已绕回来的 overrun。 不适合：只采一次 N
+  点（用 adc_dma 更简单）；想把本纯软件状态模块直接当 ADC + DMA 驱动；或无法给两块 buffer 各自完整一帧的 RAM。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 输入由各 API 的只读数组、配置、频率/阈值和平台对象组成；输出写入 result/output/buffer 参数或由 Get API 返回。调用者负责数组容量、生命周期和物理单位；失败返回时输出不是有效结果。
+output: 输入由各 API 的只读数组、配置、频率/阈值和平台对象组成；输出写入 result/output/buffer 参数或由 Get API 返回。调用者负责数组容量、生命周期和物理单位；失败返回时输出不是有效结果。
+unit:
+- samples
+- V
+requires_sysconfig: true
+hardware_resources:
+- ADC12
+- DMA
+canonical_path: MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - ADC12
+  - DMA
+  optional_peripherals: []
+  instance_requirements:
+  - role: ADC
+    type: ADC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: DMA
+    type: DMA
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: true
+    roles:
+    - transfer_channel
+    constraints:
+    - channel must not collide
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: ADC12
+    role: ADC
+    shareable: false
+  - type: DMA
+    role: DMA
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/signal_adc_pingpong_dma.c
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/signal_adc_pingpong_dma.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/signal_adc_pingpong_dma.h
+main_apis:
+- SignalADCPingPong_Init
+- SignalADCPingPong_OnDmaComplete
+- SignalADCPingPong_Acquire
+- SignalADCPingPong_Release
+- SignalADCPingPong_GetModuleStatus
+contest_parameters:
+- buffer
+- sample_count
+- ready
+- dma_target
+- completed_blocks
+- overrun_blocks
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 调用者提供 2×N×2 bytes 原始缓冲区；控制结构为常数大小。
+  ram_estimate: 调用者提供 2×N×2 bytes 原始缓冲区；控制结构为常数大小。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules:
+- recipe_adc_to_voltage
+- recipe_cmsis_fft_spectrum
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/MODULE_CARD.md
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/README.md
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/signal_adc_pingpong_dma.c
+- MSPM0_Signal_Contest/02_acquisition/adc_pingpong_dma/signal_adc_pingpong_dma.h
+source_fingerprint_sha256: ed9a92d5d011d0c5d1e17ba00bcf6cabe5ebc567417a695b8647a37b99805897

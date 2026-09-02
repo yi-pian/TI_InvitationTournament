@@ -1,0 +1,14 @@
+{
+  "project": "spectrum_example_lifetime_model",
+  "capacity_bytes": 32768,
+  "globals_bytes": 512,
+  "stack_bytes": 1024,
+  "library_workspace_bytes": 0,
+  "buffers": [
+    {"name": "adc_raw_u16_1024", "bytes": 2048, "start_phase": 0, "end_phase": 2, "owner": "adc_dma"},
+    {"name": "voltage_f32_1024", "bytes": 4096, "start_phase": 1, "end_phase": 3, "owner": "pipeline"},
+    {"name": "fft_complex_f32_1024", "bytes": 8192, "start_phase": 2, "end_phase": 4, "owner": "fft"},
+    {"name": "magnitude_f32_513", "bytes": 2052, "start_phase": 3, "end_phase": 5, "owner": "fft_magnitude"}
+  ]
+}
+

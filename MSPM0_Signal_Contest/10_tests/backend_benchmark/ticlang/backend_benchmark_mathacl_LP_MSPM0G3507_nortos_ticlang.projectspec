@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+  <applicability><when><context deviceFamily="ARM" deviceId="MSPM0G3507" /></when></applicability>
+  <project name="backend_benchmark_mathacl_LP_MSPM0G3507_nortos_ticlang"
+    configurations="Debug" toolChain="TICLANG"
+    connection="TIXDS110_Connection.xml" device="MSPM0G3507"
+    ignoreDefaultDeviceSettings="true" ignoreDefaultCCSSettings="true"
+    products="MSPM0-SDK;sysconfig"
+    compilerBuildOptions="
+      -I${PROJECT_ROOT} -I${PROJECT_ROOT}/${ConfigName}
+      -I${PROJECT_ROOT}/../../../../01_bsp/common
+      -I${PROJECT_ROOT}/../../../../11_legacy_compatibility/algorithms/04_dsp/fft
+      -I${PROJECT_ROOT}/../../../../algorithm_backends
+      -I${PROJECT_ROOT}/../../../../algorithm_backends/reference
+      -I${PROJECT_ROOT}/../../../../algorithm_backends/cmsis_dsp
+      -I${PROJECT_ROOT}/../../../../algorithm_backends/iqmath
+      -DARM_MATH_CM0 -O2 @device.opt
+      -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/Core/Include
+      -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/DSP/Include
+      -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+      -mcpu=cortex-m0plus -march=thumbv6m -mfloat-abi=soft -mthumb
+      -Wall -Werror
+    "
+    linkerBuildOptions="
+      -ldevice.cmd.genlibs -L${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+      -L${PROJECT_ROOT} -L${PROJECT_BUILD_DIR}/syscfg
+      -Wl,--rom_model -Wl,--warn_sections -L${CG_TOOL_ROOT}/lib -llibc.a
+    "
+    sysConfigBuildOptions="--output . --product ${COM_TI_MSPM0_SDK_INSTALL_DIR}/.metadata/product.json --compiler ticlang"
+    sourceLookupPath="${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/ti/driverlib"
+    description="TEST ONLY 80 MHz CMSIS-DSP and IQMath MathACL backend benchmark">
+    <property name="buildProfile" value="release"/>
+    <property name="isHybrid" value="true"/>
+    <file path="../backend_benchmark_target.c" openOnCreation="false" excludeFromBuild="false" action="copy" />
+    <file path="../benchmark_config.h" openOnCreation="true" excludeFromBuild="false" action="copy" />
+    <file path="../backend_benchmark_mathacl.syscfg" openOnCreation="true" excludeFromBuild="false" action="copy" />
+    <file path="../README.md" openOnCreation="true" excludeFromBuild="false" action="copy" />
+    <file path="../../../algorithm_backends/signal_backend.c" targetDirectory="backends" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/signal_backend.h" targetDirectory="backends" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/signal_fixed_point.c" targetDirectory="backends" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/signal_fixed_point.h" targetDirectory="backends" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/reference/signal_reference_backend.c" targetDirectory="backends/reference" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/reference/signal_reference_backend.h" targetDirectory="backends/reference" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/cmsis_dsp/signal_cmsis_dsp_backend.c" targetDirectory="backends/cmsis_dsp" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/cmsis_dsp/signal_cmsis_dsp_backend.h" targetDirectory="backends/cmsis_dsp" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/iqmath/signal_iqmath_backend.c" targetDirectory="backends/iqmath" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../algorithm_backends/iqmath/signal_iqmath_backend.h" targetDirectory="backends/iqmath" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../11_legacy_compatibility/algorithms/04_dsp/fft/signal_fft.c" targetDirectory="reference_fft" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../11_legacy_compatibility/algorithms/04_dsp/fft/signal_fft.h" targetDirectory="reference_fft" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../01_bsp/common/signal_status.h" targetDirectory="common" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../01_bsp/common/signal_types.h" targetDirectory="common" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+    <file path="../../../01_bsp/common/signal_math.h" targetDirectory="common" createVirtualFolders="true" openOnCreation="false" excludeFromBuild="false" action="link" />
+  </project>
+</projectSpec>

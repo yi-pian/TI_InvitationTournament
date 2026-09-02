@@ -1,0 +1,169 @@
+schema_version: 1
+module_id: adc_dual_sync
+name: Dual ADC：双通道同步采集
+path: MSPM0_Signal_Contest/02_acquisition/adc_dual_sync
+category: 02_acquisition
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 把同步双通道交织数据拆成两个独立数组。
+use_when: 适合： - 测两个正弦信号的相位差，例如放大器输入 Vin 与输出 Vout。 - 同时比较两路幅值、波形或峰峰值。 - 一路模拟信号加一路猝发标志，要求样本下标能够对应相同时间。 -
+  后面要把 A、B 分别送进 ADC To Voltage、Phase、Correlation 或 FFT。 不适合： - 只测一路直流电压或普通单通道波形，使用 adc_dma 更简单。 - 两路数据不需要时间对应，先后软件读取即可。
+  - 想把一个 ADC 的单次转换结果复制两份，这不是双通道采集。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 模拟输入： 两路均必须在 ADC 允许的电压范围内，不能把超出 VDDA/VSSA 的信号直接接入。 - 输入参数： 每通道采样率 Fs 和每帧点数 N。 - 输出： uint16_t raw_a[N]
+  与 uint16_t raw_b[N]。raw_a[i] 和 raw_b[i] 对应第 i 次 Timer 触发。 - 内存： 两路原始码占 2 * N * sizeof(uint16_t) = 4N
+  字节。N=1024 时为 4096 B，不含栈和后续浮点数组。 采集未完成时 DMA 正在写数组，不能读取、改写、传给 FFT 或用于显示。完成后到下一次 Start() 前才是安全处理期。
+output: 模拟输入： 两路均必须在 ADC 允许的电压范围内，不能把超出 VDDA/VSSA 的信号直接接入。 - 输入参数： 每通道采样率 Fs 和每帧点数 N。 - 输出： uint16_t raw_a[N]
+  与 uint16_t raw_b[N]。raw_a[i] 和 raw_b[i] 对应第 i 次 Timer 触发。 - 内存： 两路原始码占 2 * N * sizeof(uint16_t) = 4N
+  字节。N=1024 时为 4096 B，不含栈和后续浮点数组。 采集未完成时 DMA 正在写数组，不能读取、改写、传给 FFT 或用于显示。完成后到下一次 Start() 前才是安全处理期。
+unit:
+- Hz
+- degrees
+- V
+requires_sysconfig: true
+hardware_resources:
+- ADC12
+- Event Fabric
+- Timer
+canonical_path: MSPM0_Signal_Contest/02_acquisition/adc_dual_sync
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - ADC12
+  - EVENT
+  - TIMER
+  optional_peripherals: []
+  instance_requirements:
+  - role: ADC
+    type: ADC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: EVENT
+    type: EVENT
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: TIMER
+    type: TIMER
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: true
+    roles:
+    - sample_or_capture_trigger
+    constraints:
+    - preserve existing timer owners
+  event:
+    required: true
+    roles:
+    - peripheral_trigger
+    constraints:
+    - route must match selected instance
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: ADC12
+    role: ADC
+    shareable: false
+  - type: EVENT
+    role: EVENT
+    shareable: true
+  - type: TIMER
+    role: TIMER
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_adc_dual_sync.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_adc_dual_sync.h
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_dual_adc_mspm0g3507.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_dual_adc_mspm0g3507.h
+dependency_headers:
+- signal_status.h
+- ti_msp_dl_config.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_adc_dual_sync.h
+main_apis:
+- SignalADCDualSync_Deinterleave
+- SignalADCDualSync_GetModuleStatus
+contest_parameters: []
+buffer:
+  input_type: two synchronized ADC/DMA streams
+  output_type: uint16_t channel_a[N] + uint16_t channel_b[N]
+  input_length: shared N from current public header
+  output_length: N samples per channel
+  in_place: false
+  workspace: two caller-owned raw buffers
+  ram_estimate: 4*N bytes plus module/platform state
+  n_restrictions: both channel capacities must cover N
+next_modules:
+- recipe_adc_to_voltage
+- phase
+- correlation
+reference_application:
+- MSPM0_Signal_Contest/08_applications/dual_channel_phase_meter/README.md
+verified_example: MSPM0_Signal_Contest/08_applications/dual_channel_phase_meter/README.md
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/MODULE_CARD.md
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/README.md
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_adc_dual_sync.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_adc_dual_sync.h
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_dual_adc_mspm0g3507.c
+- MSPM0_Signal_Contest/02_acquisition/adc_dual_sync/signal_dual_adc_mspm0g3507.h
+source_fingerprint_sha256: 8bdf149074c7fc3faf5f538192a8fecc5d72c5822e4915dafebad2357803d801

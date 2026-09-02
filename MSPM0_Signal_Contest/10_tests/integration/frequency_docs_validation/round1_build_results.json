@@ -1,0 +1,134 @@
+{
+    "date":  "2026-08-13",
+    "compiler":  "TI Arm Clang Compiler 5.1.1.LTS",
+    "compiler_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmclang.exe",
+    "tiarmsize_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmsize.exe",
+    "sysconfig_path":  "D:\\TI\\CCS\\ccs\\utils\\sysconfig_1.28.0\\sysconfig_cli.bat",
+    "sdk_root":  "C:\\TI\\mspm0_sdk_2_11_00_07",
+    "algorithm_root":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest",
+    "requested_fft_backend":  0,
+    "extra_defines":  [
+
+                      ],
+    "sample_count_override":  0,
+    "target_count":  3,
+    "results":  [
+                    {
+                        "application":  "Frequency Meter A",
+                        "target":  "frequency_meter_a_round1",
+                        "profile":  "PROFILE_05_FREQUENCY",
+                        "projectspec":  "08_applications/frequency_meter/ticlang/frequency_meter_a_round1_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  5,
+                        "fft_backend":  0,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  2368,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  128704,
+                        "sram_used_bytes_including_stack":  780,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  268,
+                        "sram_remaining_bytes":  31988,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\frequency_docs_validation\\frequency_meter_a_round1\\frequency_meter_a_round1.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\frequency_docs_validation\\frequency_meter_a_round1\\frequency_meter_a_round1.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "Frequency Meter B",
+                        "target":  "frequency_meter_b_round1",
+                        "profile":  "PROFILE_01_ADC_CAPTURE",
+                        "projectspec":  "08_applications/frequency_meter/ticlang/frequency_meter_b_round1_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  27,
+                        "fft_backend":  0,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  6256,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  124816,
+                        "sram_used_bytes_including_stack":  14896,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  14384,
+                        "sram_remaining_bytes":  17872,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_events",
+                                                  "bytes":  6156
+                                              },
+                                              {
+                                                  "name":  "g_voltage",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_positions",
+                                                  "bytes":  2052
+                                              },
+                                              {
+                                                  "name":  "g_raw",
+                                                  "bytes":  2048
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\frequency_docs_validation\\frequency_meter_b_round1\\frequency_meter_b_round1.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\frequency_docs_validation\\frequency_meter_b_round1\\frequency_meter_b_round1.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    },
+                    {
+                        "application":  "Frequency Meter C",
+                        "target":  "frequency_meter_c_round1",
+                        "profile":  "PROFILE_01_ADC_CAPTURE",
+                        "projectspec":  "08_applications/frequency_meter/ticlang/frequency_meter_c_round1_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  27,
+                        "fft_backend":  0,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  16560,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  114512,
+                        "sram_used_bytes_including_stack":  16936,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  16424,
+                        "sram_remaining_bytes":  15832,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_fft",
+                                                  "bytes":  8192
+                                              },
+                                              {
+                                                  "name":  "g_voltage",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_magnitude",
+                                                  "bytes":  2052
+                                              },
+                                              {
+                                                  "name":  "g_raw",
+                                                  "bytes":  2048
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\frequency_docs_validation\\frequency_meter_c_round1\\frequency_meter_c_round1.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\frequency_docs_validation\\frequency_meter_c_round1\\frequency_meter_c_round1.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    }
+                ]
+}

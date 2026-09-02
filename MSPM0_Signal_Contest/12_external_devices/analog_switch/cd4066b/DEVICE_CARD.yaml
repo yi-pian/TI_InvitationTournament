@@ -1,0 +1,94 @@
+schema_version: 1
+device_id: device_cd4066b
+device: CD4066B：四路独立双向模拟开关
+manufacturer: multiple vendors; confirm exact suffix
+path: MSPM0_Signal_Contest/12_external_devices/analog_switch/cd4066b
+category: analog_switch
+implementation_type: EXTERNAL_DEVICE
+recommendation: conditional
+recommended_for_contest: true
+status: DOCUMENTATION_ONLY
+interface: &id001
+- GPIO
+supply: VDD(pin14) 和 VSS(pin7) 决定逻辑与模拟信号范围。单电源 3.3 V 时，模拟端必须留在约 0..3.3 V；需要负信号时必须按数据手册设计双电源/电平，不是简单把 GND
+  换成负电源就结束。
+logic_voltage: must be checked against exact device/module supply and datasheet
+control_pins: CONTROL A/B/C/D 分别是 pin13/5/6/12。模拟端：A=1/2，B=3/4，C=8/9，D=10/11。
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_guidance: configure only after exact interface, instance, pins, mode, rate, and generated macros
+  are confirmed
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: *id001
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: []
+  constraints:
+  - 'FOREIGN_DRIVER_PORT: exact datasheet is device truth; do not invent register timing or pin assignments.'
+  user_selectable_fields:
+  - interface instance
+  - role-to-pin mapping
+  - bus mode/rate
+  - IRQ/DMA choice after datasheet review
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+driver_files: []
+public_header: null
+minimal_bringup: power/logic check -> wiring -> reset or ID -> minimum output/single read -> build ->
+  board measurement
+main_functions: []
+datasheet_status: DOCUMENTED_IN_README
+compile_status: NOT_RUN
+board_status: NOT_RUN
+verification:
+  overall: DOCUMENTATION_ONLY
+  evidence: MSPM0_Signal_Contest/12_external_devices/analog_switch/cd4066b/README.md
+  board: NOT_RUN
+  contest: NOT_RUN
+model_notes:
+- Exact module supply, logic voltage, pinout, and timing must be confirmed before wiring.
+- A family/generic guide is not an exact driver; obtain the exact datasheet before final code.
+truth_sources:
+- MSPM0_Signal_Contest/12_external_devices/analog_switch/cd4066b/README.md
+source_fingerprint_sha256: bbec9c5eb077e5b07c3aafed7f7de5363cb31a7ac0e81a4aa2a60c817b741de5

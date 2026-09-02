@@ -1,0 +1,160 @@
+schema_version: 1
+module_id: matrix_keypad_4x4
+name: 4×4 矩阵键盘模块
+path: MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4
+category: 01_bsp
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 用 4 行+4 列 GPIO 扫描 16 键，输出消抖后的按下/释放/稳定状态
+use_when: 当题目需要“matrix_keypad_4x4”目录对应的公开功能，并且输入数据、单位和硬件资源满足前文约束时使用本模块。若只需要更简单的上游功能、输入尚未准备好，或需要不同的数据模型/外设资源，应先选择相邻模块而不是强行调用本
+  API。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: drive_row(context, row, active)：选择或释放某一行；模块只说“active”，平台回调决定 active 对应低电平。 - read_column(context,
+  column, &active)：读取某一列当前是否和被选中的行导通。 - 可选微秒延时回调与 settle_us，用于切换行后等待电平稳定。 - debounce_scans：同一个 raw 按键状态连续出现多少次才确认。
+  - 可选 16 字节 row-major keymap。
+output: SignalMatrixKeypad4x4_Scan() 每次返回： - raw_mask：本次直接扫描到的 16-bit 状态；bit0=R1C1，bit15=R4C4； - stable_mask：通过消抖后的当前状态；
+  - pressed_mask：本次新确认按下的键； - released_mask：本次新确认松开的键； - ghost_possible：无二极管键盘上，多行多列同时导通，可能出现“鬼键”。 GetFirstPressed()
+  可把当前第一个稳定按键直接转为 '0'..'9'、A..D、*、#。
+unit:
+- V
+requires_sysconfig: true
+hardware_resources:
+- GPIO
+canonical_path: MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - GPIO
+  optional_peripherals: []
+  instance_requirements:
+  - role: GPIO
+    type: GPIO
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles:
+  - role: module_gpio
+    direction: device_specific
+    actual_pin: USER_OR_CURRENT_PROJECT
+    preserve_existing: true
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields:
+  - GPIO role-to-pin mapping
+  profile_evidence: []
+  resource_claims:
+  - type: GPIO
+    role: GPIO
+    shareable: true
+  pinmux:
+    required: true
+    roles:
+    - module_gpio
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/signal_matrix_keypad_4x4.c
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/signal_matrix_keypad_4x4.h
+dependency_headers:
+- signal_status.h
+- ti_msp_dl_config.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/signal_matrix_keypad_4x4.h
+main_apis:
+- SignalMatrixKeypad4x4_Init
+- SignalMatrixKeypad4x4_Scan
+- SignalMatrixKeypad4x4_ReadNewSymbol
+- SignalMatrixKeypad4x4_GetKey
+- SignalMatrixKeypad4x4_GetFirstPressed
+- SignalMatrixKeypad4x4_GetModuleStatus
+contest_parameters:
+- context
+- drive_row
+- read_column
+- delay_us
+- settle_us
+- debounce_scans
+- keymap
+- raw_mask
+- stable_mask
+- pressed_mask
+- released_mask
+- ghost_possible
+- config
+- candidate_mask
+- candidate_scans
+- initialized
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 动态分配 0；状态与事件仅几十字节
+  ram_estimate: 动态分配 0；状态与事件仅几十字节
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/README.md
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/signal_matrix_keypad_4x4.c
+- MSPM0_Signal_Contest/01_bsp/matrix_keypad_4x4/signal_matrix_keypad_4x4.h
+source_fingerprint_sha256: c9ba14f13b285fe1b2a58d772d6cfe0e03952cc75a869952418f92c38efcb501

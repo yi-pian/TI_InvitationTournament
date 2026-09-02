@@ -1,0 +1,2 @@
+﻿"application","target","profile","sysconfig","compile","link","flash_used_bytes","flash_remaining_bytes","sram_used_bytes_including_stack","stack_reserved_bytes","sram_remaining_bytes","maturity"
+"Signal Analyzer","signal_analyzer_final","PROFILE_02_DUAL_ADC","PASS","PASS","PASS","91048","40024","9999","512","22769","BUILD_VERIFIED"

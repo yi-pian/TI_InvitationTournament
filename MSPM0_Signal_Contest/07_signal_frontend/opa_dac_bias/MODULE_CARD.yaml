@@ -1,0 +1,143 @@
+schema_version: 1
+module_id: opa_dac_bias
+name: OPA + DAC 偏置预算
+path: MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias
+category: 07_signal_frontend
+implementation_type: RECIPE
+recommendation: conditional
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 计算 DAC 偏置加有符号输入增益后的输出范围。
+use_when: 输入信号有负半周，ADC 却只能测 0 V 以上时。 - 需要把信号抬到 1.65 V 等中点附近，再做放大和 ADC 采样时。 - 需要先计算最坏情况下的输出范围，避免 OPA/ADC
+  饱和时。 不要用它直接输出 DAC 电压，也不要认为调用函数后片上 OPA 已经配置完成。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 参数 | 单位 | 含义 | |---|---:|---| | input_voltage_v | V | 当前输入电压，可为负数 | | gain | 无 | 设计的总电压增益，可为负数
+  | | dac_bias_v | V | 叠加的偏置，必须大于等于 0 | | output_voltage_v | V | 成功后写入理论输出 | 函数只校验输出指针和 dac_bias_v，不检查计算结果是否超过供电或
+  ADC 范围。因此计算完还应使用 opa_to_adc 检查量程。
+output: 参数 | 单位 | 含义 | |---|---:|---| | input_voltage_v | V | 当前输入电压，可为负数 | | gain | 无 | 设计的总电压增益，可为负数
+  | | dac_bias_v | V | 叠加的偏置，必须大于等于 0 | | output_voltage_v | V | 成功后写入理论输出 | 函数只校验输出指针和 dac_bias_v，不检查计算结果是否超过供电或
+  ADC 范围。因此计算完还应使用 opa_to_adc 检查量程。
+unit:
+- V
+requires_sysconfig: true
+hardware_resources:
+- DAC12
+- OPA
+canonical_path: MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - DAC12
+  - OPA
+  optional_peripherals: []
+  instance_requirements:
+  - role: DAC
+    type: DAC12
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  - role: OPA
+    type: OPA
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims:
+  - type: DAC12
+    role: DAC
+    shareable: false
+  - type: OPA
+    role: OPA
+    shareable: false
+  pinmux:
+    required: false
+    roles: []
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/signal_opa_dac_bias.c
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/signal_opa_dac_bias.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/signal_opa_dac_bias.h
+main_apis:
+- SignalOPADACBias_Calculate
+- SignalOPADACBias_GetModuleStatus
+contest_parameters: []
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/MODULE_CARD.md
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/README.md
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/signal_opa_dac_bias.c
+- MSPM0_Signal_Contest/07_signal_frontend/opa_dac_bias/signal_opa_dac_bias.h
+source_fingerprint_sha256: 8d108846cb42aca54138e6da4c0a04eac03f93bd4d05de58b68c2d5e8136c65e

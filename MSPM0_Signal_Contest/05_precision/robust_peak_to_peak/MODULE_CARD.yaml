@@ -1,0 +1,124 @@
+schema_version: 1
+module_id: robust_peak_to_peak
+name: Robust Peak-to-Peak：用分位数抵抗毛刺
+path: MSPM0_Signal_Contest/05_precision/robust_peak_to_peak
+category: algorithm/05_precision
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: PC_VERIFIED
+purpose: 比赛复制清单： signal_robust_peak_to_peak.c、signal_robust_peak_to_peak.h、03_measurement/common/signal_algorithm_status.h。调用者提供
+  N 个 float workspace；原输入只读，workspace 会被重排。无 SysConfig/Pin。
+use_when: 已确认有偶发 ADC 错码/毛刺，目标是周期波形的稳定幅度估计时。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: float voltage_v[]（V）、count、0<=lower<upper<=1，以及调用者提供的 N 个 float workspace。
+output: 上下分位电压和 robust_vpp_v，均为 V；workspace 会被重排，原输入只读。
+unit:
+- percent
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/05_precision/robust_peak_to_peak
+selectable: true
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/signal_robust_peak_to_peak.c
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/signal_robust_peak_to_peak.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/signal_robust_peak_to_peak.h
+main_apis:
+- SignalRobustPeakToPeak_Process
+contest_parameters:
+- lower_quantile
+- upper_quantile
+- lower_voltage_v
+- upper_voltage_v
+- robust_vpp_v
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/MODULE_CARD.md
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/README.md
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/signal_robust_peak_to_peak.c
+- MSPM0_Signal_Contest/05_precision/robust_peak_to_peak/signal_robust_peak_to_peak.h
+source_fingerprint_sha256: 6d98fff4eacf0b9292f14a89b3af8b2cb30d072e6ec6af9c8ae9d60531a203f5

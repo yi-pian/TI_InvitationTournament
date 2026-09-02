@@ -1,0 +1,147 @@
+schema_version: 1
+module_id: adc_continuous
+name: ADC Continuous：把连续采集帧交给处理函数
+path: MSPM0_Signal_Contest/02_acquisition/adc_continuous
+category: 02_acquisition
+implementation_type: MODULE
+recommendation: conditional
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 把连续采集帧交给回调并记录完成/丢帧计数。
+use_when: 适合：连续 ADC Ping-Pong DMA 每完成一帧就送入 RMS、FFT 或显示处理；希望把“采集”和“处理一帧”分开并统计是否丢帧；或先在 PC 上用模拟帧验证处理函数。 不适合：用它代替
+  adc_dma、adc_pingpong_dma 配置 ADC/Timer/DMA；只采一帧后直接处理；或想在回调返回后长期保存上游 DMA 缓冲区指针。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 输入由各 API 的只读数组、配置、频率/阈值和平台对象组成；输出写入 result/output/buffer 参数或由 Get API 返回。调用者负责数组容量、生命周期和物理单位；失败返回时输出不是有效结果。
+output: 输入由各 API 的只读数组、配置、频率/阈值和平台对象组成；输出写入 result/output/buffer 参数或由 Get API 返回。调用者负责数组容量、生命周期和物理单位；失败返回时输出不是有效结果。
+unit:
+- samples
+- V
+requires_sysconfig: true
+hardware_resources:
+- ADC12
+canonical_path: MSPM0_Signal_Contest/02_acquisition/adc_continuous
+selectable: true
+sysconfig:
+  class: conditional
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: conditional
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - Load only the condition selected by the user/current project; do not infer a hardware backend.
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements:
+  - condition: mode=frame_dispatcher_with_caller_provided_frames
+    required_resources: []
+  - condition: mode=polling_adc_capture_backend
+    required_resources:
+    - ADC12
+    instance_requirements:
+    - ADC
+  - condition: mode=dma_adc_capture_backend
+    required_resources:
+    - ADC12
+    - DMA
+    - EVENT
+    - TIMER
+    instance_requirements:
+    - ADC
+    - DMA
+    - TIMER
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/signal_adc_continuous.c
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/signal_adc_continuous.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/02_acquisition/adc_continuous/signal_adc_continuous.h
+main_apis:
+- SignalADCContinuous_Init
+- SignalADCContinuous_Start
+- SignalADCContinuous_Stop
+- SignalADCContinuous_SubmitFrame
+- SignalADCContinuous_GetModuleStatus
+contest_parameters:
+- callback
+- callback_context
+- completed_frames
+- dropped_frames
+- state
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  ram_estimate: 模块内动态分配 0；数组/工作区由调用者提供，具体大小由 API 的 count/capacity 决定。
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application:
+- MSPM0_Signal_Contest/09_examples/platform_closure/adc_continuous_minimum/main.c
+verified_example: MSPM0_Signal_Contest/09_examples/platform_closure/adc_continuous_minimum/main.c
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/02_acquisition/adc_continuous/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/MODULE_CARD.md
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/README.md
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/signal_adc_continuous.c
+- MSPM0_Signal_Contest/02_acquisition/adc_continuous/signal_adc_continuous.h
+source_fingerprint_sha256: 84766add381bcc178bd6fabc1928ea3d8d6220c7a8c562c64788a88279a8759a

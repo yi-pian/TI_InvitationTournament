@@ -1,0 +1,73 @@
+{
+    "date":  "2026-08-08",
+    "compiler":  "TI Arm Clang Compiler 5.1.1.LTS",
+    "compiler_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmclang.exe",
+    "tiarmsize_path":  "D:\\TI\\CCS\\ccs\\tools\\compiler\\ti-cgt-armllvm_5.1.1.LTS\\bin\\tiarmsize.exe",
+    "sysconfig_path":  "D:\\TI\\CCS\\ccs\\utils\\sysconfig_1.28.0\\sysconfig_cli.bat",
+    "sdk_root":  "C:\\TI\\mspm0_sdk_2_11_00_07",
+    "algorithm_root":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest",
+    "requested_fft_backend":  0,
+    "extra_defines":  [
+                          "SIGNAL_CONTEST_PROFILE=4"
+                      ],
+    "sample_count_override":  0,
+    "target_count":  1,
+    "results":  [
+                    {
+                        "application":  "Signal Contest Template",
+                        "target":  "signal_contest_template_final",
+                        "profile":  "PROFILE_06_FULL_SIGNAL",
+                        "projectspec":  "08_applications/signal_contest_template/ticlang/signal_contest_template_final_LP_MSPM0G3507_nortos_ticlang.projectspec",
+                        "sysconfig":  "PASS",
+                        "sysconfig_warning_count":  0,
+                        "compile":  "PASS",
+                        "link":  "PASS",
+                        "compiled_translation_units":  28,
+                        "fft_backend":  2,
+                        "sample_count_override":  0,
+                        "flash_used_bytes":  90176,
+                        "flash_total_bytes":  131072,
+                        "flash_remaining_bytes":  40896,
+                        "sram_used_bytes_including_stack":  16149,
+                        "sram_total_bytes":  32768,
+                        "stack_reserved_bytes":  512,
+                        "static_sram_bytes_excluding_stack":  15637,
+                        "sram_remaining_bytes":  16619,
+                        "tiarmsize_cross_check":  "PASS",
+                        "large_buffers":  [
+                                              {
+                                                  "name":  "g_fft_b",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_fft_a",
+                                                  "bytes":  4096
+                                              },
+                                              {
+                                                  "name":  "g_voltage_b",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_voltage_a",
+                                                  "bytes":  2048
+                                              },
+                                              {
+                                                  "name":  "g_raw_b",
+                                                  "bytes":  1024
+                                              },
+                                              {
+                                                  "name":  "g_raw_a",
+                                                  "bytes":  1024
+                                              },
+                                              {
+                                                  "name":  "g_correlation",
+                                                  "bytes":  516
+                                              }
+                                          ],
+                        "map":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_profile_contest_template_4\\signal_contest_template_final\\signal_contest_template_final.map",
+                        "output":  "C:\\Users\\YiPian\\Desktop\\codex\\yaoqingsai\\MSPM0_Signal_Contest\\10_tests\\integration\\final_profile_contest_template_4\\signal_contest_template_final\\signal_contest_template_final.out",
+                        "board":  "NOT_RUN",
+                        "maturity":  "BUILD_VERIFIED"
+                    }
+                ]
+}

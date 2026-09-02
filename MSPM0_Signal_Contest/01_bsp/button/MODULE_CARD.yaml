@@ -1,0 +1,151 @@
+schema_version: 1
+module_id: button
+name: 普通瞬时按键模块
+path: MSPM0_Signal_Contest/01_bsp/button
+category: 01_bsp
+implementation_type: MODULE
+recommendation: recommended
+recommended_for_contest: true
+status: BUILD_VERIFIED
+purpose: 读取普通瞬时按键，输出消抖后的 pressed/released/stable 状态
+use_when: 当题目需要“button”目录对应的公开功能，并且输入数据、单位和硬件资源满足前文约束时使用本模块。若只需要更简单的上游功能、输入尚未准备好，或需要不同的数据模型/外设资源，应先选择相邻模块而不是强行调用本
+  API。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: read_pressed(context, &pressed) 平台回调；回调必须把实际 GPIO 电平转换成逻辑 pressed。 - debounce_scans：连续多少次相同读数后才确认，必须大于
+  0。 - 应用提供固定调用周期，推荐每 5 ms 调用一次 Update。 常用 active-low 接法中，GPIO 低电平表示按下，因此回调应返回 pressed = (pin_is_low)。
+output: 每次 SignalButton_Update() 输出： - raw_pressed：本次直接读到的逻辑状态； - stable_pressed：消抖后的当前状态； - pressed：本次刚确认按下，只出现一次；
+  - released：本次刚确认松开，只出现一次。 SignalButton_GetPressed() 可随时读取稳定状态。
+unit:
+- V
+- timer ticks
+requires_sysconfig: true
+hardware_resources:
+- GPIO
+canonical_path: MSPM0_Signal_Contest/01_bsp/button
+selectable: true
+sysconfig:
+  class: required
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: true
+  class: required
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources:
+  - GPIO
+  optional_peripherals: []
+  instance_requirements:
+  - role: GPIO
+    type: GPIO
+    quantity: 1
+    selection: reuse_current_or_verified_profile
+    fixed_instance: false
+  gpio_roles:
+  - role: module_gpio
+    direction: device_specific
+    actual_pin: USER_OR_CURRENT_PROJECT
+    preserve_existing: true
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints: []
+  user_selectable_fields:
+  - GPIO role-to-pin mapping
+  profile_evidence: []
+  resource_claims:
+  - type: GPIO
+    role: GPIO
+    shareable: true
+  pinmux:
+    required: true
+    roles:
+    - module_gpio
+    constraints:
+    - roles require current-project or user-approved physical pins
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/01_bsp/button/signal_button.c
+- MSPM0_Signal_Contest/01_bsp/button/signal_button.h
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependency_headers:
+- signal_status.h
+dependency_files:
+- MSPM0_Signal_Contest/01_bsp/common/signal_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/01_bsp/button/signal_button.h
+main_apis:
+- SignalButton_Init
+- SignalButton_Update
+- SignalButton_GetPressed
+- SignalButton_GetModuleStatus
+contest_parameters:
+- context
+- read_pressed
+- debounce_scans
+- raw_pressed
+- stable_pressed
+- pressed
+- released
+- config
+- candidate_pressed
+- candidate_scans
+- initialized
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: 动态分配 0；每个实例几十字节
+  ram_estimate: 动态分配 0；每个实例几十字节
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: BUILD_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/01_bsp/button/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+truth_sources:
+- MSPM0_Signal_Contest/01_bsp/button/MODULE_CARD.md
+- MSPM0_Signal_Contest/01_bsp/button/README.md
+- MSPM0_Signal_Contest/01_bsp/button/README_FULL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/button/README_MINIMAL_EXAMPLE.c
+- MSPM0_Signal_Contest/01_bsp/button/signal_button.c
+- MSPM0_Signal_Contest/01_bsp/button/signal_button.h
+source_fingerprint_sha256: 6dbca28c6611b10973a85da166bca0d0df82e3cd911008245702cd461a820db4

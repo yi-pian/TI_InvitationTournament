@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "recipe_count": 22,
+  "contract_fields_per_recipe": 20,
+  "markdown_links_checked": 102,
+  "unique_signal_api_references": 30,
+  "required_target_terms": 31,
+  "board": "NOT_RUN",
+  "errors": []
+}

@@ -1,0 +1,132 @@
+schema_version: 1
+module_id: iir_biquad
+name: IIR_Biquad：二阶节级联滤波器
+path: MSPM0_Signal_Contest/04_dsp/iir_biquad
+category: algorithm/04_dsp
+implementation_type: RECIPE
+recommendation: legacy_optional
+recommended_for_contest: false
+status: PC_VERIFIED
+purpose: 新比赛工程不复制本目录源码。 直接使用当前 SDK 的 arm_biquad_cascade_df1_init_* 与 arm_biquad_cascade_df1_*。Application
+  仍须用可靠工具按真实 Fs 生成 SOS 系数并核对反馈符号；无 SysConfig/Pin。
+use_when: CPU/RAM 紧、需要陡低通/高通/带通或 50/60 Hz 陷波，并能接受相位畸变时。相位测量链要特别谨慎。
+do_not_use_when: A simpler DriverLib/Recipe route satisfies the task, resources conflict, or the README
+  limitations apply.
+input: 每节 {b0,b1,b2,a1,a2}，约定 a0 已归一化为 1；每节一个 state；输入 float 块。系数必须由可靠设计工具按 Fs 生成。
+output: float 滤波块，可原地。单位/增益由频率响应决定，不保证原幅值。
+unit:
+- Hz
+- V
+requires_sysconfig: false
+hardware_resources: []
+canonical_path: MSPM0_Signal_Contest/04_dsp/iir_biquad
+selectable: false
+sysconfig:
+  class: none
+  contract_ref: sysconfig_contract
+sysconfig_contract:
+  schema_version: 1
+  required: false
+  class: none
+  source_priority:
+  - MODULE_CARD
+  - README
+  - PUBLIC_HEADER
+  - SOURCE_IF_NEEDED
+  required_resources: []
+  optional_peripherals: []
+  instance_requirements: []
+  gpio_roles: []
+  analog_pins: []
+  spi_mode: []
+  i2c_mode: []
+  uart_mode: []
+  dma:
+    required: false
+    roles: []
+    constraints: []
+  timer:
+    required: false
+    roles: []
+    constraints: []
+  event:
+    required: false
+    roles: []
+    constraints: []
+  irq:
+    required: false
+    roles: []
+    constraints: []
+  clock:
+    requirements: []
+    constraints: []
+  required_generated_symbols: []
+  dependencies: &id001 []
+  constraints:
+  - 'Pure algorithm: no MCU peripheral, PinMux, DMA, timer, event, IRQ, or clock configuration is required.'
+  user_selectable_fields: []
+  profile_evidence: []
+  resource_claims: []
+  pinmux:
+    required: false
+    roles: []
+    constraints: []
+  conditional_requirements: []
+  contract_incomplete: false
+copy_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+- MSPM0_Signal_Contest/04_dsp/iir_biquad/signal_iir_biquad.c
+- MSPM0_Signal_Contest/04_dsp/iir_biquad/signal_iir_biquad.h
+dependency_headers:
+- signal_algorithm_status.h
+dependency_files:
+- MSPM0_Signal_Contest/03_measurement/common/signal_algorithm_status.h
+dependencies: *id001
+main_header: MSPM0_Signal_Contest/04_dsp/iir_biquad/signal_iir_biquad.h
+main_apis:
+- SignalIIRBiquad_Init
+- SignalIIRBiquad_Reset
+- SignalIIRBiquad_Process
+contest_parameters:
+- b0
+- b1
+- b2
+- a1
+- a2
+- d1
+- d2
+- sections
+- states
+- section_count
+- initialized
+buffer:
+  input_type: declared by current public header
+  output_type: declared by current public header
+  input_length: count/capacity parameters in current header; do not infer
+  output_length: current header/README contract
+  in_place: not assumed; read header/README
+  workspace: no estimate in machine card; read README and map
+  ram_estimate: not quantified in current concise card
+  n_restrictions: read current header/README; no default N is mandatory
+next_modules: []
+reference_application: []
+verified_example: null
+verification:
+  overall: PC_VERIFIED
+  compile_or_build_evidence: MSPM0_Signal_Contest/04_dsp/iir_biquad/README.md
+  pc: PC_VERIFIED
+  board: NOT_RUN
+  contest: NOT_RUN
+  historical: null
+  restored_from_source: null
+model_notes:
+- This card is for discovery; read the current public header again before generating code.
+- File existence does not override recommendation or verification status.
+- Do not select this entry by default; follow recommendation and documented replacement.
+truth_sources:
+- MSPM0_Signal_Contest/04_dsp/iir_biquad/MODULE_CARD.md
+- MSPM0_Signal_Contest/04_dsp/iir_biquad/README.md
+- MSPM0_Signal_Contest/04_dsp/iir_biquad/signal_iir_biquad.c
+- MSPM0_Signal_Contest/04_dsp/iir_biquad/signal_iir_biquad.h
+source_fingerprint_sha256: 84bab32ee5219608a32777f1e097ee611cd58bc49f95e9b1be3d1a6becb4dae8
+implementation_backend: CMSIS_DSP
